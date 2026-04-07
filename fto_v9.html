@@ -490,7 +490,7 @@ pre code { background: none; padding: 0; }
 </table>
 <hr>
 <h2>5. Type I FTO Blind Spot — pataa BLAST 단축 펩타이드 한계</h2>
-<blockquote><strong>Figure 5</strong> — FTO Type I Blind Spot: pataa BLAST short-peptide skip zone. Pool 의 46% (2,929/6,366) 와 Top 100 의 24% (24/100) 가 length 3-5 이므로 BLAST 가 적용되지 않습니다. 첨부 파일 <code>fig5_fto_blind_spot.png</code> 참조.</blockquote>
+<blockquote><strong>Figure 5</strong> — FTO Type I Blind Spot: pataa BLAST short-peptide skip zone. Pool 의 46% (2,929/6,366) 와 Top 100 의 24% (24/100) 가 length 3-5 이므로 BLAST 가 적용되지 않습니다. 첨부 파일 <a href="data/fig5_fto_blind_spot.png">fig5_fto_blind_spot.png</a> 참조.</blockquote>
 <p>NCBI BLASTp 의 <code>pataa</code> 데이터베이스는 <strong>length ≥ 6</strong> 의 query 만 의미 있는 결과를 반환합니다 (PAM30 + word_size=2 setting 에서 length 5 미만은 background noise). 따라서 v9 pool 의 length 3-5 peptides 는 다음 처리가 적용됩니다:</p>
 <table>
 <tr>
@@ -521,25 +521,25 @@ pre code { background: none; padding: 0; }
 <th>FTO 필터</th>
 </tr>
 <tr>
-<td><code>v9_top100_with_fto_status_with_cys.csv</code></td>
+<td><a href="data/v9_top100_with_fto_status_with_cys.csv" download="v9_top100_with_fto_status_with_cys.csv">v9_top100_with_fto_status_with_cys.csv</a></td>
 <td>전체 + FTO column 표시</td>
 <td>✓</td>
 <td>none</td>
 </tr>
 <tr>
-<td><code>v9_top100_with_fto_status_no_cys.csv</code></td>
+<td><a href="data/v9_top100_with_fto_status_no_cys.csv" download="v9_top100_with_fto_status_no_cys.csv">v9_top100_with_fto_status_no_cys.csv</a></td>
 <td>Cys 제외 + FTO column 표시</td>
 <td>✗</td>
 <td>none</td>
 </tr>
 <tr>
-<td><code>v9_top100_fto_cleared_with_cys.csv</code></td>
+<td><a href="data/v9_top100_fto_cleared_with_cys.csv" download="v9_top100_fto_cleared_with_cys.csv">v9_top100_fto_cleared_with_cys.csv</a></td>
 <td>FTO safe (BLOCKED + GHK + RGD 제외)</td>
 <td>✓</td>
 <td>applied</td>
 </tr>
 <tr>
-<td><strong><code>v9_top100_fto_cleared_no_cys.csv</code></strong></td>
+<td><strong><a href="data/v9_top100_fto_cleared_no_cys.csv" download="v9_top100_fto_cleared_no_cys.csv">v9_top100_fto_cleared_no_cys.csv</a></strong></td>
 <td><strong>wet-lab-ready (FTO safe + Cys 제외)</strong></td>
 <td>✗</td>
 <td><strong>applied</strong></td>
