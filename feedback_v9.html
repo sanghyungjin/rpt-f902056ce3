@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Desmoplakin v9 피드백 요청서</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f7fa;
+    color: #222;
+    line-height: 1.75;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 30px 40px 60px;
+    background: #fff;
+    min-height: 100vh;
+    box-shadow: 0 0 40px rgba(0,0,0,0.06);
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1B4F72;
+    border-bottom: 3px solid #1B4F72;
+    padding-bottom: 10px;
+    margin: 30px 0 8px;
+}
+h2 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1B4F72;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin: 28px 0 12px;
+}
+h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2C3E50;
+    margin: 22px 0 8px;
+}
+h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #34495E;
+    margin: 18px 0 6px;
+}
+
+p { margin: 8px 0; font-size: 14px; }
+ul, ol { margin: 6px 0 6px 24px; font-size: 14px; }
+li { margin: 3px 0; }
+hr { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
+
+/* Tooltips */
+.ztip {
+    position: relative;
+    border-bottom: 1px dotted #1B4F72;
+    cursor: help;
+    color: #1B4F72;
+    font-weight: 500;
+}
+.ztip:hover::after {
+    content: attr(data-t);
+    position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+    background: #1a1a2e; color: #fff; padding: 8px 12px; border-radius: 8px;
+    font-size: 12px; line-height: 1.5; white-space: normal; width: max-content;
+    max-width: 380px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,.25);
+    pointer-events: none; font-weight: 400;
+}
+.ztip:hover::before {
+    content: ''; position: absolute; bottom: 110%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #1a1a2e;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 12px 0;
+}
+th {
+    background: #1B4F72;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 12px;
+}
+td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+tr:hover td { background: rgba(0,0,0,0.02); }
+
+/* Domain-colored tables */
+.rt { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+.rt th { padding: 6px 8px; text-align: left; }
+.rt td { padding: 5px 8px; border-bottom: 1px solid #eee; }
+.rt .r { text-align: right; }
+.rt .c { text-align: center; }
+.rt .b { font-weight: 700; }
+.bg-prda { background: #E8F8F0; }
+.bg-prdb { background: #E0F2F1; }
+.bg-prdc { background: #E3F2FD; }
+.bg-nterm { background: #FFF8E1; }
+.bg-denovo { background: #FFF3E0; }
+.bg-ll37 { background: #F3E5F5; }
+.bg-hdr { background: #1B4F72; color: #fff; font-weight: 600; }
+.domain-legend span {
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid #1B4F72;
+    background: #f8f9fb;
+    padding: 10px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    border-radius: 0 6px 6px 0;
+}
+blockquote p { margin: 4px 0; }
+
+/* Code blocks */
+code {
+    background: #f0f2f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'SF Mono', Consolas, monospace;
+}
+pre {
+    background: #f0f2f5;
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+pre code { background: none; padding: 0; }
+
+/* Header bar */
+.header-bar {
+    background: linear-gradient(135deg, #1B4F72 0%, #2980B9 100%);
+    color: #fff;
+    padding: 24px 40px;
+    margin: -30px -40px 30px;
+    border-radius: 0;
+}
+.header-bar h1 {
+    color: #fff;
+    border: none;
+    margin: 0;
+    font-size: 22px;
+    padding: 0;
+}
+.header-bar .subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-top: 4px;
+    font-weight: 300;
+}
+.header-bar .meta {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 8px;
+}
+
+/* Footer */
+.footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+}
+
+/* Nav bar */
+.nav {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+    margin: 0 -40px;
+    padding-left: 40px;
+    z-index: 100;
+    font-size: 13px;
+}
+.nav a {
+    color: #1B4F72;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+}
+.nav a:hover { text-decoration: underline; }
+.nav .active { border-bottom: 2px solid #1B4F72; padding-bottom: 4px; }
+
+/* Figures */
+.figure {
+    margin: 16px 0;
+    text-align: center;
+}
+.figure img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.figure-caption {
+    font-size: 12px;
+    color: #555;
+    margin-top: 8px;
+    line-height: 1.5;
+    text-align: left;
+    padding: 0 20px;
+}
+
+/* Print */
+@media print {
+    body { background: #fff; }
+    .container { box-shadow: none; padding: 10px; }
+    .header-bar { margin: 0; border-radius: 0; }
+    .nav { display: none; }
+    table { page-break-inside: avoid; }
+    h2, h3 { page-break-after: avoid; }
+    .figure { page-break-inside: avoid; }
+}
+
+@media (max-width: 768px) {
+    .container { padding: 15px 20px; }
+    .header-bar { padding: 16px 20px; margin: -15px -20px 20px; }
+    .nav { margin: 0 -20px; padding-left: 20px; }
+    table { font-size: 11px; }
+    .rt td, .rt th { padding: 3px 5px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header-bar">
+<h1>Desmoplakin v9 피드백 요청서</h1>
+<div class="subtitle">v9 Top 100 자연 추출 후보 + 전문가 의견 요청</div>
+<div class="meta">작성일: 2026-04-07 | 연구 단계: v9 Phase 0 | AI-ZPT</div>
+</div>
+<nav class="nav">
+<a href="report_v9.html" >연구 보고서</a>
+<a href="feedback_v9.html" class="active">피드백 요청서</a>
+<a href="fto_v9.html" >FTO 분석</a>
+</nav>
+<p>**프로젝트**: AI-ZPT **요청 대상**: 외부 바이오 전문가 (피부과학 / 펩타이드 화학 / IP 전문) **작성일**: 2026-04-07 **관련 연구 보고서**: v9 자연 추출 연구 보고서 (Section 1-9) **선행 연구**: v1-v8 (synthetic mutation 기반)</p>
+<hr>
+<h2>Score Disclaimer</h2>
+<blockquote>**중요**: 본 문서의 모든 스코어는 **in silico 예측 결과**입니다. 실험적 검증 (in vitro/in vivo) 전까지 참고용이며, 최종 후보 선정은 전문가 피드백과 wet-lab 검증 후 결정합니다.<br>
+<br>
+- **DEJ_V8 scoring**: v8 에서 도입된 9-component scoring scheme. v9 는 동일 scheme 을 자연 펩타이드에 적용 [2].<br>
+- **DEJ-ER meta ranking**: v9 신규 — `(0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52`. DEJ triad (52%) 만 추출해 정규화 [14]. DEJ_V8 raw 대비 RK-bias 가 절반 수준 (Pearson r 0.866 → 0.598).<br>
+- **Grade 2단계 시스템**: 1단계 raw score 기반 grade 분류 → 2단계 cosmetic viability 평가 (cationic dominance, residue dominance, protease 등) 후 강등. Score 순위 ≠ Grade 순위 가능 [5].<br>
+- **v9 pool final grade 분포**: A등급 0개, B등급 24개, C등급 769개, F등급 5573개 (전체 6,366 — v9 Phase 0 자연 subset only, DB 전체와 독립).<br>
+- **3-mer caveats**: v9 Top 1 GSR, Top 5 HPR 은 3-mer. 자유 3-mer 펩타이드는 in vivo aminopeptidase 에 의해 빠르게 분해되며 [7], FusPBESM2 의 training distribution 밖일 가능성 있습니다.<br>
+- 최종 후보 선정은 wet-lab 검증 후 결정.</blockquote>
+<hr>
+<h2>1. 연구 개요</h2>
+<h3>1.1 v9 의 설계 동기</h3>
+<p>v8 종료 시점에 외부 DSP 전문가로부터 받은 3가지 피드백에 대응하여 v9 를 설계했습니다:</p>
+<ol>
+<li>**Provenance discipline 부족** — 이전 시리즈 (v7/v8) 의 일부 상위 후보가 합성 cross-breed 산물로 자연/합성 구분이 어려움 [2]14</li>
+<li>**Human DSP single source 강조** — 비교종은 conservation 계산용 contrast group 일 뿐이며, 실제 추출 source 는 Human DSP 단독이어야 함 [4]16</li>
+<li>**자연 3-10mer 의 IP / 합성 / provenance 면 재평가 필요** — 14-mer 합성에 가려진 짧은 자연 motif 의 별도 평가 가치</li>
+</ol>
+<p>v9 의 대응: **자연 sliding window only** (mutation/cross-breed 일체 없음), **Human P15924 only** (3-10mer 고정), **alignment-based conservation map 재구축** [1][2].</p>
+<h3>1.2 **중요 Disclaimer — DSP 와 DEJ 의 관계**</h3>
+<blockquote>**Desmoplakin 은 desmosome 의 plaque protein** (cell-cell 접착) [1][2] 이며, **basement membrane zone (BMZ) / dermal-epidermal junction 의 직접 anchoring 분자가 아닙니다**. DEJ 의 직접 구조 단백질은 collagen IV (lamina densa), collagen VII (anchoring fibril), laminin-332, nidogen-1/2, integrin α6β4, BP180 (COL17A1), BP230 등입니다.<br>
+<br>
+본 연구의 "DEJ 관련" 표현은 **간접 지지** (basal keratinocyte cytoskeleton 안정화 → 기저막 접착 유지) 를 의미합니다. 피부 노화 맥락의 DEJ 평탄화 [15] 는 핵심 표적이며, DEJ_V8 의 "DEJ triad" 명명은 간접 기여 (Type I collagen 합성 [10], MMP 억제 [3], desmosomal/keratin network 지지) 를 의미합니다.<br>
+<br>
+**Wet-lab 설계 시 주의**: COL17A1 / laminin-332 직접 결합 assay 는 적합하지 않으며, (a) Type I procollagen ELISA [8], (b) basal keratinocyte adhesion/migration (HaCaT/NHEK), (c) MMP-1/3/9 inhibition zymography [3][8] 를 권장합니다.</blockquote>
+<h3>1.3 현재 연구 단계</h3>
+<table>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+<tr>
+<td>연구 시리즈</td>
+<td>v9 (Natural Extraction Phase 0)</td>
+</tr>
+<tr>
+<td>연구 파이프라인</td>
+<td>1-Phase (자연 sliding window only)</td>
+</tr>
+<tr>
+<td>Source protein</td>
+<td>Human DSP (P15924, 2,871 aa) 단독</td>
+</tr>
+<tr>
+<td>비교종 (conservation 계산용)</td>
+<td>Anolis carolinensis (H9G6P9) + Podarcis muralis (A0A670I745), 2종</td>
+</tr>
+<tr>
+<td>Conservation map</td>
+<td>v1_alignment_based (BioPython PairwiseAligner + BLOSUM62)</td>
+</tr>
+<tr>
+<td>Dual threshold</td>
+<td>avg_cons ≥ 0.9 AND min_cons ≥ 0.5</td>
+</tr>
+<tr>
+<td>전체 자연 펩타이드 풀</td>
+<td>6,366 unique 3-10mer</td>
+</tr>
+<tr>
+<td>Raw substring</td>
+<td>22,924 (중복 포함)</td>
+</tr>
+<tr>
+<td>Unique substring</td>
+<td>21,560 (중복 제외)</td>
+</tr>
+<tr>
+<td>Scoring scheme</td>
+<td>DEJ_V8 (9-component, v8 계승)</td>
+</tr>
+<tr>
+<td>Primary ranking</td>
+<td>**DEJ-ER** (triad meta)</td>
+</tr>
+<tr>
+<td>최고 DEJ_V8</td>
+<td>0.5492 (QRRRAE, 6-mer, Central rod)</td>
+</tr>
+<tr>
+<td>최고 DEJ-ER</td>
+<td>0.4487 (GSR, 3-mer, C-terminal PRD GSR-rich tail @2828-2830)</td>
+</tr>
+</table>
+<hr>
+<h2>2. Top 100 요약</h2>
+<h3>2.1 도메인 분포</h3>
+<table>
+<tr>
+<th>Domain</th>
+<th>Pool (6,366)</th>
+<th>Top 100 (DEJ-ER)</th>
+</tr>
+<tr>
+<td>C-terminal PRD</td>
+<td>2,738 (43.0%)</td>
+<td>**59**</td>
+</tr>
+<tr>
+<td>N-terminal plakin</td>
+<td>2,637 (41.4%)</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Central rod</td>
+<td>991 (15.6%)</td>
+<td>38 (`coiled_coil_fragment`)</td>
+</tr>
+</table>
+<h3>2.2 FTO 분포</h3>
+<table>
+<tr>
+<th>Status</th>
+<th>Count</th>
+<th>%</th>
+<th>분류</th>
+</tr>
+<tr>
+<td>CLEAR</td>
+<td>3,282</td>
+<td>51.6%</td>
+<td>wet-lab handoff 가능</td>
+</tr>
+<tr>
+<td>CAUTION</td>
+<td>1,363</td>
+<td>21.4%</td>
+<td>manual review 필요</td>
+</tr>
+<tr>
+<td>**BLOCKED**</td>
+<td>1,721</td>
+<td>**27.0%**</td>
+<td>wet-lab 제외</td>
+</tr>
+</table>
+<p>**BLOCKED 세부**: 1,719 PATENT_FULL_HIT (pataa 특허 DB 100% match) + 2 REGISTERED (cosmetic 등재).</p>
+<h3>2.3 Top 10 (DEJ-ER 순)</h3>
+<table>
+<tr>
+<th>Rank</th>
+<th>Sequence</th>
+<th>Length</th>
+<th>DEJ_V8</th>
+<th>DEJ-ER</th>
+<th>Origin Domain</th>
+<th>Position</th>
+<th>Grade</th>
+<th>Protease</th>
+</tr>
+<tr>
+<td>1</td>
+<td>GSR</td>
+<td>3</td>
+<td>0.5234</td>
+<td>0.4487</td>
+<td>C-terminal PRD</td>
+<td>2828-2830</td>
+<td>B</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GTRKREYE</td>
+<td>8</td>
+<td>0.5459</td>
+<td>0.4457</td>
+<td>Central rod</td>
+<td>1182-1189</td>
+<td>C</td>
+<td>FAIL</td>
+</tr>
+<tr>
+<td>3</td>
+<td>LRKRRVVIVD</td>
+<td>10</td>
+<td>0.5459</td>
+<td>0.4428</td>
+<td>C-terminal PRD</td>
+<td>2461-2470</td>
+<td>C</td>
+<td>FAIL</td>
+</tr>
+<tr>
+<td>4</td>
+<td>GTRKREYEN</td>
+<td>9</td>
+<td>0.5328</td>
+<td>0.4403</td>
+<td>Central rod</td>
+<td>1182-1190</td>
+<td>C</td>
+<td>FAIL</td>
+</tr>
+<tr>
+<td>5</td>
+<td>HPR</td>
+<td>3</td>
+<td>0.5285</td>
+<td>0.4390</td>
+<td>N-terminal plakin</td>
+<td>8-10</td>
+<td>B</td>
+<td>PASS</td>
+</tr>
+<tr>
+<td>6</td>
+<td>GTRKREY</td>
+<td>7</td>
+<td>0.5455</td>
+<td>0.4384</td>
+<td>Central rod</td>
+<td>1182-1188</td>
+<td>C</td>
+<td>FAIL</td>
+</tr>
+<tr>
+<td>7</td>
+<td>EKGHGIRLL</td>
+<td>9</td>
+<td>0.4636</td>
+<td>0.4382</td>
+<td>C-terminal PRD</td>
+<td>2360-2368</td>
+<td>C</td>
+<td>WARN</td>
+</tr>
+<tr>
+<td>8</td>
+<td>KGHGIRLL</td>
+<td>8</td>
+<td>0.4646</td>
+<td>0.4379</td>
+<td>C-terminal PRD</td>
+<td>2361-2368</td>
+<td>C</td>
+<td>WARN</td>
+</tr>
+<tr>
+<td>9</td>
+<td>QRRRAEE</td>
+<td>7</td>
+<td>0.4892</td>
+<td>0.4368</td>
+<td>Central rod</td>
+<td>1266-1272</td>
+<td>F</td>
+<td>FAIL</td>
+</tr>
+<tr>
+<td>10</td>
+<td>RKRRVVIVDP</td>
+<td>10</td>
+<td>0.5291</td>
+<td>0.4350</td>
+<td>C-terminal PRD</td>
+<td>2462-2471</td>
+<td>C</td>
+<td>FAIL</td>
+</tr>
+</table>
+<blockquote>**패턴 요약**:<br>
+- Top 20 의 38% (9/20) 가 Central rod — isolated 3-10mer 은 coiled-coil heptad repeat fold 불가 2<br>
+- Top 1 GSR / Top 5 HPR 은 3-mer — 자유 펩타이드 반감기 최악 7<br>
+- GHK 는 DSP P15924 에 존재하지 않음 (FASTA grep 0 hits). 대신 `GHGIRL`-family @PRD 2362-2367 만 존재. v8 의 GHK-containing top 은 모두 합성 5</blockquote>
+<hr>
+<h2>3. 피드백 요청 항목</h2>
+<h3>3.1 자연 추출 전략에 대한 평가</h3>
+<p>v9 는 v1-v8 의 합성 mutation/cross-breed 접근에서 **자연 sliding window only** 로 전환했습니다. 전문가 의견을 요청합니다:</p>
+<ul>
+<li>**자연 short peptide (3-10mer) 의 cosmetic 응용 가치**는 합성 14-mer 대비 어떻게 평가하십니까? [11]12</li>
+<li>v9 의 median DEJ_V8 0.4943 vs v8 의 median 0.6176 (**-0.12 gap**, Mann-Whitney U=0, p≈0) — 이 score gap 은 자연 제약의 합법적 penalty 인가 아니면 wet-lab 무의미 수준인가?</li>
+<li>**v9 와 v8 의 substring containment**: v9 Top 100 의 23% 가 v8 14-mer 의 substring (예: `HPR` ⊂ `KGHKHRGSHPRINT`) — pair experiment 로 길이별 활성 비교를 해볼 만한 가치가 있나요?</li>
+</ul>
+<h3>3.2 Conservation Map 재구축 타당성</h3>
+<p>v1-v8 까지 사용된 `기존 v4 conservation map` 이 naive position-wise `zip()` 계산으로 **max=0.5, mean=0.067** 의 비현실적 분포를 낸 버그 상태였습니다 [4][16]. v9 에서 BioPython PairwiseAligner + BLOSUM62 로 재구축:</p>
+<ul>
+<li>**Alignment-based conservation** (self-alignment gate + domain sanity gate 통과) 의 접근 타당성?</li>
+<li>**Podarcis lilfordi 제외 결정** — 3가지 signal (length 76.6%, InterPro feature count 1, v4-phase0 central rod conservation 0.388) 기반 [16]. 외부 검증 필요 항목이 있나요?</li>
+<li>**Human + 2 lizard** (Anolis + P. muralis) 만으로 DSP-like conservation 을 충분히 측정할 수 있나요? 추가 비교종이 필요하다면 어떤 종?</li>
+</ul>
+<h3>3.3 DEJ_V8 의 RK-fraction bias 해석</h3>
+<p>v9 pool 6,366 peptide 분석 결과 Pearson r (RK-fraction ↔ DEJ_V8) = **+0.866** (극도로 높음). Component 별:</p>
+<ul>
+<li>cpp r=+0.93, wound_healing_sim r=+0.73, dsp_interaction r=+0.59 (DEJ-ER 포함)</li>
+<li>DEJ-ER triad r=+0.598 (DEJ_V8 raw 대비 절반 수준)</li>
+</ul>
+<p>질문:</p>
+<ul>
+<li>FusPBESM2 의 CPP head (r=+0.93) 는 의도된 charge bias (CPP 정의상) — **허용 가능** 인가 **완화 필요** 인가? 6</li>
+<li>**wound_healing_sim head r=+0.73** 은 예상 외 — LL-37 [9] / Tβ4 [11] 등 cationic-rich training data 편향 가능성? WH head 재가중 또는 재학습 필요?</li>
+<li>**v10 에서 RK hard cap** 도입 시 어느 level 이 적절? (현재 cationic 비율 0.40 부근에서 saturation)</li>
+</ul>
+<h3>3.4 3-mer wet-lab 권고 조건부 보류</h3>
+<p>v9 의 Top 1 GSR, Top 5 HPR, Top 13 HRL 은 3-mer. 초안에서 **wet-lab 1차 후보로 철회**한 이유:</p>
+<ol>
+<li>자유 3-mer 자연 피부 반감기 최악 — aminopeptidase / DPP4 / kallikrein / cathepsin 에 의해 빠르게 분해 7</li>
+<li>FusPBESM2 3-mer pool median 0.19 (vs 5-10mer median 0.30-0.34) — OOD 가능성</li>
+<li>Top 5 HPR 은 이미 v8 synthetic `KGHKHRGSHPRINT` 의 substring — 새 발견 아님</li>
+</ol>
+<p>질문:</p>
+<ul>
+<li>3-mer 자유 peptide 의 **stabilization strategy** (N-acetyl, D-amino acid, cyclization, carrier system) 중 현실적으로 적용 가능한 것은? 12</li>
+<li>3-mer 단독 합성 대신 **5-10mer context window 재탐색** 권고 (GSR → C-term `SSAPGSRSGSRSGSRSGSRSGSRSGSRRGSFDAT` @2820-2853 영역, HPR → N-term `MSCNGGSHPRINT` 영역) — 타당한가?</li>
+<li>FusPBESM2 의 3-mer calibration 검증 방법 제안?</li>
+</ul>
+<h3>3.5 IP / FTO landscape 의 반직관적 finding</h3>
+<p>v9 pool 의 **27%** 가 pataa BLAST 에서 full-hit BLOCKED [5]. 자연 추출이 novelty-safe 할 것이라는 직관과 반대입니다.</p>
+<ul>
+<li>DSP 같은 잘 연구된 단백질의 자연 short subsequence 가 **1/4 이상 prior art** — 이 finding 의 타당성 평가?</li>
+<li>**Type I blind spot** 이슈: v9 의 FTO BLAST 는 length ≥ 6 만 — 3-5mer 은 `not_applicable_short_peptide` skip. Figure 5 참조 — pool 46%, Top 100 24% 가 blind spot. 이를 어떻게 보완?</li>
+<li>cosmetic 산업에서 DSP-derived peptide 의 실제 특허 landscape 에 대한 전문가 의견?</li>
+</ul>
+<h3>3.6 Wet-lab assay design 우선순위</h3>
+<p>v9 가 제안한 assay priority (DSP ≠ DEJ disclaimer 반영):</p>
+<ol>
+<li>**HIGH** — HaCaT/NHEK Type I procollagen ELISA [8]10</li>
+<li>**HIGH** — MMP-1/3/9 zymography 3</li>
+<li>**MEDIUM** — HaCaT scratch assay (wound healing) [7]11</li>
+<li>**MEDIUM** — Calcein-AM uptake (CPP / membrane permeability) 6</li>
+<li>**LOW** — DPPH/ABTS antioxidant</li>
+<li>**LOW** — Franz cell skin permeation</li>
+</ol>
+<p>질문:</p>
+<ul>
+<li>위 priority 가 v9 의 Top 100 (PRD 59 / Rod 38 / plakin 3) 에 적합한가요?</li>
+<li>**COL17A1/laminin-332 직접 결합 assay** 는 DSP 가 직접 BMZ anchor 가 아니므로 negative control 로만 권장 — 이 판단이 타당한가?</li>
+<li>추가로 필요한 in vitro assay (예: keratin IF network visualization, desmosome assembly marker) 가 있나요?</li>
+</ul>
+<h3>3.7 v10 Synthetic Mutation Phase 설계 방향</h3>
+<p>v9 가 자연 baseline 을 확립했으므로 v10 은 mutation 을 통한 score ceiling 돌파:</p>
+<ol>
+<li>v9 CLEAR + non-rod + RK-frac < 0.3 의 ~20-25 개 → BLOSUM62 single/double substitution</li>
+<li>Cross-breed 시 strict provenance (`match_type="chimera"` + 두 parent exact position)</li>
+<li>RK hard cap + MC Dropout wire</li>
+<li>5-10mer 범위 우선 (3-4mer OOD 회피)</li>
+</ol>
+<p>질문:</p>
+<ul>
+<li>위 v10 설계 방향이 타당한가? 추가 고려사항은?</li>
+<li>2-3mer 영역의 **예측 신뢰도** 는 model 재학습 (short peptide 전용) 없이는 개선 불가한가?</li>
+<li>v8 synthetic + v9 natural **합집합** 을 wet-lab 1차 후보로 가져가는 전략의 실용성?</li>
+</ul>
+<hr>
+<h2>4. 피드백 입력 양식</h2>
+<p>**피드백 작성자**: _______________ **소속 / 전문 분야**: _______________ **작성일**: _______________</p>
+<h3>3.1 자연 추출 전략</h3>
+<ul>
+<li>자연 short peptide 의 cosmetic 가치:</li>
+<li>v9 vs v8 score gap 해석:</li>
+<li>Substring containment pair experiment 가치:</li>
+</ul>
+<h3>3.2 Conservation Map 재구축</h3>
+<ul>
+<li>Alignment-based 접근 타당성:</li>
+<li>Podarcis lilfordi 제외 결정 평가:</li>
+<li>추가 비교종 제안:</li>
+</ul>
+<h3>3.3 RK-fraction bias</h3>
+<ul>
+<li>CPP head r=0.93 평가:</li>
+<li>WH head r=0.73 원인 추정:</li>
+<li>v10 RK cap level 제안:</li>
+</ul>
+<h3>3.4 3-mer wet-lab 보류</h3>
+<ul>
+<li>Stabilization strategy 제안:</li>
+<li>Context window 재탐색 접근 평가:</li>
+<li>3-mer calibration 검증 방법:</li>
+</ul>
+<h3>3.5 IP / FTO landscape</h3>
+<ul>
+<li>27% BLOCKED finding 타당성:</li>
+<li>Type I blind spot 보완 방안:</li>
+<li>DSP-derived peptide 특허 현황 의견:</li>
+</ul>
+<h3>3.6 Wet-lab assay priority</h3>
+<ul>
+<li>Priority 조정 의견:</li>
+<li>COL17A1/laminin 부적절성 판단:</li>
+<li>추가 assay 제안:</li>
+</ul>
+<h3>3.7 v10 설계 방향</h3>
+<ul>
+<li>v10 mutation 전략 평가:</li>
+<li>3-mer 예측 신뢰도 개선 방안:</li>
+<li>v8 + v9 합집합 전략:</li>
+</ul>
+<h3>기타</h3>
+<p>자유 의견:</p>
+<hr>
+<h2>Appendix A: 첨부 데이터 (CSV)</h2>
+<table>
+<tr>
+<th>파일</th>
+<th>설명</th>
+<th>형식</th>
+</tr>
+<tr>
+<td>`v9_top100_with_fto_status_with_cys.csv`</td>
+<td>전체 Top 100, Cysteine 포함, FTO 정보 컬럼 포함</td>
+<td>CSV (37 columns)</td>
+</tr>
+<tr>
+<td>`v9_top100_with_fto_status_no_cys.csv`</td>
+<td>Cysteine 제외 + FTO 정보 컬럼</td>
+<td>CSV</td>
+</tr>
+<tr>
+<td>`v9_top100_fto_cleared_with_cys.csv`</td>
+<td>FTO Safe (BLOCKED + GHK + RGD 제거), Cys 포함</td>
+<td>CSV</td>
+</tr>
+<tr>
+<td>**`v9_top100_fto_cleared_no_cys.csv`**</td>
+<td>**wet-lab-ready** (FTO Safe + Cysteine 제외)</td>
+<td>CSV</td>
+</tr>
+</table>
+<h2>Appendix B: 첨부 Figure</h2>
+<div class="figure">
+<img src="data/fig1_conservation_histogram.png" alt="fig1_conservation_histogram.png" loading="lazy">
+<div class="figure-caption">**Figure 1** — v1_alignment_based 의 2,871 position 보존도 분포.</div>
+</div>
+<div class="figure">
+<img src="data/fig2_domain_conservation.png" alt="fig2_domain_conservation.png" loading="lazy">
+<div class="figure-caption">**Figure 2** — N-plakin / Central rod / C-PRD 도메인별 mean conservation.</div>
+</div>
+<div class="figure">
+<img src="data/fig3_threshold_sweep.png" alt="fig3_threshold_sweep.png" loading="lazy">
+<div class="figure-caption">**Figure 3** — Dual threshold (avg ≥ 0.9, min ≥ 0.5) sensitivity sweep.</div>
+</div>
+<div class="figure">
+<img src="data/fig4_kmer_length_distribution.png" alt="fig4_kmer_length_distribution.png" loading="lazy">
+<div class="figure-caption">**Figure 4** — Final pool 6,366 peptides 의 k-mer length 분포 (3-10mer).</div>
+</div>
+<div class="figure">
+<img src="data/fig5_fto_blind_spot.png" alt="fig5_fto_blind_spot.png" loading="lazy">
+<div class="figure-caption">**Figure 5** — **FTO Type I blind spot** — pataa BLAST short-peptide skip zone. Pool 46% (2,929/6,366), Top 100 24% (24/100) 가 length 3-5 BLAST 불가 영역.</div>
+</div>
+<h2>참고문헌 (References)</h2>
+<p>본 피드백 요청서의 참고문헌은 표준화된 reference index 를 따릅니다.</p>
+<table>
+<tr>
+<th>#</th>
+<th>저자</th>
+<th>제목</th>
+<th>저널</th>
+<th>연도</th>
+<th>DOI</th>
+<th>IF</th>
+</tr>
+<tr>
+<td>[1]</td>
+<td>Garrod & Chidgey</td>
+<td>Desmosome structure, composition and function</td>
+<td>Biochim Biophys Acta</td>
+<td>2008</td>
+<td>[10.1016/j.bbamem.2007.07.014](https://doi.org/10.1016/j.bbamem.2007.07.014)</td>
+<td>4.2</td>
+</tr>
+<tr>
+<td>[2]</td>
+<td>Vasioukhin V et al.</td>
+<td>Desmoplakin is essential in epidermal sheet formation</td>
+<td>Nat Cell Biol</td>
+<td>2001</td>
+<td>[10.1038/ncb1201-1076](https://doi.org/10.1038/ncb1201-1076)</td>
+<td>21.3</td>
+</tr>
+<tr>
+<td>[3]</td>
+<td>Kammeyer & Luiten</td>
+<td>Oxidation events and skin aging</td>
+<td>Ageing Res Rev</td>
+<td>2015</td>
+<td>[10.1016/j.arr.2015.01.001](https://doi.org/10.1016/j.arr.2015.01.001)</td>
+<td>12.5</td>
+</tr>
+<tr>
+<td>[4]</td>
+<td>Hutchins ED et al.</td>
+<td>Transcriptomic analysis of tail regeneration in Anolis carolinensis</td>
+<td>PLoS ONE</td>
+<td>2014</td>
+<td>[10.1371/journal.pone.0105004](https://doi.org/10.1371/journal.pone.0105004)</td>
+<td>3.7</td>
+</tr>
+<tr>
+<td>[5]</td>
+<td>Pickart L et al.</td>
+<td>GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration</td>
+<td>Biomed Res Int</td>
+<td>2015</td>
+<td>[10.1155/2015/648108](https://doi.org/10.1155/2015/648108)</td>
+<td>3.4</td>
+</tr>
+<tr>
+<td>[6]</td>
+<td>Guidotti G et al.</td>
+<td>Cell-penetrating peptides: from basic research to clinics</td>
+<td>Trends Pharmacol Sci</td>
+<td>2017</td>
+<td>[10.1016/j.tips.2017.01.003](https://doi.org/10.1016/j.tips.2017.01.003)</td>
+<td>16.3</td>
+</tr>
+<tr>
+<td>[7]</td>
+<td>Barrientos S et al.</td>
+<td>Growth factors and cytokines in wound healing</td>
+<td>Wound Repair Regen</td>
+<td>2008</td>
+<td>[10.1111/j.1524-475X.2008.00410.x](https://doi.org/10.1111/j.1524-475X.2008.00410.x)</td>
+<td>3.8</td>
+</tr>
+<tr>
+<td>[8]</td>
+<td>Hu S et al.</td>
+<td>Exosomes Ameliorate Skin Photoaging</td>
+<td>ACS Nano</td>
+<td>2019</td>
+<td>[10.1021/acsnano.9b04384](https://doi.org/10.1021/acsnano.9b04384)</td>
+<td>18.0</td>
+</tr>
+<tr>
+<td>[9]</td>
+<td>Heilborn JD et al.</td>
+<td>The cathelicidin LL-37 in re-epithelialization of human skin wounds</td>
+<td>J Invest Dermatol</td>
+<td>2003</td>
+<td>[10.1046/j.1523-1747.2003.12069.x](https://doi.org/10.1046/j.1523-1747.2003.12069.x)</td>
+<td>7.6</td>
+</tr>
+<tr>
+<td>[10]</td>
+<td>Katayama K et al.</td>
+<td>A pentapeptide from type I procollagen promotes ECM production</td>
+<td>J Biol Chem</td>
+<td>1993</td>
+<td>[10.1016/S0021-9258(18)82153-2](https://doi.org/10.1016/S0021-9258(18)82153-2)</td>
+<td>5.5</td>
+</tr>
+<tr>
+<td>[11]</td>
+<td>Malinda KM et al.</td>
+<td>Thymosin β4 accelerates wound healing</td>
+<td>J Invest Dermatol</td>
+<td>1999</td>
+<td>[10.1046/j.1523-1747.1999.00708.x](https://doi.org/10.1046/j.1523-1747.1999.00708.x)</td>
+<td>7.6</td>
+</tr>
+<tr>
+<td>[12]</td>
+<td>Blanes-Mira C et al.</td>
+<td>A synthetic hexapeptide (Argireline) with antiwrinkle activity</td>
+<td>Int J Cosmet Sci</td>
+<td>2002</td>
+<td>[10.1046/j.1467-2494.2002.00153.x](https://doi.org/10.1046/j.1467-2494.2002.00153.x)</td>
+<td>2.2</td>
+</tr>
+<tr>
+<td>[14]</td>
+<td>Al-Jassar C et al.</td>
+<td>Hinged plakin domains provide specialized articulation</td>
+<td>PLoS ONE</td>
+<td>2013</td>
+<td>[10.1371/journal.pone.0069767](https://doi.org/10.1371/journal.pone.0069767)</td>
+<td>3.7</td>
+</tr>
+<tr>
+<td>[15]</td>
+<td>Langton AK et al.</td>
+<td>DEJ flattening in photoaged skin</td>
+<td>Exp Dermatol</td>
+<td>2006</td>
+<td>[10.1111/j.1600-0625.2006.00474.x](https://doi.org/10.1111/j.1600-0625.2006.00474.x)</td>
+<td>3.8</td>
+</tr>
+<tr>
+<td>[16]</td>
+<td>Alibardi L</td>
+<td>Nestin in regenerating lizard tail</td>
+<td>Tiss Cell</td>
+<td>2015</td>
+<td>[10.1016/j.tice.2015.01.001](https://doi.org/10.1016/j.tice.2015.01.001)</td>
+<td>2.1</td>
+</tr>
+</table>
+<blockquote>모든 DOI 는 PubMed 에서 검증 권장. 본 v9 피드백 요청서는 15편의 reference 를 인용합니다.</blockquote>
+<hr>
+<p>*v9 외부 피드백 요청서 v1.0* *작성일: 2026-04-07*</p>
+<div class="footer">
+AI-ZPT Peptide Research | Confidential — 본 문서는 외부 공유용 연구 보고서입니다.
+</div>
+</div>
+</body>
+</html>

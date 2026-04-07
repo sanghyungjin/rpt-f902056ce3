@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>FTO 분석 — v9 Natural Extraction</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f7fa;
+    color: #222;
+    line-height: 1.75;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 30px 40px 60px;
+    background: #fff;
+    min-height: 100vh;
+    box-shadow: 0 0 40px rgba(0,0,0,0.06);
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1B4F72;
+    border-bottom: 3px solid #1B4F72;
+    padding-bottom: 10px;
+    margin: 30px 0 8px;
+}
+h2 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1B4F72;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin: 28px 0 12px;
+}
+h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2C3E50;
+    margin: 22px 0 8px;
+}
+h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #34495E;
+    margin: 18px 0 6px;
+}
+
+p { margin: 8px 0; font-size: 14px; }
+ul, ol { margin: 6px 0 6px 24px; font-size: 14px; }
+li { margin: 3px 0; }
+hr { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
+
+/* Tooltips */
+.ztip {
+    position: relative;
+    border-bottom: 1px dotted #1B4F72;
+    cursor: help;
+    color: #1B4F72;
+    font-weight: 500;
+}
+.ztip:hover::after {
+    content: attr(data-t);
+    position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+    background: #1a1a2e; color: #fff; padding: 8px 12px; border-radius: 8px;
+    font-size: 12px; line-height: 1.5; white-space: normal; width: max-content;
+    max-width: 380px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,.25);
+    pointer-events: none; font-weight: 400;
+}
+.ztip:hover::before {
+    content: ''; position: absolute; bottom: 110%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #1a1a2e;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 12px 0;
+}
+th {
+    background: #1B4F72;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 12px;
+}
+td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+tr:hover td { background: rgba(0,0,0,0.02); }
+
+/* Domain-colored tables */
+.rt { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+.rt th { padding: 6px 8px; text-align: left; }
+.rt td { padding: 5px 8px; border-bottom: 1px solid #eee; }
+.rt .r { text-align: right; }
+.rt .c { text-align: center; }
+.rt .b { font-weight: 700; }
+.bg-prda { background: #E8F8F0; }
+.bg-prdb { background: #E0F2F1; }
+.bg-prdc { background: #E3F2FD; }
+.bg-nterm { background: #FFF8E1; }
+.bg-denovo { background: #FFF3E0; }
+.bg-ll37 { background: #F3E5F5; }
+.bg-hdr { background: #1B4F72; color: #fff; font-weight: 600; }
+.domain-legend span {
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid #1B4F72;
+    background: #f8f9fb;
+    padding: 10px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    border-radius: 0 6px 6px 0;
+}
+blockquote p { margin: 4px 0; }
+
+/* Code blocks */
+code {
+    background: #f0f2f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'SF Mono', Consolas, monospace;
+}
+pre {
+    background: #f0f2f5;
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+pre code { background: none; padding: 0; }
+
+/* Header bar */
+.header-bar {
+    background: linear-gradient(135deg, #1B4F72 0%, #2980B9 100%);
+    color: #fff;
+    padding: 24px 40px;
+    margin: -30px -40px 30px;
+    border-radius: 0;
+}
+.header-bar h1 {
+    color: #fff;
+    border: none;
+    margin: 0;
+    font-size: 22px;
+    padding: 0;
+}
+.header-bar .subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-top: 4px;
+    font-weight: 300;
+}
+.header-bar .meta {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 8px;
+}
+
+/* Footer */
+.footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+}
+
+/* Nav bar */
+.nav {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+    margin: 0 -40px;
+    padding-left: 40px;
+    z-index: 100;
+    font-size: 13px;
+}
+.nav a {
+    color: #1B4F72;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+}
+.nav a:hover { text-decoration: underline; }
+.nav .active { border-bottom: 2px solid #1B4F72; padding-bottom: 4px; }
+
+/* Figures */
+.figure {
+    margin: 16px 0;
+    text-align: center;
+}
+.figure img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.figure-caption {
+    font-size: 12px;
+    color: #555;
+    margin-top: 8px;
+    line-height: 1.5;
+    text-align: left;
+    padding: 0 20px;
+}
+
+/* Print */
+@media print {
+    body { background: #fff; }
+    .container { box-shadow: none; padding: 10px; }
+    .header-bar { margin: 0; border-radius: 0; }
+    .nav { display: none; }
+    table { page-break-inside: avoid; }
+    h2, h3 { page-break-after: avoid; }
+    .figure { page-break-inside: avoid; }
+}
+
+@media (max-width: 768px) {
+    .container { padding: 15px 20px; }
+    .header-bar { padding: 16px 20px; margin: -15px -20px 20px; }
+    .nav { margin: 0 -20px; padding-left: 20px; }
+    table { font-size: 11px; }
+    .rt td, .rt th { padding: 3px 5px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header-bar">
+<h1>FTO 분석 — v9 Natural Extraction</h1>
+<div class="subtitle">6,366 자연 펩타이드 pool 전체 FTO 스크리닝 (27% BLOCKED)</div>
+<div class="meta">작성일: 2026-04-07 | 연구 단계: v9 Phase 0 | AI-ZPT</div>
+</div>
+<nav class="nav">
+<a href="report_v9.html" >연구 보고서</a>
+<a href="feedback_v9.html" >피드백 요청서</a>
+<a href="fto_v9.html" class="active">FTO 분석</a>
+</nav>
+<p>**프로젝트**: AI-ZPT **분석 대상**: Human Desmoplakin v9 자연 3-10mer pool 전체 (6,366 peptides) **작성일**: 2026-04-07 **핵심 finding**: 자연 추출 pool 의 **27.0% 가 BLOCKED** — "natural ≠ novelty-safe"</p>
+<hr>
+<h2>Score Disclaimer</h2>
+<blockquote>본 문서의 모든 분류는 **공개 문헌 + pataa BLAST + 알려진 cosmetic/bioactive 펩타이드 DB 기반의 in silico 예비 스크리닝** 입니다. 정식 patent search (USPTO, EPO, KIPRIS) 및 변호사 자문을 대체하지 않습니다. 제품화 결정 전 변리사 검토가 필요합니다.</blockquote>
+<hr>
+<h2>1. 분석 개요</h2>
+<p>v9 Phase 0 의 자연 추출 pool **6,366 개 펩타이드 (3-10mer, Human DSP P15924 only)** 를 다음 두 축에서 스크리닝했습니다:</p>
+<table>
+<tr>
+<th>축</th>
+<th>방법</th>
+<th>데이터베이스</th>
+</tr>
+<tr>
+<td>**외부 특허 / 학술**</td>
+<td>NCBI BLASTp against `pataa` (PAM30, word_size=2)</td>
+<td>1,140 만개 patent + literature protein 서열</td>
+</tr>
+<tr>
+<td>**내부 cosmetic / bioactive DB**</td>
+<td>Bidirectional substring matching</td>
+<td>agingbase (267) + topicalpdb (54) + biopep_uwm (5,578) + satpdb (17,355) + dbaasp (24,028) + apd3 (3,306) — 총 50,588 reference peptides</td>
+</tr>
+</table>
+<h3>1.1 분류 체계</h3>
+<table>
+<tr>
+<th>Status</th>
+<th>정의</th>
+<th>권고</th>
+</tr>
+<tr>
+<td>**CLEAR**</td>
+<td>어떤 DB 에도 hit 없음</td>
+<td>wet-lab handoff 가능</td>
+</tr>
+<tr>
+<td>**CAUTION**</td>
+<td>Bioactive DB 에는 등록되어 있으나 cosmetic 등록은 없음 (review 필요)</td>
+<td>manual review</td>
+</tr>
+<tr>
+<td>**BLOCKED**</td>
+<td>(a) pataa BLAST 100% identity full match (특허 risk) **또는** (b) cosmetic DB 등록 (registered)</td>
+<td>wet-lab 제외 권고</td>
+</tr>
+</table>
+<h3>1.2 알려진 상용 cosmetic 펩타이드 (참조 reference)</h3>
+<table>
+<tr>
+<th>서열</th>
+<th>상용명</th>
+<th>회사 / 특허 보유</th>
+<th>활성</th>
+</tr>
+<tr>
+<td>GHK</td>
+<td>GHK-Cu (Copper Peptide)</td>
+<td>Skin Biology / Pickart</td>
+<td>Collagen 합성, 상처 치유</td>
+</tr>
+<tr>
+<td>GHKGHK</td>
+<td>GHK dimer</td>
+<td>GHK 유도체</td>
+<td>Collagen</td>
+</tr>
+<tr>
+<td>KTTKS</td>
+<td>Matrixyl (Pal-KTTKS)</td>
+<td>Sederma (Croda)</td>
+<td>Collagen 합성 (Type I procollagen propeptide)</td>
+</tr>
+<tr>
+<td>EEMQRR</td>
+<td>Argireline (Acetyl Hexapeptide-8)</td>
+<td>Lipotec (Lubrizol)</td>
+<td>근육 이완 (mimetic SNAP-25)</td>
+</tr>
+<tr>
+<td>GQPR</td>
+<td>Leuphasyl</td>
+<td>Lipotec</td>
+<td>근육 이완</td>
+</tr>
+<tr>
+<td>RGD</td>
+<td>RGD motif (범용)</td>
+<td>다수</td>
+<td>Integrin 결합</td>
+</tr>
+</table>
+<hr>
+<h2>2. v9 Pool 전체 FTO 분포</h2>
+<h3>2.1 통계</h3>
+<table>
+<tr>
+<th>Status</th>
+<th>Count</th>
+<th>%</th>
+<th>권고</th>
+</tr>
+<tr>
+<td>**CLEAR**</td>
+<td>3,282</td>
+<td>**51.6%**</td>
+<td>wet-lab 후보 가능</td>
+</tr>
+<tr>
+<td>**CAUTION**</td>
+<td>1,363</td>
+<td>**21.4%**</td>
+<td>manual review (bioactive 등록, cosmetic 미등록)</td>
+</tr>
+<tr>
+<td>**BLOCKED**</td>
+<td>1,721</td>
+<td>**27.0%**</td>
+<td>wet-lab 제외 권고</td>
+</tr>
+<tr>
+<td>**합계**</td>
+<td>6,366</td>
+<td>100.0%</td>
+<td>—</td>
+</tr>
+</table>
+<h3>2.2 BLOCKED 세부 내역</h3>
+<table>
+<tr>
+<th>Sub-category</th>
+<th>Count</th>
+<th>비고</th>
+</tr>
+<tr>
+<td>pataa BLAST 100% full hit (patent)</td>
+<td>1,719</td>
+<td>NCBI BLASTp 결과 patent 등록 단백질에 100% identity 매치</td>
+</tr>
+<tr>
+<td>Cosmetic DB 등록 (registered)</td>
+<td>2</td>
+<td>agingbase 또는 topicalpdb 에 정식 등록</td>
+</tr>
+<tr>
+<td>**합계**</td>
+<td>**1,721 (27.0%)**</td>
+<td>—</td>
+</tr>
+</table>
+<h3>2.3 핵심 발견 — "자연 추출 = novelty-safe" 가정 반박</h3>
+<blockquote>v9 pool 의 **27% (1,721/6,366)** 가 BLOCKED. 즉 DSP 같은 잘 연구된 단백질에서 추출한 자연 short peptide 의 1/4 이상은 이미 타 기업·연구소가 광범위 특허화했습니다. **"자연 서열은 자동으로 IP-clean" 이라는 직관적 가정은 틀렸습니다.**</blockquote>
+<p>이 finding 의 함의:</p>
+<ol>
+<li>**Natural ≠ novel** — 잘 연구된 단백질은 short subsequence 도 patent landscape 가 dense. 4-6mer 짧은 motif 는 진화적 보존 영역이 화장품/cosmeceutical 특허의 표적이 되어 있을 가능성이 높습니다.</li>
+<li>**Cross-version 비교** — v8 의 14-mer synthetic mutation pool 은 novel mutation 으로 patent hit 이 적은 반면, **natural short peptide pool 은 prior art density 가 높습니다**. 즉 합성 cross-breed 가 IP risk 측면에서 일부 우위를 갖습니다.</li>
+<li>**Workflow 함의** — 자연 추출 연구는 FTO 분석을 **extraction 과 병렬 실행** 해야 합니다. 사후에 FTO 를 맞추려 하면 top candidates 의 1/4 이 떨어져 나갑니다.</li>
+</ol>
+<hr>
+<h2>3. Top 100 (DEJ-ER 순) FTO 분포</h2>
+<p>DEJ-ER triad meta score `(0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52` 로 ranking 한 Top 100 후보의 FTO 분포:</p>
+<table>
+<tr>
+<th>Status</th>
+<th>Count (out of 100)</th>
+<th>%</th>
+</tr>
+<tr>
+<td>CLEAR</td>
+<td>38</td>
+<td>38.0%</td>
+</tr>
+<tr>
+<td>CAUTION</td>
+<td>36</td>
+<td>36.0%</td>
+</tr>
+<tr>
+<td>BLOCKED</td>
+<td>26</td>
+<td>26.0%</td>
+</tr>
+</table>
+<blockquote>Top 100 의 BLOCKED 비율 (26%) 은 pool 전체 (27%) 와 거의 같습니다. **Score 가 높다고 IP risk 가 낮은 것이 아닙니다** — 보존도가 높은 영역일수록 patent 가 dense한 경향이 일관되게 관찰됩니다.</blockquote>
+<h3>3.1 Top 100 Cysteine 분포 (참고)</h3>
+<p>v9 Top 100 (DEJ-ER 순) 에는 **cysteine 함유 펩타이드가 0 개** 입니다. 따라서 본 보고서의 `with_cys` / `no_cys` CSV variant 는 v9 의 경우 동일 내용이며, 향후 다른 단백질 / 다른 ranking 에서 cysteine 처리가 필요할 때를 위한 schema 호환성 차원입니다. (Cysteine 은 disulfide bond 형성으로 합성/안정성 이슈가 있어 화장품 활성 펩타이드 개발에서는 일반적으로 제외하는 경우가 있습니다.)</p>
+<hr>
+<h2>4. 권고 — v9 후 official FTO workflow</h2>
+<p>향후 모든 자연 추출 연구는 다음 순서로 진행할 것을 권장합니다:</p>
+<table>
+<tr>
+<th>순서</th>
+<th>단계</th>
+<th>비고</th>
+</tr>
+<tr>
+<td>1</td>
+<td>Pool 생성 (sliding window extraction)</td>
+<td>제약 없이 후보 생성</td>
+</tr>
+<tr>
+<td>2</td>
+<td>**FTO 분석 즉시 병렬 실행**</td>
+<td>extraction 과 동시</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Pool 의 BLOCKED 비율 검토</td>
+<td>**25%+ 면 mining strategy 재검토**</td>
+</tr>
+<tr>
+<td>4</td>
+<td>CLEAR pool 만으로 scoring + ranking</td>
+<td>downstream 자원 절약</td>
+</tr>
+<tr>
+<td>5</td>
+<td>최종 wet-lab 후보 선정</td>
+<td>변리사 자문 + 변호사 검토 후</td>
+</tr>
+</table>
+<hr>
+<h2>5. Type I FTO Blind Spot — pataa BLAST 단축 펩타이드 한계</h2>
+<div class="figure">
+<img src="data/fig5_fto_blind_spot.png" alt="fig5_fto_blind_spot.png" loading="lazy">
+<div class="figure-caption">**Figure 5** — FTO Type I Blind Spot: pataa BLAST short-peptide skip zone. Pool 의 46% (2,929/6,366) 와 Top 100 의 24% (24/100) 가 length 3-5 이므로 BLAST 가 적용되지 않습니다.</div>
+</div>
+<p>NCBI BLASTp 의 `pataa` 데이터베이스는 **length ≥ 6** 의 query 만 의미 있는 결과를 반환합니다 (PAM30 + word_size=2 setting 에서 length 5 미만은 background noise). 따라서 v9 pool 의 length 3-5 peptides 는 다음 처리가 적용됩니다:</p>
+<table>
+<tr>
+<th>Length</th>
+<th>처리</th>
+<th>한계</th>
+</tr>
+<tr>
+<td>3-5</td>
+<td>`not_applicable_short_peptide` (pataa BLAST skip)</td>
+<td>외부 특허 검사 불가 — 내부 DB 검사로만 분류</td>
+</tr>
+<tr>
+<td>6-10</td>
+<td>정상 BLAST 적용</td>
+<td>특허 100% match → BLOCKED, partial → CLEAR</td>
+</tr>
+</table>
+<p>**함의**: Length 3-5 peptide 의 CLEAR 분류는 "내부 cosmetic / bioactive DB 에 없음" 만 보장하며, "외부 특허 등록 없음" 은 보장하지 않습니다. 짧은 peptide 의 wet-lab 합성 전에는 별도 patent search (USPTO, EPO, KIPRIS) 가 필수입니다.</p>
+<hr>
+<h2>6. 첨부 데이터</h2>
+<p>v9 Phase 0 의 Top 100 펩타이드는 4 개 CSV variant 로 제공됩니다 (모두 동일한 37 column schema):</p>
+<table>
+<tr>
+<th>파일명</th>
+<th>용도</th>
+<th>Cys 포함</th>
+<th>FTO 필터</th>
+</tr>
+<tr>
+<td>`v9_top100_with_fto_status_with_cys.csv`</td>
+<td>전체 + FTO column 표시</td>
+<td>✓</td>
+<td>none</td>
+</tr>
+<tr>
+<td>`v9_top100_with_fto_status_no_cys.csv`</td>
+<td>Cys 제외 + FTO column 표시</td>
+<td>✗</td>
+<td>none</td>
+</tr>
+<tr>
+<td>`v9_top100_fto_cleared_with_cys.csv`</td>
+<td>FTO safe (BLOCKED + GHK + RGD 제외)</td>
+<td>✓</td>
+<td>applied</td>
+</tr>
+<tr>
+<td>**`v9_top100_fto_cleared_no_cys.csv`**</td>
+<td>**wet-lab-ready (FTO safe + Cys 제외)**</td>
+<td>✗</td>
+<td>**applied**</td>
+</tr>
+</table>
+<p>**컬럼 순서 (사용자 피드백 반영, 2026-04-07)**:</p>
+<pre><code>Rank, Sequence, Length, Source_Protein, Scoring_Scheme, Score, DEJ_ER_Score,
+Raw_Grade, Final_Grade, Viability,
+FTO_Status, FTO_Reason, PCPC_Status, PCPC_Detail, BLAST_Status, Internal_DB_Hits,
+Origin_Position, Origin_Domain, Origin_Subdomain, Domain_Risk,
+Match_Length, Match_Type, Generation_Phase, Generation_Method,
+Is_Natural, Cross_Species, Avg_Conservation, Min_Conservation,
+Collagen, DSP, MMP, AI, WH, AOX, CPP, Stab, Skin</code></pre>
+<blockquote>`Origin_Position` 이 `Origin_Domain` 보다 앞에 위치합니다 — 독자가 "어디에 있는지 (position)" 를 먼저 보고 "어느 도메인인지 (domain)" 를 확인하는 자연스러운 흐름을 위함입니다.</blockquote>
+<hr>
+<h2>7. 한계 및 disclaimer</h2>
+<table>
+<tr>
+<th>한계</th>
+<th>상세</th>
+</tr>
+<tr>
+<td>**pataa BLAST 단축 한계**</td>
+<td>Length 3-5 peptide 는 BLAST 적용 불가 (§5 참조)</td>
+</tr>
+<tr>
+<td>**공개 DB 만 사용**</td>
+<td>미공개 in-progress patent (publication 전) 는 catch 불가</td>
+</tr>
+<tr>
+<td>**Bidirectional substring**</td>
+<td>정확한 lexical match 만 검사 — sequence variant / motif family 는 별도 검토 필요</td>
+</tr>
+<tr>
+<td>**변리사 자문 필요**</td>
+<td>본 분석은 in silico 예비 screening 으로, 정식 patent search 와 변호사 검토를 대체하지 않습니다</td>
+</tr>
+<tr>
+<td>**국가별 patent landscape**</td>
+<td>pataa 는 US-centric — 한국 / 유럽 / 일본 patent landscape 는 별도 검사 필요</td>
+</tr>
+</table>
+<hr>
+<p>본 FTO 분석 결과는 동봉된 [v9 연구 보고서](report_v9.html) 의 §3.4 (FTO 분포) 및 §3.5 (자연 추출이 자동으로 IP-clean 하지 않음) 와 함께 검토하시면 전체 맥락을 이해하실 수 있습니다.</p>
+<div class="footer">
+AI-ZPT Peptide Research | Confidential — 본 문서는 외부 공유용 연구 보고서입니다.
+</div>
+</div>
+</body>
+</html>
