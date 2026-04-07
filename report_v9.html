@@ -281,7 +281,10 @@ pre code { background: none; padding: 0; }
 <hr>
 <h2>1. 연구 배경 및 목적</h2>
 <h3>1.1 타겟 단백질: Desmoplakin (DSP)</h3>
-<blockquote><strong>Figure 1</strong> — v9 alignment-based conservation map 의 per-residue distribution. 첨부 파일 <a href="data/fig1_conservation_histogram.png">fig1_conservation_histogram.png</a> 참조.</blockquote>
+<div class="figure">
+<img src="data/fig1_conservation_histogram.png" alt="fig1_conservation_histogram.png" loading="lazy">
+<div class="figure-caption"><strong>Figure 1</strong> — v9 alignment-based conservation map 의 per-residue distribution.</div>
+</div>
 <p>Desmoplakin (DSP) 은 desmosome — 표피 각질세포 (keratinocyte) 간 mechanical junction — 의 중심 plaque protein 으로, keratin intermediate filament (IF) 를 세포막 cadherin complex 에 anchoring 하여 조직의 기계적 무결성을 담당합니다 <sup><a href="https://doi.org/10.1016/j.bbamem.2007.07.014" class="ref" data-t="Garrod & Chidgey, 2008 — Biochim Biophys Acta (IF:4.2)">[1]</a></sup>. DSP 기능 이상은 심근병증 (AD cardiomyopathy), 탈모, 표피 수포증 등 다양한 임상 phenotype 과 연관되며, 조건부 표피 DSP 결손 (conditional epidermal Dsp deletion) 실험에서 epidermal sheet 가 mechanical stress 하에서 fragmentation 을 보여 DSP 가 keratinocyte 간 mechanical integrity 에 필수적임이 확인되었습니다 <sup><a href="https://doi.org/10.1038/ncb1201-1076" class="ref" data-t="Vasioukhin et al., 2001 — Nat Cell Biol (IF:21.3)">[2]</a></sup>.</p>
 <p>Human DSP (UniProt <strong>P15924</strong>) 는 2,871 amino acids 로 구성된 대형 단백질이며, 다음 3 개 주요 도메인으로 구분됩니다 <sup><a href="https://doi.org/10.1371/journal.pone.0069767" class="ref" data-t="Al-Jassar et al., 2013 — PLoS ONE (IF:3.7)">[14]</a></sup>:</p>
 <table>
@@ -393,7 +396,10 @@ pre code { background: none; padding: 0; }
 <br>
 Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type I collagen 합성 측정, (b) basal keratinocyte adhesion / migration assay, (c) MMP-1/3/9 inhibition assay 가 적합합니다.</blockquote>
 <h3>1.6 Cross-species Conservation 전략</h3>
-<blockquote><strong>Figure 2</strong> — N-terminal plakin / Central rod / C-terminal PRD 도메인별 mean conservation 비교. 첨부 파일 <a href="data/fig2_domain_conservation.png">fig2_domain_conservation.png</a> 참조.</blockquote>
+<div class="figure">
+<img src="data/fig2_domain_conservation.png" alt="fig2_domain_conservation.png" loading="lazy">
+<div class="figure-caption"><strong>Figure 2</strong> — N-terminal plakin / Central rod / C-terminal PRD 도메인별 mean conservation 비교.</div>
+</div>
 <p><strong>가설</strong>: 인간-도마뱀 간 진화적으로 보존된 DSP 도메인에서 추출한 펩타이드는 수억 년의 functional constraint 하에 유지되었으므로, 생물학적 활성 예측의 신뢰도가 높다.</p>
 <p>이 가설은 진화적 보존이 functional constraint 의 proxy 라는 일반 원칙 (comparative genomics) 에 기반합니다. Anolis carolinensis 의 꼬리 재생 transcriptome 분석은 vertebrate developmental + wound repair pathway (Wnt, FGF, MAPK 등) 의 광범위한 활성화를 보고했으며 <sup><a href="https://doi.org/10.1371/journal.pone.0105004" class="ref" data-t="Hutchins et al., 2014 — PLoS ONE (IF:3.7)">[4]</a></sup>, 재생 조직의 mechanical reassembly 단계에서 keratinocyte junction 의 재형성이 일반적으로 동반됨을 시사합니다 (재생 능력 자체는 DSP 단일 단백질 기능보다 광범위한 분자 네트워크의 결과). v9 의 lizard 비교종 선택은 DSP 가 재생을 driving 한다는 강한 인과 주장이 아니라, <strong>억 단위 시간 척도에서 DSP 서열이 보존된 위치는 functional constraint 가 강한 영역일 가능성이 높다</strong>는 보존-활성 가설의 근거로 활용됩니다.</p>
 <p>v9 는 alignment-based conservation map 을 위해 <strong>Human + 2 lizard species</strong> 를 사용합니다:</p>
@@ -524,7 +530,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <li>Self-alignment gate (Human vs Human = 1.0 bit-perfect) 통과</li>
 <li>Domain sanity gate: N-plakin 0.7661, Central rod 0.7236, C-PRD 0.7794 (모두 통과)</li>
 </ul>
-<blockquote><strong>Figure 1</strong> — v9 alignment-based conservation map (P15924, 2,871 position) 의 보존도 분포 histogram. Bimodal — 1.0 (fully conserved) vs 0.5 (single query mismatch) 두 peak. 첨부 파일 <a href="data/fig1_conservation_histogram.png">fig1_conservation_histogram.png</a> 참조.</blockquote>
+<div class="figure">
+<img src="data/fig1_conservation_histogram.png" alt="fig1_conservation_histogram.png" loading="lazy">
+<div class="figure-caption"><strong>Figure 1</strong> — v9 alignment-based conservation map (P15924, 2,871 position) 의 보존도 분포 histogram. Bimodal — 1.0 (fully conserved) vs 0.5 (single query mismatch) 두 peak.</div>
+</div>
 <h3>2.2 Natural Sliding Window Extraction</h3>
 <pre><code>for k in range(3, 11):           # k-mer length 3-10
     for i in range(len(DSP) - k + 1):
@@ -532,7 +541,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
         if avg_cons[i:i+k] >= 0.9 AND min_cons[i:i+k] >= 0.5:
             candidates.append(peptide)</code></pre>
 <p><strong>Dual conservation threshold</strong> (avg ≥ 0.9 AND min ≥ 0.5) — single threshold 로는 "평균은 높지만 특정 position 이 완전 unconserved" 인 peptide 가 통과하는 false-positive 문제 방지.</p>
-<blockquote><strong>Figure 3</strong> — Dual conservation threshold (avg, min) sensitivity sweep. avg≥0.9 + min≥0.5 가 best operating point — 더 엄격하면 pool 너무 작고, 느슨하면 false-positive 급증. 첨부 파일 <a href="data/fig3_threshold_sweep.png">fig3_threshold_sweep.png</a> 참조.</blockquote>
+<div class="figure">
+<img src="data/fig3_threshold_sweep.png" alt="fig3_threshold_sweep.png" loading="lazy">
+<div class="figure-caption"><strong>Figure 3</strong> — Dual conservation threshold (avg, min) sensitivity sweep. avg≥0.9 + min≥0.5 가 best operating point — 더 엄격하면 pool 너무 작고, 느슨하면 false-positive 급증.</div>
+</div>
 <p><strong>Provenance discipline</strong>: 모든 peptide 가 P15924 의 정확한 sub-sequence 임을 보장. 이전 시리즈에서 발생했던 합성 cross-breed/chimera 가 v9 pool 에 진입할 경로가 구조적으로 차단.</p>
 <h3>2.3 Scoring (DEJ_V8 + DEJ-ER)</h3>
 <p>v9 는 v8 의 DEJ_V8 9-component scoring 을 그대로 재사용:</p>
@@ -647,7 +659,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td><strong>0.4487</strong> (GSR, 3-mer, C-PRD GSR-rich tail @2828-2830)</td>
 </tr>
 </table>
-<blockquote><strong>Figure 4</strong> — Final pool 6,366 peptides 의 k-mer length 분포 (3-10mer). Length 별 균등 분포에 가깝지만 short range (3-5mer) 가 약간 더 많음. 첨부 파일 <a href="data/fig4_kmer_length_distribution.png">fig4_kmer_length_distribution.png</a> 참조.</blockquote>
+<div class="figure">
+<img src="data/fig4_kmer_length_distribution.png" alt="fig4_kmer_length_distribution.png" loading="lazy">
+<div class="figure-caption"><strong>Figure 4</strong> — Final pool 6,366 peptides 의 k-mer length 분포 (3-10mer). Length 별 균등 분포에 가깝지만 short range (3-5mer) 가 약간 더 많음.</div>
+</div>
 <h3>3.2 Grade 분포 (DEJ_V8 final_grade)</h3>
 <table>
 <tr>
@@ -740,7 +755,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 </table>
 <p><strong>BLOCKED 세부</strong>: 1,719 PATENT_FULL_HIT (pataa 특허 DB 100% match) + 2 REGISTERED (cosmetic 등록 완료).</p>
-<blockquote><strong>Figure 5</strong> — FTO Type I Blind Spot. v9 의 BLAST 는 length ≥ 6 만 사용하고 3-5mer 은 skip → pool 의 46% (2,929/6,366), Top 100 의 24% 가 BLAST 불가 영역. reference peptide database 만으로 검증 가능한 short-peptide blind spot. 첨부 파일 <a href="data/fig5_fto_blind_spot.png">fig5_fto_blind_spot.png</a> 참조.</blockquote>
+<div class="figure">
+<img src="data/fig5_fto_blind_spot.png" alt="fig5_fto_blind_spot.png" loading="lazy">
+<div class="figure-caption"><strong>Figure 5</strong> — FTO Type I Blind Spot. v9 의 BLAST 는 length ≥ 6 만 사용하고 3-5mer 은 skip → pool 의 46% (2,929/6,366), Top 100 의 24% 가 BLAST 불가 영역. reference peptide database 만으로 검증 가능한 short-peptide blind spot.</div>
+</div>
 <h3>3.5 핵심 발견 — 자연 추출이 자동으로 IP-clean 하지 않음</h3>
 <blockquote>v9 pool 의 <strong>27%</strong> 가 BLOCKED [1]. 즉 DSP 같은 잘 연구된 단백질의 자연 short subsequence 의 1/4 이상은 이미 타 기업/연구소가 광범위 특허화. <strong>"자연 추출 = novelty-safe" 라는 직관은 틀렸습니다.</strong></blockquote>
 <p>이는 후속 모든 natural extraction 연구의 workflow 에서 <strong>FTO 분석을 extraction 과 병렬 실행</strong>. (Katayama et al. 1993 의 procollagen pentapeptide [10] 같은 단순 motif 도 patent 화 되어 있는 사례 다수) 해야 함을 시사. 사후에 FTO 를 맞추려 하면 top candidates 의 1/4 이 떨어져 나갑니다.</p>
