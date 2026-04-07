@@ -262,30 +262,28 @@ pre code { background: none; padding: 0; }
 <div class="meta">작성일: 2026-04-07 | 연구 단계: v9 Phase 0 | AI-ZPT</div>
 </div>
 <nav class="nav">
-<a href="report_v9.html" class="active">연구 보고서</a>
-<a href="feedback_v9.html" >피드백 요청서</a>
-<a href="fto_v9.html" >FTO 분석</a>
+<a href="report_v9.html" class="active">연구 보고서 v9</a>
+<a href="feedback_v9.html" >피드백 요청서 v9</a>
+<a href="fto_v9.html" >FTO 분석 보고서</a>
+<a href="data_guide_v9.html" >CSV 데이터 가이드</a>
 </nav>
 <h2>— Natural 3-10mer Extraction with Alignment-Based Conservation —</h2>
-<p>**프로젝트**: AI-ZPT **연구 대상**: Human Desmoplakin (P15924) 유래 자연 펩타이드 (3-10mer) **보고서 버전**: v9 (Natural Extraction Phase 0) **작성일**: 2026-04-07 **관련 시리즈**: v9 단일 phase (single-phase series) **선행 연구**: v1-v8 (synthetic mutation 기반, 별도 보고서)</p>
+<p><strong>프로젝트</strong>: AI-ZPT<br><strong>연구 대상</strong>: Human Desmoplakin (P15924) 유래 자연 펩타이드 (3-10mer)<br><strong>보고서 버전</strong>: v9 (Natural Extraction Phase 0)<br><strong>작성일</strong>: 2026-04-07<br><strong>관련 시리즈</strong>: v9 단일 phase (single-phase series)<br><strong>선행 연구</strong>: v1-v8 (synthetic mutation 기반, 별도 보고서)</p>
 <hr>
 <h2>Score Disclaimer</h2>
-<blockquote>**중요**: 본 문서에 포함된 모든 스코어는 **in silico (컴퓨터 예측) 결과**이며, 실험적 검증(in vitro/in vivo) 전까지 참고용입니다.<br>
+<blockquote><strong>중요</strong>: 본 문서에 포함된 모든 스코어는 <strong>in silico (컴퓨터 예측) 결과</strong>이며, 실험적 검증(in vitro/in vivo) 전까지 참고용입니다.<br>
 <br>
-- **DEJ_V8 scoring**: v8 에서 도입된 9-component scoring scheme. v9 는 동일 scoring 을 자연 펩타이드에 적용. FusPBESM2 모델 (AUC 0.976, 5-fold CV) 기반 collagen prediction.<br>
-- **DEJ-ER ranking**: v9 는 ranking 지표로 `DEJ-ER = (0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52` triad meta score 를 사용. DEJ_V8 raw 보다 RK-bias 가 적음 (Pearson r 0.866 → 0.598).<br>
-- **Grade 2단계 시스템**: 1단계 raw score 기반 grade 분류 → 2단계 cosmetic viability 평가 (cationic dominance, residue dominance, protease 등) → final grade. cosmetic viability 강등 적용 후 최종 등급. v9 pool 의 final grade 분포: A등급 0개, B등급 24개, C등급 769개, F등급 5573개 (총 6,366 — v9 Phase 0 자연 subset only).<br>
-- **3-mer caveats**: v9 의 Top 1 (GSR), Top 5 (HPR) 는 3-mer. 자유 3-mer 펩타이드는 in vivo 에서 aminopeptidase 에 의해 빠르게 분해되며, FusPBESM2 의 training distribution 밖일 가능성이 있습니다. 5-10mer context window 에서의 재검증을 권장합니다.<br>
-- **최종 후보 선정**: 본 문서의 스코어는 합성 후보 우선순위 판단을 위한 예비 자료이며, 최종 선정은 wet-lab 검증 (in vitro collagen assay, 세포독성, 안정성 시험) 후 결정.</blockquote>
+- <strong>DEJ_V8 scoring</strong>: v8 에서 도입된 9-component scoring scheme. v9 는 동일 scoring 을 자연 펩타이드에 적용. FusPBESM2 모델 (AUC 0.976, 5-fold CV) 기반 collagen prediction.<br>
+- <strong>DEJ-ER ranking</strong>: v9 는 ranking 지표로 <code>DEJ-ER = (0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52</code> triad meta score 를 사용. DEJ_V8 raw 보다 RK-bias 가 적음 (Pearson r 0.866 → 0.598).<br>
+- <strong>Grade 2단계 시스템</strong>: 1단계 raw score 기반 grade 분류 → 2단계 cosmetic viability 평가 (cationic dominance, residue dominance, protease 등) → final grade. cosmetic viability 강등 적용 후 최종 등급. v9 pool 의 final grade 분포: A등급 0개, B등급 24개, C등급 769개, F등급 5573개 (총 6,366 — v9 Phase 0 자연 subset only).<br>
+- <strong>3-mer caveats</strong>: v9 의 Top 1 (GSR), Top 5 (HPR) 는 3-mer. 자유 3-mer 펩타이드는 in vivo 에서 aminopeptidase 에 의해 빠르게 분해되며, FusPBESM2 의 training distribution 밖일 가능성이 있습니다. 5-10mer context window 에서의 재검증을 권장합니다.<br>
+- <strong>최종 후보 선정</strong>: 본 문서의 스코어는 합성 후보 우선순위 판단을 위한 예비 자료이며, 최종 선정은 wet-lab 검증 (in vitro collagen assay, 세포독성, 안정성 시험) 후 결정.</blockquote>
 <hr>
 <h2>1. 연구 배경 및 목적</h2>
 <h3>1.1 타겟 단백질: Desmoplakin (DSP)</h3>
-<div class="figure">
-<img src="data/fig1_conservation_histogram.png" alt="fig1_conservation_histogram.png" loading="lazy">
-<div class="figure-caption">**Figure 1** — v9 alignment-based conservation map 의 per-residue distribution.</div>
-</div>
+<blockquote><strong>Figure 1</strong> — v9 alignment-based conservation map 의 per-residue distribution. 첨부 파일 <code>fig1_conservation_histogram.png</code> 참조.</blockquote>
 <p>Desmoplakin (DSP) 은 desmosome — 표피 각질세포 (keratinocyte) 간 mechanical junction — 의 중심 plaque protein 으로, keratin intermediate filament (IF) 를 세포막 cadherin complex 에 anchoring 하여 조직의 기계적 무결성을 담당합니다 <sup><a href="https://doi.org/10.1016/j.bbamem.2007.07.014" class="ref" data-t="Garrod & Chidgey, 2008 — Biochim Biophys Acta (IF:4.2)">[1]</a></sup>. DSP 기능 이상은 심근병증 (AD cardiomyopathy), 탈모, 표피 수포증 등 다양한 임상 phenotype 과 연관되며, 조건부 표피 DSP 결손 (conditional epidermal Dsp deletion) 실험에서 epidermal sheet 가 mechanical stress 하에서 fragmentation 을 보여 DSP 가 keratinocyte 간 mechanical integrity 에 필수적임이 확인되었습니다 <sup><a href="https://doi.org/10.1038/ncb1201-1076" class="ref" data-t="Vasioukhin et al., 2001 — Nat Cell Biol (IF:21.3)">[2]</a></sup>.</p>
-<p>Human DSP (UniProt **P15924**) 는 2,871 amino acids 로 구성된 대형 단백질이며, 다음 3 개 주요 도메인으로 구분됩니다 <sup><a href="https://doi.org/10.1371/journal.pone.0069767" class="ref" data-t="Al-Jassar et al., 2013 — PLoS ONE (IF:3.7)">[14]</a></sup>:</p>
+<p>Human DSP (UniProt <strong>P15924</strong>) 는 2,871 amino acids 로 구성된 대형 단백질이며, 다음 3 개 주요 도메인으로 구분됩니다 <sup><a href="https://doi.org/10.1371/journal.pone.0069767" class="ref" data-t="Al-Jassar et al., 2013 — PLoS ONE (IF:3.7)">[14]</a></sup>:</p>
 <table>
 <tr>
 <th>도메인</th>
@@ -294,25 +292,25 @@ pre code { background: none; padding: 0; }
 <th>기능</th>
 </tr>
 <tr>
-<td>**N-terminal plakin**</td>
+<td><strong>N-terminal plakin</strong></td>
 <td>1-1056</td>
 <td>Spectrin repeats + SH3</td>
 <td>Plakoglobin/Plakophilin 결합 → desmosomal cadherin tail 과 연결</td>
 </tr>
 <tr>
-<td>**Central rod**</td>
+<td><strong>Central rod</strong></td>
 <td>1057-1756</td>
 <td>Parallel dimeric coiled-coil</td>
 <td>DSP homodimer 형성, rod 강성 제공</td>
 </tr>
 <tr>
-<td>**C-terminal PRD**</td>
+<td><strong>C-terminal PRD</strong></td>
 <td>1757-2871</td>
 <td>Plakin Repeat Domain A/B/C</td>
 <td>Keratin IF 결합 site (PRD-B 가 core binding 영역)</td>
 </tr>
 </table>
-<blockquote>**Note**: 본 연구의 모든 펩타이드는 Human DSP P15924 단일 source 로부터 natural sliding window 로 추출되며 (mutation / cross-breed 없음), 비교종은 conservation 계산을 위한 contrast group 으로만 사용됩니다.</blockquote>
+<blockquote><strong>Note</strong>: 본 연구의 모든 펩타이드는 Human DSP P15924 단일 source 로부터 natural sliding window 로 추출되며 (mutation / cross-breed 없음), 비교종은 conservation 계산을 위한 contrast group 으로만 사용됩니다.</blockquote>
 <h3>1.2 Dermal-Epidermal Junction (DEJ) 상세 구조</h3>
 <p>피부 DEJ 는 표피 basal keratinocyte 와 진피 papillary dermis 를 연결하는 basement membrane zone (BMZ) 으로, 다음 4 개 구역으로 구성됩니다:</p>
 <table>
@@ -333,17 +331,17 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td>Lamina densa</td>
-<td>**Type IV collagen**, Perlecan</td>
+<td><strong>Type IV collagen</strong>, Perlecan</td>
 <td>BMZ 의 주요 구조 단백질 층</td>
 </tr>
 <tr>
 <td>Sub-lamina densa</td>
-<td>**Type VII collagen** (anchoring fibril)</td>
+<td><strong>Type VII collagen</strong> (anchoring fibril)</td>
 <td>BMZ 를 진피 Type I/III collagen ECM 에 tethering</td>
 </tr>
 </table>
 <p>DEJ flattening (rete ridges 의 소실) 은 photoaged skin 의 특징적 형태학적 변화로, 진피-표피 계면 강도 저하 및 주름 발생의 구조적 원인입니다 <sup><a href="https://doi.org/10.1111/j.1600-0625.2006.00474.x" class="ref" data-t="Langton et al., 2006 — Exp Dermatol (IF:3.8)">[15]</a></sup>.</p>
-<blockquote>**Note**: 본 연구의 "collagen activity" score 는 **Type I collagen** (진피 ECM 의 약 80% 를 차지) 합성 촉진 proxy 입니다. DEJ 의 직접 구조를 이루는 Type IV/VII 와는 구별되며, 자세한 DSP–DEJ 관계 disclaimer 는 §1.5 를 참조하십시오.</blockquote>
+<blockquote><strong>Note</strong>: 본 연구의 "collagen activity" score 는 <strong>Type I collagen</strong> (진피 ECM 의 약 80% 를 차지) 합성 촉진 proxy 입니다. DEJ 의 직접 구조를 이루는 Type IV/VII 와는 구별되며, 자세한 DSP–DEJ 관계 disclaimer 는 §1.5 를 참조하십시오.</blockquote>
 <h3>1.3 Desmosome Assembly Pathway</h3>
 <p>DSP 가 참여하는 desmosome 조립은 Ca²⁺ 의존적 다단계 과정입니다 <sup><a href="https://doi.org/10.1016/j.bbamem.2007.07.014" class="ref" data-t="Garrod & Chidgey, 2008 — Biochim Biophys Acta (IF:4.2)">[1]</a></sup>:</p>
 <table>
@@ -364,7 +362,7 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td>3</td>
-<td>**Desmoplakin (DSP)**</td>
+<td><strong>Desmoplakin (DSP)</strong></td>
 <td>N-terminal plakin domain 으로 plaque 에 anchor, C-terminal PRD 가 keratin IF 에 결합</td>
 </tr>
 <tr>
@@ -377,31 +375,28 @@ pre code { background: none; padding: 0; }
 <h3>1.4 피부 노화의 분자 메커니즘</h3>
 <p>피부 노화는 intrinsic (chronological) 과 photoaging 의 두 축으로 진행되며, 공통 핵심 cascade 는 다음과 같습니다 <sup><a href="https://doi.org/10.1016/j.arr.2015.01.001" class="ref" data-t="Kammeyer & Luiten, 2015 — Ageing Res Rev (IF:12.5)">[3]</a></sup> <sup><a href="https://doi.org/10.1021/acsnano.9b04384" class="ref" data-t="Hu et al., 2019 — ACS Nano (IF:18.0)">[8]</a></sup>:</p>
 <ol>
-<li>**ROS 축**: UV / 환경 스트레스 → mitochondrial ROS 및 H₂O₂ 증가 → **AP-1 전사인자 활성화** → MMP-1/3/9 발현 증가 → Type I/III collagen 분해 → 진피 ECM 손실.</li>
-<li>**Inflammaging 축**: 만성 저강도 염증 → NF-κB 활성화 → TNF-α, IL-6, IL-1β 분비 → MMP 추가 유도 + keratinocyte 분화 이상 → DEJ 구조 약화.</li>
-<li>**TGF-β 억제**: Aging 피부에서 TGF-β signaling 감소 → fibroblast 의 pro-collagen 합성 저하 → ECM 재생 부전.</li>
-<li>**MMP imbalance**: MMP vs TIMP 비율 증가 → lamina densa Type IV collagen 및 papillary dermis Type VII anchoring fibril 저해 → DEJ flattening <sup><a href="https://doi.org/10.1111/j.1600-0625.2006.00474.x" class="ref" data-t="Langton et al., 2006 — Exp Dermatol (IF:3.8)">[15]</a></sup>.</li>
+<li><strong>ROS 축</strong>: UV / 환경 스트레스 → mitochondrial ROS 및 H₂O₂ 증가 → <strong>AP-1 전사인자 활성화</strong> → MMP-1/3/9 발현 증가 → Type I/III collagen 분해 → 진피 ECM 손실.</li>
+<li><strong>Inflammaging 축</strong>: 만성 저강도 염증 → NF-κB 활성화 → TNF-α, IL-6, IL-1β 분비 → MMP 추가 유도 + keratinocyte 분화 이상 → DEJ 구조 약화.</li>
+<li><strong>TGF-β 억제</strong>: Aging 피부에서 TGF-β signaling 감소 → fibroblast 의 pro-collagen 합성 저하 → ECM 재생 부전.</li>
+<li><strong>MMP imbalance</strong>: MMP vs TIMP 비율 증가 → lamina densa Type IV collagen 및 papillary dermis Type VII anchoring fibril 저해 → DEJ flattening <sup><a href="https://doi.org/10.1111/j.1600-0625.2006.00474.x" class="ref" data-t="Langton et al., 2006 — Exp Dermatol (IF:3.8)">[15]</a></sup>.</li>
 </ol>
-<blockquote>**전략적 대응**: DEJ_V8 scoring 은 이 cascade 의 각 축에 가중치를 할당합니다 — Collagen 0.22 (Type I 합성), MMP Inhibition 0.12 (protease 억제), Anti-Inflammatory 0.12 (NF-κB 축), Antioxidant 0.08 (ROS 축), Wound Healing similarity 0.10, DSP interaction 0.18. DEJ-ER triad meta score `(0.22·col + 0.18·dsp + 0.12·mmp) / 0.52` 는 이 중 DEJ 회복과 가장 직접적으로 연관된 3 개 차원만으로 wet-lab 우선순위를 재계산합니다.</blockquote>
+<blockquote><strong>전략적 대응</strong>: DEJ_V8 scoring 은 이 cascade 의 각 축에 가중치를 할당합니다 — Collagen 0.22 (Type I 합성), MMP Inhibition 0.12 (protease 억제), Anti-Inflammatory 0.12 (NF-κB 축), Antioxidant 0.08 (ROS 축), Wound Healing similarity 0.10, DSP interaction 0.18. DEJ-ER triad meta score <code>(0.22·col + 0.18·dsp + 0.12·mmp) / 0.52</code> 는 이 중 DEJ 회복과 가장 직접적으로 연관된 3 개 차원만으로 wet-lab 우선순위를 재계산합니다.</blockquote>
 <h3>1.5 DSP 와 DEJ 의 관계 — 중요 disclaimer</h3>
-<blockquote>**Desmoplakin 은 desmosome plaque protein (cell-cell 접착) 이며, DEJ / BMZ 의 직접 anchoring 분자가 아닙니다.**<br>
+<blockquote><strong>Desmoplakin 은 desmosome plaque protein (cell-cell 접착) 이며, DEJ / BMZ 의 직접 anchoring 분자가 아닙니다.</strong><br>
 <br>
 §1.2 에서 기술한 바와 같이 DEJ 의 직접 구성 분자는 Type IV collagen (lamina densa), Type VII collagen (anchoring fibril), laminin-332, nidogen-1/2, integrin α6β4, BP180 (COL17A1), BP230 입니다 <sup><a href="https://doi.org/10.1016/j.bbamem.2007.07.014" class="ref" data-t="Garrod & Chidgey, 2008 — Biochim Biophys Acta (IF:4.2)">[1]</a></sup>. Desmoplakin 은 이 복합체에 포함되지 않습니다.<br>
 <br>
-본 연구의 "DEJ 관련 회복" 표현은 다음의 **간접 지지 (indirect support)** 경로를 의미합니다:<br>
+본 연구의 "DEJ 관련 회복" 표현은 다음의 <strong>간접 지지 (indirect support)</strong> 경로를 의미합니다:<br>
 <br>
 1. Basal keratinocyte 내부 keratin IF–desmosome 네트워크 안정화 → 세포가 hemidesmosome 을 통해 BMZ 에 부착하는 mechanical foundation 제공.<br>
 2. DSP 유래 펩타이드가 collagen 합성 (Type I, ECM 재건), MMP 억제 (BMZ 분해 방지), 항염 (NF-κB 축 차단) 활성을 보이는 경우 — 이는 DEJ 의 주변 환경을 개선하는 효과.<br>
 <br>
 Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type I collagen 합성 측정, (b) basal keratinocyte adhesion / migration assay, (c) MMP-1/3/9 inhibition assay 가 적합합니다.</blockquote>
 <h3>1.6 Cross-species Conservation 전략</h3>
-<div class="figure">
-<img src="data/fig2_domain_conservation.png" alt="fig2_domain_conservation.png" loading="lazy">
-<div class="figure-caption">**Figure 2** — N-terminal plakin / Central rod / C-terminal PRD 도메인별 mean conservation 비교.</div>
-</div>
-<p>**가설**: 인간-도마뱀 간 진화적으로 보존된 DSP 도메인에서 추출한 펩타이드는 수억 년의 functional constraint 하에 유지되었으므로, 생물학적 활성 예측의 신뢰도가 높다.</p>
-<p>이 가설은 진화적 보존이 functional constraint 의 proxy 라는 일반 원칙 (comparative genomics) 에 기반합니다. Anolis carolinensis 의 꼬리 재생 transcriptome 분석은 vertebrate developmental + wound repair pathway (Wnt, FGF, MAPK 등) 의 광범위한 활성화를 보고했으며 <sup><a href="https://doi.org/10.1371/journal.pone.0105004" class="ref" data-t="Hutchins et al., 2014 — PLoS ONE (IF:3.7)">[4]</a></sup>, 재생 조직의 mechanical reassembly 단계에서 keratinocyte junction 의 재형성이 일반적으로 동반됨을 시사합니다 (재생 능력 자체는 DSP 단일 단백질 기능보다 광범위한 분자 네트워크의 결과). v9 의 lizard 비교종 선택은 DSP 가 재생을 driving 한다는 강한 인과 주장이 아니라, **억 단위 시간 척도에서 DSP 서열이 보존된 위치는 functional constraint 가 강한 영역일 가능성이 높다**는 보존-활성 가설의 근거로 활용됩니다.</p>
-<p>v9 는 alignment-based conservation map 을 위해 **Human + 2 lizard species** 를 사용합니다:</p>
+<blockquote><strong>Figure 2</strong> — N-terminal plakin / Central rod / C-terminal PRD 도메인별 mean conservation 비교. 첨부 파일 <code>fig2_domain_conservation.png</code> 참조.</blockquote>
+<p><strong>가설</strong>: 인간-도마뱀 간 진화적으로 보존된 DSP 도메인에서 추출한 펩타이드는 수억 년의 functional constraint 하에 유지되었으므로, 생물학적 활성 예측의 신뢰도가 높다.</p>
+<p>이 가설은 진화적 보존이 functional constraint 의 proxy 라는 일반 원칙 (comparative genomics) 에 기반합니다. Anolis carolinensis 의 꼬리 재생 transcriptome 분석은 vertebrate developmental + wound repair pathway (Wnt, FGF, MAPK 등) 의 광범위한 활성화를 보고했으며 <sup><a href="https://doi.org/10.1371/journal.pone.0105004" class="ref" data-t="Hutchins et al., 2014 — PLoS ONE (IF:3.7)">[4]</a></sup>, 재생 조직의 mechanical reassembly 단계에서 keratinocyte junction 의 재형성이 일반적으로 동반됨을 시사합니다 (재생 능력 자체는 DSP 단일 단백질 기능보다 광범위한 분자 네트워크의 결과). v9 의 lizard 비교종 선택은 DSP 가 재생을 driving 한다는 강한 인과 주장이 아니라, <strong>억 단위 시간 척도에서 DSP 서열이 보존된 위치는 functional constraint 가 강한 영역일 가능성이 높다</strong>는 보존-활성 가설의 근거로 활용됩니다.</p>
+<p>v9 는 alignment-based conservation map 을 위해 <strong>Human + 2 lizard species</strong> 를 사용합니다:</p>
 <table>
 <tr>
 <th>단백질</th>
@@ -432,14 +427,14 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Query 2 (Lacertoidea)</td>
 </tr>
 </table>
-<p>Conservation map 은 BioPython `PairwiseAligner` (global mode, BLOSUM62, open_gap=−10, extend_gap=−0.5) 기반으로 재구축되었으며, self-alignment (Human vs Human = 1.0) 및 domain-level sanity gate (N-plakin 0.77, Rod 0.72, C-PRD 0.78) 를 모두 통과했습니다. 상세한 재구축 근거는 §2.1 을 참조하십시오.</p>
+<p>Conservation map 은 BioPython <code>PairwiseAligner</code> (global mode, BLOSUM62, open_gap=−10, extend_gap=−0.5) 기반으로 재구축되었으며, self-alignment (Human vs Human = 1.0) 및 domain-level sanity gate (N-plakin 0.77, Rod 0.72, C-PRD 0.78) 를 모두 통과했습니다. 상세한 재구축 근거는 §2.1 을 참조하십시오.</p>
 <h3>1.7 연구 목표</h3>
 <p>본 연구의 목표는 다음 네 가지입니다:</p>
 <ol>
-<li>**Human DSP 자연 3-10mer 의 체계적 재평가** — 길이 3 에서 10 까지의 모든 sliding window subsequence 를 DEJ_V8 / DEJ-ER 로 scoring 하여, 이전 시리즈에서 14-mer 합성 후보에 가려져 있던 짧은 자연 motif 의 활성 잠재력을 분리 평가합니다.</li>
-<li>**Alignment-based conservation map 구축** — 이전에 사용되던 naive `zip()` 기반 position-wise 비교를 BLOSUM62-scored global alignment 로 대체하여, frame shift artifact 없이 per-residue conservation 을 재계산합니다.</li>
-<li>**DEJ-ER triad meta score 도입** — 9-component DEJ_V8 가 RK-rich 서열에 과도하게 반응하는 bias (Pearson r(RK-fraction, DEJ_V8) = 0.866) 를 완화하기 위해, 회복과 직접 연관된 collagen + dsp + mmp 3 개 차원만의 meta score 를 wet-lab ranking 에 사용합니다.</li>
-<li>**Freedom-to-Operate 및 provenance 검증된 wet-lab short list 확보** — 각 후보에 대해 domain origin, conservation score, pataa BLAST, internal cosmetic/bioactive DB hit 정보를 동시에 제공하여, 합성 전 IP 리스크와 mechanism 해석의 불확실성을 최소화합니다.</li>
+<li><strong>Human DSP 자연 3-10mer 의 체계적 재평가</strong> — 길이 3 에서 10 까지의 모든 sliding window subsequence 를 DEJ_V8 / DEJ-ER 로 scoring 하여, 이전 시리즈에서 14-mer 합성 후보에 가려져 있던 짧은 자연 motif 의 활성 잠재력을 분리 평가합니다.</li>
+<li><strong>Alignment-based conservation map 구축</strong> — 이전에 사용되던 naive <code>zip()</code> 기반 position-wise 비교를 BLOSUM62-scored global alignment 로 대체하여, frame shift artifact 없이 per-residue conservation 을 재계산합니다.</li>
+<li><strong>DEJ-ER triad meta score 도입</strong> — 9-component DEJ_V8 가 RK-rich 서열에 과도하게 반응하는 bias (Pearson r(RK-fraction, DEJ_V8) = 0.866) 를 완화하기 위해, 회복과 직접 연관된 collagen + dsp + mmp 3 개 차원만의 meta score 를 wet-lab ranking 에 사용합니다.</li>
+<li><strong>Freedom-to-Operate 및 provenance 검증된 wet-lab short list 확보</strong> — 각 후보에 대해 domain origin, conservation score, pataa BLAST, internal cosmetic/bioactive DB hit 정보를 동시에 제공하여, 합성 전 IP 리스크와 mechanism 해석의 불확실성을 최소화합니다.</li>
 </ol>
 <h3>1.8 연구 가설</h3>
 <table>
@@ -451,26 +446,26 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>1</td>
-<td>**Conservation-activity**: 진화적으로 보존된 DSP 도메인 유래 펩타이드는 기능적 제약이 강하여 활성 가능성이 높다</td>
-<td>**부분 검증** (in silico)</td>
+<td><strong>Conservation-activity</strong>: 진화적으로 보존된 DSP 도메인 유래 펩타이드는 기능적 제약이 강하여 활성 가능성이 높다</td>
+<td><strong>부분 검증</strong> (in silico)</td>
 <td>Top 20 후보의 avg conservation ≥ 0.95</td>
 </tr>
 <tr>
 <td>2</td>
-<td>**DEJ 간접 지지**: DSP 유래 펩타이드가 collagen 합성 / MMP 억제 / 항염을 통해 DEJ 주변 환경을 개선한다</td>
-<td>**검증 대기** (wet-lab 필요)</td>
+<td><strong>DEJ 간접 지지</strong>: DSP 유래 펩타이드가 collagen 합성 / MMP 억제 / 항염을 통해 DEJ 주변 환경을 개선한다</td>
+<td><strong>검증 대기</strong> (wet-lab 필요)</td>
 <td>DEJ-ER triad 52% 가중치로 scoring 집중</td>
 </tr>
 <tr>
 <td>3</td>
-<td>**Natural 서열 IP clarity**: 자연 sliding window 추출은 14-mer 합성 cross-breed 보다 origin 해석이 명확하고 provenance discipline 이 우수하다</td>
-<td>**확인**</td>
+<td><strong>Natural 서열 IP clarity</strong>: 자연 sliding window 추출은 14-mer 합성 cross-breed 보다 origin 해석이 명확하고 provenance discipline 이 우수하다</td>
+<td><strong>확인</strong></td>
 <td>전 후보에 domain + position 속성 부여, mutation 없음</td>
 </tr>
 <tr>
 <td>4</td>
-<td>**Natural ≠ IP-safe**: 자연 추출이 자동으로 특허 landscape 밖에 있는 것은 아니다 (잘 연구된 단백질의 짧은 subsequence 는 이미 patent coverage 존재 가능)</td>
-<td>**반증**</td>
+<td><strong>Natural ≠ IP-safe</strong>: 자연 추출이 자동으로 특허 landscape 밖에 있는 것은 아니다 (잘 연구된 단백질의 짧은 subsequence 는 이미 patent coverage 존재 가능)</td>
+<td><strong>반증</strong></td>
 <td>pataa BLAST 결과 pool 의 27.0% 가 BLOCKED (§3.5 참조)</td>
 </tr>
 </table>
@@ -482,69 +477,63 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <th>전략적 대응</th>
 </tr>
 <tr>
-<td>**짧은 서열의 기능 모방 한계**</td>
+<td><strong>짧은 서열의 기능 모방 한계</strong></td>
 <td>3-10 aa 가 2,871 aa 단백질의 구조적 / 상호작용 역할을 재현하는지 불확실</td>
 <td>Conservation-guided selection 으로 functional constraint 이 강한 최소 motif 에 집중, wet-lab 은 분자 수준 assay (collagen 합성, MMP 억제) 로 한정</td>
 </tr>
 <tr>
-<td>**세포내 단백질의 외부 투여**</td>
+<td><strong>세포내 단백질의 외부 투여</strong></td>
 <td>DSP 는 세포내 desmosomal plaque protein → topical 투여 시 접근성 제한</td>
 <td>2-track 전략: (a) CPP component 점수를 유지하여 세포 투과 가능한 서열 prioritize, (b) 세포외 신호 유도 (collagen, MMP 억제) 활성에 focus. Argireline, GHK-Cu <sup><a href="https://doi.org/10.1155/2015/648108" class="ref" data-t="Pickart et al., 2015 — Biomed Res Int (IF:3.4)">[5]</a></sup>, KTTKS <sup><a href="https://doi.org/10.1016/S0021-9258(18)82153-2" class="ref" data-t="Katayama et al., 1993 — J Biol Chem (IF:5.5)">[10]</a></sup> 등 기존 cosmetic peptide 도 세포외 작용 경로로 효과가 검증된 바 있음</td>
 </tr>
 <tr>
-<td>**면역원성 위험**</td>
+<td><strong>면역원성 위험</strong></td>
 <td>DSP 는 천포창 (Pemphigus) 관련 자가항체 표적 가능성이 보고됨</td>
 <td>PRD 유래 서열의 면역원성 screening (MHC II binding prediction) 은 wet-lab 단계의 정식 검증 항목으로 유지</td>
 </tr>
 <tr>
-<td>**피부 투과 장벽**</td>
+<td><strong>피부 투과 장벽</strong></td>
 <td>500 Da rule — MW > 500 Da 는 stratum corneum 투과 난이도 상승</td>
 <td>3-10 aa 모두 MW 300-1,200 Da 범위, 짧은 후보 (3-6mer) 우선. 5-10mer 은 context window 재평가 시 우선순위</td>
 </tr>
 <tr>
-<td>**DEJ-ER score ceiling**</td>
+<td><strong>DEJ-ER score ceiling</strong></td>
 <td>Natural 추출의 score 분포는 synthetic mutation 대비 median 이 약 0.12-0.14 낮음</td>
 <td>자연 제약의 정당한 대가로 수용. Score 상한 돌파는 synthetic 쪽의 역할로 분리 (§3.8 참조)</td>
 </tr>
 <tr>
-<td>**3-mer OOD risk**</td>
+<td><strong>3-mer OOD risk</strong></td>
 <td>FusPBESM2 의 training distribution 은 주로 5-10mer 로 구성, 3-mer 의 예측 신뢰도는 불명확</td>
 <td>본 보고서의 3-mer 후보 (GSR, HPR 등) 는 wet-lab 합성 전 5-10mer context window 재평가 권장</td>
 </tr>
 </table>
-<blockquote>**참고**: 위 한계에도 불구하고 GHK-Cu (3-mer, tripeptide) <sup><a href="https://doi.org/10.1155/2015/648108" class="ref" data-t="Pickart et al., 2015 — Biomed Res Int (IF:3.4)">[5]</a></sup>, KTTKS (5-mer) <sup><a href="https://doi.org/10.1016/S0021-9258(18)82153-2" class="ref" data-t="Katayama et al., 1993 — J Biol Chem (IF:5.5)">[10]</a></sup>, Argireline (6-mer), LL-37 유래 단편 <sup><a href="https://doi.org/10.1046/j.1523-1747.2003.12069.x" class="ref" data-t="Heilborn et al., 2003 — J Invest Dermatol (IF:7.6)">[9]</a></sup>, 성장인자 유래 cytokine mimetic 펩타이드 <sup><a href="https://doi.org/10.1111/j.1524-475X.2008.00410.x" class="ref" data-t="Barrientos et al., 2008 — Wound Repair Regen (IF:3.8)">[7]</a></sup> 등 3-6mer cosmetic peptide 는 in vitro / in vivo 에서 활성이 검증된 바 있어, 짧은 자연 DSP 유래 서열에도 충분한 탐색 가치가 있습니다.</blockquote>
+<blockquote><strong>참고</strong>: 위 한계에도 불구하고 GHK-Cu (3-mer, tripeptide) <sup><a href="https://doi.org/10.1155/2015/648108" class="ref" data-t="Pickart et al., 2015 — Biomed Res Int (IF:3.4)">[5]</a></sup>, KTTKS (5-mer) <sup><a href="https://doi.org/10.1016/S0021-9258(18)82153-2" class="ref" data-t="Katayama et al., 1993 — J Biol Chem (IF:5.5)">[10]</a></sup>, Argireline (6-mer), LL-37 유래 단편 <sup><a href="https://doi.org/10.1046/j.1523-1747.2003.12069.x" class="ref" data-t="Heilborn et al., 2003 — J Invest Dermatol (IF:7.6)">[9]</a></sup>, 성장인자 유래 cytokine mimetic 펩타이드 <sup><a href="https://doi.org/10.1111/j.1524-475X.2008.00410.x" class="ref" data-t="Barrientos et al., 2008 — Wound Repair Regen (IF:3.8)">[7]</a></sup> 등 3-6mer cosmetic peptide 는 in vitro / in vivo 에서 활성이 검증된 바 있어, 짧은 자연 DSP 유래 서열에도 충분한 탐색 가치가 있습니다.</blockquote>
 <hr>
 <h2>2. 연구 방법론</h2>
 <h3>2.1 Conservation Map 재구축 (v1_alignment_based)</h3>
-<p>**v1-v8 까지 사용된 기존 v4 conservation map 의 결함**:</p>
+<p><strong>v1-v8 까지 사용된 기존 v4 conservation map 의 결함</strong>:</p>
 <ul>
-<li>계산 방식: 각 종 서열을 Human 과 **position-wise `zip()`** 으로 비교 → frame shift 발생</li>
+<li>계산 방식: 각 종 서열을 Human 과 <strong>position-wise <code>zip()</code></strong> 으로 비교 → frame shift 발생</li>
 <li>결과: max=0.5, mean=0.067 의 비현실적 분포</li>
 <li>영향: v3-v8 의 conservation feature 가 사실상 noise</li>
 </ul>
-<p>**v9 의 재구축**:</p>
+<p><strong>v9 의 재구축</strong>:</p>
 <ul>
-<li>BioPython `Align.PairwiseAligner` (global mode, BLOSUM62 substitution matrix)</li>
-<li>`open_gap_score=-10`, `extend_gap_score=-0.5`, terminal gaps=0</li>
+<li>BioPython <code>Align.PairwiseAligner</code> (global mode, BLOSUM62 substitution matrix)</li>
+<li><code>open_gap_score=-10</code>, <code>extend_gap_score=-0.5</code>, terminal gaps=0</li>
 <li>Self-alignment gate (Human vs Human = 1.0 bit-perfect) 통과</li>
 <li>Domain sanity gate: N-plakin 0.7661, Central rod 0.7236, C-PRD 0.7794 (모두 통과)</li>
 </ul>
-<div class="figure">
-<img src="data/fig1_conservation_histogram.png" alt="fig1_conservation_histogram.png" loading="lazy">
-<div class="figure-caption">**Figure 1** — v9 alignment-based conservation map (P15924, 2,871 position) 의 보존도 분포 histogram. Bimodal — 1.0 (fully conserved) vs 0.5 (single query mismatch) 두 peak.</div>
-</div>
+<blockquote><strong>Figure 1</strong> — v9 alignment-based conservation map (P15924, 2,871 position) 의 보존도 분포 histogram. Bimodal — 1.0 (fully conserved) vs 0.5 (single query mismatch) 두 peak. 첨부 파일 <code>fig1_conservation_histogram.png</code> 참조.</blockquote>
 <h3>2.2 Natural Sliding Window Extraction</h3>
 <pre><code>for k in range(3, 11):           # k-mer length 3-10
     for i in range(len(DSP) - k + 1):
         peptide = DSPi:i+k
         if avg_cons[i:i+k] >= 0.9 AND min_cons[i:i+k] >= 0.5:
             candidates.append(peptide)</code></pre>
-<p>**Dual conservation threshold** (avg ≥ 0.9 AND min ≥ 0.5) — single threshold 로는 "평균은 높지만 특정 position 이 완전 unconserved" 인 peptide 가 통과하는 false-positive 문제 방지.</p>
-<div class="figure">
-<img src="data/fig3_threshold_sweep.png" alt="fig3_threshold_sweep.png" loading="lazy">
-<div class="figure-caption">**Figure 3** — Dual conservation threshold (avg, min) sensitivity sweep. avg≥0.9 + min≥0.5 가 best operating point — 더 엄격하면 pool 너무 작고, 느슨하면 false-positive 급증.</div>
-</div>
-<p>**Provenance discipline**: 모든 peptide 가 P15924 의 정확한 sub-sequence 임을 보장. 이전 시리즈에서 발생했던 합성 cross-breed/chimera 가 v9 pool 에 진입할 경로가 구조적으로 차단.</p>
+<p><strong>Dual conservation threshold</strong> (avg ≥ 0.9 AND min ≥ 0.5) — single threshold 로는 "평균은 높지만 특정 position 이 완전 unconserved" 인 peptide 가 통과하는 false-positive 문제 방지.</p>
+<blockquote><strong>Figure 3</strong> — Dual conservation threshold (avg, min) sensitivity sweep. avg≥0.9 + min≥0.5 가 best operating point — 더 엄격하면 pool 너무 작고, 느슨하면 false-positive 급증. 첨부 파일 <code>fig3_threshold_sweep.png</code> 참조.</blockquote>
+<p><strong>Provenance discipline</strong>: 모든 peptide 가 P15924 의 정확한 sub-sequence 임을 보장. 이전 시리즈에서 발생했던 합성 cross-breed/chimera 가 v9 pool 에 진입할 경로가 구조적으로 차단.</p>
 <h3>2.3 Scoring (DEJ_V8 + DEJ-ER)</h3>
 <p>v9 는 v8 의 DEJ_V8 9-component scoring 을 그대로 재사용:</p>
 <table>
@@ -609,12 +598,12 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>❌</td>
 </tr>
 </table>
-<p>**DEJ-ER meta** (v9 신규 ranking 지표): `(0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52`. DEJ triad 만 추출해 정규화한 값으로, COL17A1 hit 우선순위 평가에 사용.</p>
+<p><strong>DEJ-ER meta</strong> (v9 신규 ranking 지표): <code>(0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52</code>. DEJ triad 만 추출해 정규화한 값으로, COL17A1 hit 우선순위 평가에 사용.</p>
 <h3>2.4 FTO 분석 (Freedom-to-Operate)</h3>
 <ul>
-<li>**Reference peptide database cross-check**: 6 source bidirectional substring matching against established cosmetic + bioactive peptide databases (agingbase, topicalpdb, biopep_uwm, satpdb, dbaasp, apd3 — 약 50,000+ entries 합산)</li>
-<li>**pataa BLAST**: PAM30, word_size=2 (length ≥ 6 만, 3-5mer 는 short-peptide skip)</li>
-<li>**Classification**: BLOCKED / CAUTION / CLEAR + pcpc_status (REGISTERED / PATENT_FULL_HIT / PURE_NOVEL 등)</li>
+<li><strong>Reference peptide database cross-check</strong>: 6 source bidirectional substring matching against established cosmetic + bioactive peptide databases (agingbase, topicalpdb, biopep_uwm, satpdb, dbaasp, apd3 — 약 50,000+ entries 합산)</li>
+<li><strong>pataa BLAST</strong>: PAM30, word_size=2 (length ≥ 6 만, 3-5mer 는 short-peptide skip)</li>
+<li><strong>Classification</strong>: BLOCKED / CAUTION / CLEAR + pcpc_status (REGISTERED / PATENT_FULL_HIT / PURE_NOVEL 등)</li>
 </ul>
 <hr>
 <hr>
@@ -627,7 +616,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>전체 자연 펩타이드 풀</td>
-<td>**6,366** unique 3-10mer (Human DSP P15924)</td>
+<td><strong>6,366</strong> unique 3-10mer (Human DSP P15924)</td>
 </tr>
 <tr>
 <td>Raw substring (중복 포함)</td>
@@ -639,7 +628,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>Dual threshold 통과</td>
-<td>**6,366** (29.5% of unique)</td>
+<td><strong>6,366</strong> (29.5% of unique)</td>
 </tr>
 <tr>
 <td>Scoring scheme</td>
@@ -655,13 +644,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>최고 DEJ-ER</td>
-<td>**0.4487** (GSR, 3-mer, C-PRD GSR-rich tail @2828-2830)</td>
+<td><strong>0.4487</strong> (GSR, 3-mer, C-PRD GSR-rich tail @2828-2830)</td>
 </tr>
 </table>
-<div class="figure">
-<img src="data/fig4_kmer_length_distribution.png" alt="fig4_kmer_length_distribution.png" loading="lazy">
-<div class="figure-caption">**Figure 4** — Final pool 6,366 peptides 의 k-mer length 분포 (3-10mer). Length 별 균등 분포에 가깝지만 short range (3-5mer) 가 약간 더 많음.</div>
-</div>
+<blockquote><strong>Figure 4</strong> — Final pool 6,366 peptides 의 k-mer length 분포 (3-10mer). Length 별 균등 분포에 가깝지만 short range (3-5mer) 가 약간 더 많음. 첨부 파일 <code>fig4_kmer_length_distribution.png</code> 참조.</blockquote>
 <h3>3.2 Grade 분포 (DEJ_V8 final_grade)</h3>
 <table>
 <tr>
@@ -695,13 +681,13 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>87.54%</td>
 </tr>
 <tr>
-<td>**전체**</td>
+<td><strong>전체</strong></td>
 <td>(v9 Phase 0 자연 pool only)</td>
-<td>**6,366**</td>
+<td><strong>6,366</strong></td>
 <td>100%</td>
 </tr>
 </table>
-<blockquote>**해석**: v9 는 자연 추출의 score 상한 (~0.55) 을 받아들이는 전략. v8 합성 추출 대비 -0.12 median gap 은 자연 서열 공간의 합법적 penalty 이며, IP / provenance clarity / 합성 비용 절감으로 상쇄. **Grade 분포는 v9 Phase 0 의 자연 subset 만 반영** 하며, 전체 v8 + v9 DB pool 과는 독립적입니다.</blockquote>
+<blockquote><strong>해석</strong>: v9 는 자연 추출의 score 상한 (~0.55) 을 받아들이는 전략. v8 합성 추출 대비 -0.12 median gap 은 자연 서열 공간의 합법적 penalty 이며, IP / provenance clarity / 합성 비용 절감으로 상쇄. <strong>Grade 분포는 v9 Phase 0 의 자연 subset 만 반영</strong> 하며, 전체 v8 + v9 DB pool 과는 독립적입니다.</blockquote>
 <h3>3.3 도메인 분포</h3>
 <table>
 <tr>
@@ -712,7 +698,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <tr>
 <td>C-terminal PRD</td>
 <td>2,738 (43.0%)</td>
-<td>**59**</td>
+<td><strong>59</strong></td>
 </tr>
 <tr>
 <td>N-terminal plakin</td>
@@ -722,10 +708,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <tr>
 <td>Central rod</td>
 <td>991 (15.6%)</td>
-<td>38 (`coiled_coil_fragment`)</td>
+<td>38 (<code>coiled_coil_fragment</code>)</td>
 </tr>
 </table>
-<p>→ **Top 100 의 PRD 비중 (59%)** 은 keratin IF 결합 도메인 = 실제 기능 영역. wet-lab 후보로 의미.</p>
+<p>→ <strong>Top 100 의 PRD 비중 (59%)</strong> 은 keratin IF 결합 도메인 = 실제 기능 영역. wet-lab 후보로 의미.</p>
 <h3>3.4 FTO 분포 (Freedom-to-Operate)</h3>
 <table>
 <tr>
@@ -735,32 +721,29 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <th>분류</th>
 </tr>
 <tr>
-<td>**CLEAR**</td>
+<td><strong>CLEAR</strong></td>
 <td>3,282</td>
-<td>**51.6%**</td>
+<td><strong>51.6%</strong></td>
 <td>wet-lab handoff 가능</td>
 </tr>
 <tr>
-<td>**CAUTION**</td>
+<td><strong>CAUTION</strong></td>
 <td>1,363</td>
 <td>21.4%</td>
 <td>manual review 필요</td>
 </tr>
 <tr>
-<td>**BLOCKED**</td>
+<td><strong>BLOCKED</strong></td>
 <td>1,721</td>
-<td>**27.0%**</td>
+<td><strong>27.0%</strong></td>
 <td>wet-lab 제외</td>
 </tr>
 </table>
-<p>**BLOCKED 세부**: 1,719 PATENT_FULL_HIT (pataa 특허 DB 100% match) + 2 REGISTERED (cosmetic 등록 완료).</p>
-<div class="figure">
-<img src="data/fig5_fto_blind_spot.png" alt="fig5_fto_blind_spot.png" loading="lazy">
-<div class="figure-caption">**Figure 5** — FTO Type I Blind Spot. v9 의 BLAST 는 length ≥ 6 만 사용하고 3-5mer 은 skip → pool 의 46% (2,929/6,366), Top 100 의 24% 가 BLAST 불가 영역. reference peptide database 만으로 검증 가능한 short-peptide blind spot.</div>
-</div>
+<p><strong>BLOCKED 세부</strong>: 1,719 PATENT_FULL_HIT (pataa 특허 DB 100% match) + 2 REGISTERED (cosmetic 등록 완료).</p>
+<blockquote><strong>Figure 5</strong> — FTO Type I Blind Spot. v9 의 BLAST 는 length ≥ 6 만 사용하고 3-5mer 은 skip → pool 의 46% (2,929/6,366), Top 100 의 24% 가 BLAST 불가 영역. reference peptide database 만으로 검증 가능한 short-peptide blind spot. 첨부 파일 <code>fig5_fto_blind_spot.png</code> 참조.</blockquote>
 <h3>3.5 핵심 발견 — 자연 추출이 자동으로 IP-clean 하지 않음</h3>
-<blockquote>v9 pool 의 **27%** 가 BLOCKED [1]. 즉 DSP 같은 잘 연구된 단백질의 자연 short subsequence 의 1/4 이상은 이미 타 기업/연구소가 광범위 특허화. **"자연 추출 = novelty-safe" 라는 직관은 틀렸습니다.**</blockquote>
-<p>이는 후속 모든 natural extraction 연구의 workflow 에서 **FTO 분석을 extraction 과 병렬 실행**. (Katayama et al. 1993 의 procollagen pentapeptide [10] 같은 단순 motif 도 patent 화 되어 있는 사례 다수) 해야 함을 시사. 사후에 FTO 를 맞추려 하면 top candidates 의 1/4 이 떨어져 나갑니다.</p>
+<blockquote>v9 pool 의 <strong>27%</strong> 가 BLOCKED [1]. 즉 DSP 같은 잘 연구된 단백질의 자연 short subsequence 의 1/4 이상은 이미 타 기업/연구소가 광범위 특허화. <strong>"자연 추출 = novelty-safe" 라는 직관은 틀렸습니다.</strong></blockquote>
+<p>이는 후속 모든 natural extraction 연구의 workflow 에서 <strong>FTO 분석을 extraction 과 병렬 실행</strong>. (Katayama et al. 1993 의 procollagen pentapeptide [10] 같은 단순 motif 도 patent 화 되어 있는 사례 다수) 해야 함을 시사. 사후에 FTO 를 맞추려 하면 top candidates 의 1/4 이 떨어져 나갑니다.</p>
 <h3>3.6 Top 20 펩타이드 (DEJ-ER 순)</h3>
 <table>
 <tr>
@@ -995,7 +978,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>WARN</td>
 </tr>
 </table>
-<blockquote>**주의**: Top 20 의 38% 는 Central rod (`coiled_coil_fragment` tag). isolated 3-10mer 은 coiled-coil heptad repeat 가 깨져 fold 불가 — wet-lab priority 하향 권고. 또한 Top 1 GSR / Top 5 HPR (3-mer) 은 자유 펩타이드로 in vivo 반감기가 최악에 가까워 5-10mer context window 재탐색 권장.</blockquote>
+<blockquote><strong>주의</strong>: Top 20 의 38% 는 Central rod (<code>coiled_coil_fragment</code> tag). isolated 3-10mer 은 coiled-coil heptad repeat 가 깨져 fold 불가 — wet-lab priority 하향 권고. 또한 Top 1 GSR / Top 5 HPR (3-mer) 은 자유 펩타이드로 in vivo 반감기가 최악에 가까워 5-10mer context window 재탐색 권장.</blockquote>
 <h3>3.7 v8 와의 관계 — Substring Containment 23%</h3>
 <p>v9 Top 100 (DEJ-ER 기준) 을 v8 Top 100 (14-mer 주력) 과 비교:</p>
 <table>
@@ -1005,19 +988,19 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>Exact sequence equality (A ∩ B)</td>
-<td>**0** (길이 불균형으로 trivial)</td>
+<td><strong>0</strong> (길이 불균형으로 trivial)</td>
 </tr>
 <tr>
-<td>**Substring containment (A ⊂ B)**</td>
-<td>**23 / 100**</td>
+<td><strong>Substring containment (A ⊂ B)</strong></td>
+<td><strong>23 / 100</strong></td>
 </tr>
 <tr>
 <td>Substring containment (A ⊂ v8 3-10mer rescored)</td>
 <td>8 / 100</td>
 </tr>
 </table>
-<p>**예시**: `HPR` (v9 Top 5) ⊂ `KGHKHRGSHPRINT` (v8 14-mer), `GTRKREY` ⊂ `EGTRKREYKRGHKG`, `HRL` ⊂ `KGHKHRLRKKVTAM`</p>
-<p>→ v9 의 진짜 기여는 **"완전히 새 발견"** 이 아닌 **v8 의 14-mer 에 묻혀 있던 자연 short motif 의 분리/재평가** + **provenance 명확화** + **합성 비용 절감** + **FTO 별도 평가**.</p>
+<p><strong>예시</strong>: <code>HPR</code> (v9 Top 5) ⊂ <code>KGHKHRGSHPRINT</code> (v8 14-mer), <code>GTRKREY</code> ⊂ <code>EGTRKREYKRGHKG</code>, <code>HRL</code> ⊂ <code>KGHKHRLRKKVTAM</code></p>
+<p>→ v9 의 진짜 기여는 <strong>"완전히 새 발견"</strong> 이 아닌 <strong>v8 의 14-mer 에 묻혀 있던 자연 short motif 의 분리/재평가</strong> + <strong>provenance 명확화</strong> + <strong>합성 비용 절감</strong> + <strong>FTO 별도 평가</strong>.</p>
 <h3>3.8 통계적 검정 — Natural vs Synthetic Score Gap</h3>
 <table>
 <tr>
@@ -1042,10 +1025,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>Cliff's delta</td>
-<td>**-1.000** (모든 Set A < 모든 Set B)</td>
+<td><strong>-1.000</strong> (모든 Set A < 모든 Set B)</td>
 </tr>
 </table>
-<p>**해석**: 자연 추출의 score 상한 (~0.55) 은 합성 최적화 (BLOSUM62 mutation + cross-breed) 대비 통계적으로 매우 유의하게 낮음. Natural 후보는 IP / provenance / 합성 비용 우위로 상쇄되어야 의미 있음.</p>
+<p><strong>해석</strong>: 자연 추출의 score 상한 (~0.55) 은 합성 최적화 (BLOSUM62 mutation + cross-breed) 대비 통계적으로 매우 유의하게 낮음. Natural 후보는 IP / provenance / 합성 비용 우위로 상쇄되어야 의미 있음.</p>
 <hr>
 <h2>4. 선별 프로세스</h2>
 <h3>4.1 v9 4-Gate Selection</h3>
@@ -1063,7 +1046,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>Gate 1: rod 제외</td>
-<td>`domain_risk != coiled_coil_fragment`</td>
+<td><code>domain_risk != coiled_coil_fragment</code></td>
 <td>62</td>
 </tr>
 <tr>
@@ -1079,10 +1062,10 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <tr>
 <td>Gate 4: RK-fraction < 0.3</td>
 <td>scoring bias 회피</td>
-<td>**~20-25**</td>
+<td><strong>~20-25</strong></td>
 </tr>
 </table>
-<p>→ wet-lab-ready 후보 약 **20-25 개**</p>
+<p>→ wet-lab-ready 후보 약 <strong>20-25 개</strong></p>
 <h3>4.2 CSV variants 산출 (4종)</h3>
 <table>
 <tr>
@@ -1092,35 +1075,35 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <th>FTO 필터</th>
 </tr>
 <tr>
-<td>`v9_top100_with_fto_status_with_cys.csv`</td>
+<td><code>v9_top100_with_fto_status_with_cys.csv</code></td>
 <td>전체 Top 100, FTO column 표시</td>
 <td>✓</td>
 <td>none</td>
 </tr>
 <tr>
-<td>`v9_top100_with_fto_status_no_cys.csv`</td>
+<td><code>v9_top100_with_fto_status_no_cys.csv</code></td>
 <td>Cys 제외</td>
 <td>✗</td>
 <td>none</td>
 </tr>
 <tr>
-<td>`v9_top100_fto_cleared_with_cys.csv`</td>
+<td><code>v9_top100_fto_cleared_with_cys.csv</code></td>
 <td>FTO safe (BLOCKED + GHK + RGD 제거)</td>
 <td>✓</td>
 <td>applied</td>
 </tr>
 <tr>
-<td>**`v9_top100_fto_cleared_no_cys.csv`**</td>
-<td>**wet-lab-ready**</td>
+<td><strong><code>v9_top100_fto_cleared_no_cys.csv</code></strong></td>
+<td><strong>wet-lab-ready</strong></td>
 <td>✗</td>
-<td>**applied**</td>
+<td><strong>applied</strong></td>
 </tr>
 </table>
 <blockquote>4종 CSV 모두  본 문서 Appendix 의 CSV 첨부 참조.</blockquote>
 <hr>
 <h2>5. 핵심 발견 (Key Findings)</h2>
 <h3>5.1 Conservation map 재설계 (v9 exclusive contribution)</h3>
-<p>v1-v8 내내 사용되던 `기존 v4 conservation map` 이 naive `zip()` 계산으로 **max=0.5, mean=0.067** 의 비현실적 분포를 내는 버그 상태였습니다. v9 가 처음으로 발견 + BioPython PairwiseAligner + BLOSUM62 기반으로 재구축. Lizard regeneration 데이터 [4][16] 에서 DSP 보존성이 높음을 시사.. v10+ 도 이 map 을 그대로 계승.</p>
+<p>v1-v8 내내 사용되던 <code>기존 v4 conservation map</code> 이 naive <code>zip()</code> 계산으로 <strong>max=0.5, mean=0.067</strong> 의 비현실적 분포를 내는 버그 상태였습니다. v9 가 처음으로 발견 + BioPython PairwiseAligner + BLOSUM62 기반으로 재구축. Lizard regeneration 데이터 [4][16] 에서 DSP 보존성이 높음을 시사.. v10+ 도 이 map 을 그대로 계승.</p>
 <h3>5.2 DSP 자연 서열 motif facts</h3>
 <p>v9 작업 중 P15924 FASTA 의 motif 검증 결과 (FASTA grep):</p>
 <table>
@@ -1130,9 +1113,9 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <th>Position(s)</th>
 </tr>
 <tr>
-<td>**GHK**</td>
-<td>**0**</td>
-<td>**Not found** (DSP 에 없음)</td>
+<td><strong>GHK</strong></td>
+<td><strong>0</strong></td>
+<td><strong>Not found</strong> (DSP 에 없음)</td>
 </tr>
 <tr>
 <td>GHGIRL</td>
@@ -1155,9 +1138,9 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>2384-2386</td>
 </tr>
 </table>
-<p>**중요**: **GHK 는 DSP 에 존재하지 않습니다.** GHK-Cu 는 잘 알려진 항노화 펩타이드 [5] 이지만 DSP 자체에는 부재. v8 의 GHK-containing top 100 펩타이드는 모두 합성 (v7-phase3 cross-breed 산물). DSP 자연 서열에는 GHK 의 변형인 `GHGIRL` family @PRD 2362-2367 만 존재.</p>
+<p><strong>중요</strong>: <strong>GHK 는 DSP 에 존재하지 않습니다.</strong> GHK-Cu 는 잘 알려진 항노화 펩타이드 [5] 이지만 DSP 자체에는 부재. v8 의 GHK-containing top 100 펩타이드는 모두 합성 (v7-phase3 cross-breed 산물). DSP 자연 서열에는 GHK 의 변형인 <code>GHGIRL</code> family @PRD 2362-2367 만 존재.</p>
 <h3>5.3 DEJ_V8 scoring 의 RK-fraction bias</h3>
-<p>v9 pool 6,366 peptide 분석 결과 Pearson r (Arg+Lys fraction ↔ DEJ_V8) = **+0.866** (극도로 높은 상관). Component 별 분해:</p>
+<p>v9 pool 6,366 peptide 분석 결과 Pearson r (Arg+Lys fraction ↔ DEJ_V8) = <strong>+0.866</strong> (극도로 높은 상관). Component 별 분해:</p>
 <table>
 <tr>
 <th>Component</th>
@@ -1190,20 +1173,20 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>✅</td>
 </tr>
 <tr>
-<td>**DEJ_V8 total**</td>
-<td>**+0.866**</td>
+<td><strong>DEJ_V8 total</strong></td>
+<td><strong>+0.866</strong></td>
 <td>—</td>
 </tr>
 <tr>
-<td>**DEJ-ER triad**</td>
-<td>**+0.598**</td>
+<td><strong>DEJ-ER triad</strong></td>
+<td><strong>+0.598</strong></td>
 <td>—</td>
 </tr>
 </table>
-<p>→ DEJ-ER 사용 시 RK bias 가 **절반 이하** 로 감소. CPP 정의상 cationic 잔기를 보상하는 점 [6] 을 고려한 결과. CPP, WH 의 cationic 편향이 모두 DEJ-ER 에서 제외되기 때문. DEJ-ER 기준 Top 100 의 도메인 분포는 PRD 59 / Rod 38 / plakin 3 으로 PRD 가 dominant.</p>
+<p>→ DEJ-ER 사용 시 RK bias 가 <strong>절반 이하</strong> 로 감소. CPP 정의상 cationic 잔기를 보상하는 점 [6] 을 고려한 결과. CPP, WH 의 cationic 편향이 모두 DEJ-ER 에서 제외되기 때문. DEJ-ER 기준 Top 100 의 도메인 분포는 PRD 59 / Rod 38 / plakin 3 으로 PRD 가 dominant.</p>
 <h3>5.4 IP / FTO landscape — 자연 ≠ novelty-safe (Section 3.5 참조)</h3>
 <h3>5.5 Provenance discipline 효과</h3>
-<p>v9 는 `match_type="exact"`, `is_natural=True` 를 코드 레벨에서 강제 → 6,366 / 6,366 sequence 전수 통과. 이전 시리즈의 합성 chimera (multi-substitution + crossbreed 산물) 가 v9 pool 에 진입할 경로가 구조적으로 차단됨.</p>
+<p>v9 는 <code>match_type="exact"</code>, <code>is_natural=True</code> 를 코드 레벨에서 강제 → 6,366 / 6,366 sequence 전수 통과. 이전 시리즈의 합성 chimera (multi-substitution + crossbreed 산물) 가 v9 pool 에 진입할 경로가 구조적으로 차단됨.</p>
 <h3>5.6 v9 와 v8 의 substring containment 23% (§3.7 참조)</h3>
 <hr>
 <h2>6. 과학적 검토 요약</h2>
@@ -1220,7 +1203,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 </tr>
 <tr>
 <td>Coiled-coil heptad repeat fragment fold 불가</td>
-<td>Established biophysics (heptad `abcdefg` hydrophobic core 결합 원리)</td>
+<td>Established biophysics (heptad <code>abcdefg</code> hydrophobic core 결합 원리)</td>
 </tr>
 <tr>
 <td>DSP 가 epidermal sheet formation 에 essential</td>
@@ -1231,17 +1214,17 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Length 76.6% + InterPro feature 부재 + central rod conservation 0.388 outlier (3 independent signals)</td>
 </tr>
 <tr>
-<td>**DSP 는 BMZ/DEJ 직접 anchoring 분자 아님** (§1.3 disclaimer)</td>
+<td><strong>DSP 는 BMZ/DEJ 직접 anchoring 분자 아님</strong> (§1.3 disclaimer)</td>
 <td>Garrod & Chidgey 2008 (Biochim Biophys Acta) [1] — desmosome vs hemidesmosome 분류</td>
 </tr>
 <tr>
-<td>**DSP 에 GHK 직접 존재 ❌**</td>
-<td>P15924 FASTA 검증: GHK count = 0. 대신 `GHGIRL` family @PRD 2362-2367 만 존재</td>
+<td><strong>DSP 에 GHK 직접 존재 ❌</strong></td>
+<td>P15924 FASTA 검증: GHK count = 0. 대신 <code>GHGIRL</code> family @PRD 2362-2367 만 존재</td>
 </tr>
 </table>
 <h3>6.2 통계적 근거</h3>
 <ul>
-<li>v9 (자연 추출) vs v8 (합성 14-mer) score 분포 차이는 **Mann-Whitney U test**, **Cliff's δ**, **bootstrap 95% CI** 로 검증 (§3.8 참조)</li>
+<li>v9 (자연 추출) vs v8 (합성 14-mer) score 분포 차이는 <strong>Mann-Whitney U test</strong>, <strong>Cliff's δ</strong>, <strong>bootstrap 95% CI</strong> 로 검증 (§3.8 참조)</li>
 <li>DEJ_V8 의 RK-fraction bias 는 9 component 별 Pearson 상관으로 정량화 (§5.3 참조)</li>
 <li>Conservation map sanity 는 self-alignment + per-domain mean threshold 로 검증</li>
 </ul>
@@ -1282,42 +1265,42 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <th>상세</th>
 </tr>
 <tr>
-<td>**HIGH**</td>
-<td>**In vitro Type I procollagen ELISA [8]**</td>
+<td><strong>HIGH</strong></td>
+<td><strong>In vitro Type I procollagen ELISA [8]</strong></td>
 <td>wet-lab-ready ~20-25개 후보의 type I collagen 합성 촉진 활성 측정 (HaCaT/NHEK 세포주). DEJ-ER triad 의 collagen component (0.22) 직접 검증</td>
 </tr>
 <tr>
-<td>**HIGH**</td>
+<td><strong>HIGH</strong></td>
 <td>5-10mer context window 합성</td>
 <td>Top 1 GSR / Top 5 HPR 의 단독 3-mer 대신 5-10mer extended motif 합성 후 활성 + 안정성 비교</td>
 </tr>
 <tr>
-<td>**HIGH**</td>
+<td><strong>HIGH</strong></td>
 <td>MMP-1/3/9 zymography</td>
 <td>DEJ-ER triad 의 mmp_inhibition component (0.12) 직접 검증</td>
 </tr>
 <tr>
-<td>**MED**</td>
+<td><strong>MED</strong></td>
 <td>v9 vs v8 substring pair experiment</td>
 <td>HPR vs KGHKHRGSHPRINT 등 같은 motif 의 짧은/긴 형태 활성/안정성/penetration 비교</td>
 </tr>
 <tr>
-<td>**MED**</td>
+<td><strong>MED</strong></td>
 <td>HaCaT scratch assay</td>
 <td>wound_healing 활성 검증 (DEJ_V8 component 0.10) [7]</td>
 </tr>
 <tr>
-<td>**MED**</td>
+<td><strong>MED</strong></td>
 <td>DPPH/ABTS antioxidant</td>
 <td>항산화 활성 검증 (DEJ_V8 component 0.08)</td>
 </tr>
 <tr>
-<td>**LOW**</td>
+<td><strong>LOW</strong></td>
 <td>v10 synthetic mutation phase</td>
 <td>v9 CLEAR + non-rod + RK<0.3 ~20-25개를 seed 로 BLOSUM62 single/double substitution. RK hard cap + MC Dropout wire</td>
 </tr>
 </table>
-<blockquote>**DSP 직접 결합 assay (COL17A1/laminin) 는 권장하지 않습니다** — Section 1.3 disclaimer 참조. DSP 는 BMZ 직접 anchoring 분자가 아니므로 위 assays 는 negative control 로만 사용.</blockquote>
+<blockquote><strong>DSP 직접 결합 assay (COL17A1/laminin) 는 권장하지 않습니다</strong> — Section 1.3 disclaimer 참조. DSP 는 BMZ 직접 anchoring 분자가 아니므로 위 assays 는 negative control 로만 사용.</blockquote>
 <hr>
 <h2>8. 연구 시리즈 히스토리 (v8 → v9)</h2>
 <table>
@@ -1340,13 +1323,13 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Optimization 추구</td>
 </tr>
 <tr>
-<td>**v9**</td>
-<td>**2026-04**</td>
-<td>**Natural sliding window only (1-Phase)**</td>
-<td>**6,366**</td>
-<td>**0.5492 (QRRRAE)**</td>
-<td>**3-10mer**</td>
-<td>**Provenance + IP 우위 추구**</td>
+<td><strong>v9</strong></td>
+<td><strong>2026-04</strong></td>
+<td><strong>Natural sliding window only (1-Phase)</strong></td>
+<td><strong>6,366</strong></td>
+<td><strong>0.5492 (QRRRAE)</strong></td>
+<td><strong>3-10mer</strong></td>
+<td><strong>Provenance + IP 우위 추구</strong></td>
 </tr>
 <tr>
 <td>v10 (계획)</td>
@@ -1358,7 +1341,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Hybrid (자연 + 합성)</td>
 </tr>
 </table>
-<blockquote>v9 는 v8 의 후속이 아닌 **complementary 접근**. Section 3.7 의 substring containment 23% 가 두 접근의 자연스러운 보완 관계를 보여줍니다.</blockquote>
+<blockquote>v9 는 v8 의 후속이 아닌 <strong>complementary 접근</strong>. Section 3.7 의 substring containment 23% 가 두 접근의 자연스러운 보완 관계를 보여줍니다.</blockquote>
 <hr>
 <h2>참고문헌 (References)</h2>
 <p>본 보고서의 참고문헌은 표준화된 reference index 를 따릅니다.</p>
@@ -1378,7 +1361,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Desmosome structure, composition and function</td>
 <td>Biochim Biophys Acta</td>
 <td>2008</td>
-<td>[10.1016/j.bbamem.2007.07.014](https://doi.org/10.1016/j.bbamem.2007.07.014)</td>
+<td><a href="https://doi.org/10.1016/j.bbamem.2007.07.014">10.1016/j.bbamem.2007.07.014</a></td>
 <td>4.2</td>
 </tr>
 <tr>
@@ -1387,7 +1370,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Desmoplakin is essential in epidermal sheet formation</td>
 <td>Nat Cell Biol</td>
 <td>2001</td>
-<td>[10.1038/ncb1201-1076](https://doi.org/10.1038/ncb1201-1076)</td>
+<td><a href="https://doi.org/10.1038/ncb1201-1076">10.1038/ncb1201-1076</a></td>
 <td>21.3</td>
 </tr>
 <tr>
@@ -1396,7 +1379,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Oxidation events and skin aging</td>
 <td>Ageing Res Rev</td>
 <td>2015</td>
-<td>[10.1016/j.arr.2015.01.001](https://doi.org/10.1016/j.arr.2015.01.001)</td>
+<td><a href="https://doi.org/10.1016/j.arr.2015.01.001">10.1016/j.arr.2015.01.001</a></td>
 <td>12.5</td>
 </tr>
 <tr>
@@ -1405,7 +1388,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Transcriptomic analysis of tail regeneration in Anolis carolinensis</td>
 <td>PLoS ONE</td>
 <td>2014</td>
-<td>[10.1371/journal.pone.0105004](https://doi.org/10.1371/journal.pone.0105004)</td>
+<td><a href="https://doi.org/10.1371/journal.pone.0105004">10.1371/journal.pone.0105004</a></td>
 <td>3.7</td>
 </tr>
 <tr>
@@ -1414,7 +1397,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>GHK Peptide as a Natural Modulator of Multiple Cellular Pathways in Skin Regeneration</td>
 <td>Biomed Res Int</td>
 <td>2015</td>
-<td>[10.1155/2015/648108](https://doi.org/10.1155/2015/648108)</td>
+<td><a href="https://doi.org/10.1155/2015/648108">10.1155/2015/648108</a></td>
 <td>3.4</td>
 </tr>
 <tr>
@@ -1423,7 +1406,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Cell-penetrating peptides: from basic research to clinics</td>
 <td>Trends Pharmacol Sci</td>
 <td>2017</td>
-<td>[10.1016/j.tips.2017.01.003](https://doi.org/10.1016/j.tips.2017.01.003)</td>
+<td><a href="https://doi.org/10.1016/j.tips.2017.01.003">10.1016/j.tips.2017.01.003</a></td>
 <td>16.3</td>
 </tr>
 <tr>
@@ -1432,7 +1415,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Growth factors and cytokines in wound healing</td>
 <td>Wound Repair Regen</td>
 <td>2008</td>
-<td>[10.1111/j.1524-475X.2008.00410.x](https://doi.org/10.1111/j.1524-475X.2008.00410.x)</td>
+<td><a href="https://doi.org/10.1111/j.1524-475X.2008.00410.x">10.1111/j.1524-475X.2008.00410.x</a></td>
 <td>3.8</td>
 </tr>
 <tr>
@@ -1441,7 +1424,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Exosomes Ameliorate Skin Photoaging</td>
 <td>ACS Nano</td>
 <td>2019</td>
-<td>[10.1021/acsnano.9b04384](https://doi.org/10.1021/acsnano.9b04384)</td>
+<td><a href="https://doi.org/10.1021/acsnano.9b04384">10.1021/acsnano.9b04384</a></td>
 <td>18.0</td>
 </tr>
 <tr>
@@ -1450,7 +1433,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>The cathelicidin LL-37 in re-epithelialization of human skin wounds</td>
 <td>J Invest Dermatol</td>
 <td>2003</td>
-<td>[10.1046/j.1523-1747.2003.12069.x](https://doi.org/10.1046/j.1523-1747.2003.12069.x)</td>
+<td><a href="https://doi.org/10.1046/j.1523-1747.2003.12069.x">10.1046/j.1523-1747.2003.12069.x</a></td>
 <td>7.6</td>
 </tr>
 <tr>
@@ -1459,7 +1442,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>A pentapeptide from type I procollagen promotes ECM production</td>
 <td>J Biol Chem</td>
 <td>1993</td>
-<td>[10.1016/S0021-9258(18)82153-2](https://doi.org/10.1016/S0021-9258(18)82153-2)</td>
+<td><a href="https://doi.org/10.1016/S0021-9258(18">10.1016/S0021-9258(18)82153-2</a>82153-2)</td>
 <td>5.5</td>
 </tr>
 <tr>
@@ -1468,7 +1451,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Thymosin β4 accelerates wound healing</td>
 <td>J Invest Dermatol</td>
 <td>1999</td>
-<td>[10.1046/j.1523-1747.1999.00708.x](https://doi.org/10.1046/j.1523-1747.1999.00708.x)</td>
+<td><a href="https://doi.org/10.1046/j.1523-1747.1999.00708.x">10.1046/j.1523-1747.1999.00708.x</a></td>
 <td>7.6</td>
 </tr>
 <tr>
@@ -1477,7 +1460,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Hinged plakin domains provide specialized articulation</td>
 <td>PLoS ONE</td>
 <td>2013</td>
-<td>[10.1371/journal.pone.0069767](https://doi.org/10.1371/journal.pone.0069767)</td>
+<td><a href="https://doi.org/10.1371/journal.pone.0069767">10.1371/journal.pone.0069767</a></td>
 <td>3.7</td>
 </tr>
 <tr>
@@ -1486,7 +1469,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>DEJ flattening in photoaged skin</td>
 <td>Exp Dermatol</td>
 <td>2006</td>
-<td>[10.1111/j.1600-0625.2006.00474.x](https://doi.org/10.1111/j.1600-0625.2006.00474.x)</td>
+<td><a href="https://doi.org/10.1111/j.1600-0625.2006.00474.x">10.1111/j.1600-0625.2006.00474.x</a></td>
 <td>3.8</td>
 </tr>
 <tr>
@@ -1495,7 +1478,7 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <td>Nestin in regenerating lizard tail</td>
 <td>Tiss Cell</td>
 <td>2015</td>
-<td>[10.1016/j.tice.2015.01.001](https://doi.org/10.1016/j.tice.2015.01.001)</td>
+<td><a href="https://doi.org/10.1016/j.tice.2015.01.001">10.1016/j.tice.2015.01.001</a></td>
 <td>2.1</td>
 </tr>
 </table>
@@ -1509,29 +1492,29 @@ Wet-lab 설계 시 COL17A1 / laminin-332 직접 결합 assay 가 아닌 (a) Type
 <th>형식</th>
 </tr>
 <tr>
-<td>`v9_top100_with_fto_status_with_cys.csv`</td>
+<td><code>v9_top100_with_fto_status_with_cys.csv</code></td>
 <td>전체 Top 100, Cysteine 포함, FTO 정보 컬럼 포함</td>
 <td>CSV (37 columns)</td>
 </tr>
 <tr>
-<td>`v9_top100_with_fto_status_no_cys.csv`</td>
+<td><code>v9_top100_with_fto_status_no_cys.csv</code></td>
 <td>Cysteine 제외 + FTO 정보 컬럼</td>
 <td>CSV</td>
 </tr>
 <tr>
-<td>`v9_top100_fto_cleared_with_cys.csv`</td>
+<td><code>v9_top100_fto_cleared_with_cys.csv</code></td>
 <td>FTO Safe (BLOCKED + GHK + RGD 제거), Cys 포함</td>
 <td>CSV</td>
 </tr>
 <tr>
-<td>`v9_top100_fto_cleared_no_cys.csv`</td>
-<td>**wet-lab-ready** (FTO Safe + Cysteine 제외)</td>
+<td><code>v9_top100_fto_cleared_no_cys.csv</code></td>
+<td><strong>wet-lab-ready</strong> (FTO Safe + Cysteine 제외)</td>
 <td>CSV</td>
 </tr>
 </table>
-<blockquote>**CSV 컬럼 (37개)**: Rank, Sequence, Length, Source_Protein, Scoring_Scheme, Score, DEJ_ER_Score, Raw_Grade, Final_Grade, Viability, FTO_Status, FTO_Reason, PCPC_Status, PCPC_Detail, BLAST_Status, Internal_DB_Hits, Origin_Domain, Origin_Subdomain, Origin_Position, Domain_Risk, Match_Length, Match_Type, Generation_Phase, Generation_Method, Is_Natural, Cross_Species, Avg_Conservation, Min_Conservation, Collagen, DSP, MMP, AI, WH, AOX, CPP, Stab, Skin</blockquote>
+<blockquote><strong>CSV 컬럼 (37개)</strong>: Rank, Sequence, Length, Source_Protein, Scoring_Scheme, Score, DEJ_ER_Score, Raw_Grade, Final_Grade, Viability, FTO_Status, FTO_Reason, PCPC_Status, PCPC_Detail, BLAST_Status, Internal_DB_Hits, Origin_Domain, Origin_Subdomain, Origin_Position, Domain_Risk, Match_Length, Match_Type, Generation_Phase, Generation_Method, Is_Natural, Cross_Species, Avg_Conservation, Min_Conservation, Collagen, DSP, MMP, AI, WH, AOX, CPP, Stab, Skin</blockquote>
 <hr>
-<p>*v9 외부 보고서 v1.0* *작성일: 2026-04-07*</p>
+<p><em>v9 외부 보고서 v1.0</em> <em>작성일: 2026-04-07</em></p>
 <div class="footer">
 AI-ZPT Peptide Research | Confidential — 본 문서는 외부 공유용 연구 보고서입니다.
 </div>

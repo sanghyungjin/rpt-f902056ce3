@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>v9 CSV 데이터 가이드</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f7fa;
+    color: #222;
+    line-height: 1.75;
+}
+
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 30px 40px 60px;
+    background: #fff;
+    min-height: 100vh;
+    box-shadow: 0 0 40px rgba(0,0,0,0.06);
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1B4F72;
+    border-bottom: 3px solid #1B4F72;
+    padding-bottom: 10px;
+    margin: 30px 0 8px;
+}
+h2 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #1B4F72;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 6px;
+    margin: 28px 0 12px;
+}
+h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #2C3E50;
+    margin: 22px 0 8px;
+}
+h4 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #34495E;
+    margin: 18px 0 6px;
+}
+
+p { margin: 8px 0; font-size: 14px; }
+ul, ol { margin: 6px 0 6px 24px; font-size: 14px; }
+li { margin: 3px 0; }
+hr { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
+
+/* Tooltips */
+.ztip {
+    position: relative;
+    border-bottom: 1px dotted #1B4F72;
+    cursor: help;
+    color: #1B4F72;
+    font-weight: 500;
+}
+.ztip:hover::after {
+    content: attr(data-t);
+    position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+    background: #1a1a2e; color: #fff; padding: 8px 12px; border-radius: 8px;
+    font-size: 12px; line-height: 1.5; white-space: normal; width: max-content;
+    max-width: 380px; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,.25);
+    pointer-events: none; font-weight: 400;
+}
+.ztip:hover::before {
+    content: ''; position: absolute; bottom: 110%; left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent; border-top-color: #1a1a2e;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 12px 0;
+}
+th {
+    background: #1B4F72;
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 10px;
+    text-align: left;
+    font-size: 12px;
+}
+td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #e8e8e8;
+}
+tr:hover td { background: rgba(0,0,0,0.02); }
+
+/* Domain-colored tables */
+.rt { width: 100%; border-collapse: collapse; font-size: 13px; line-height: 1.6; }
+.rt th { padding: 6px 8px; text-align: left; }
+.rt td { padding: 5px 8px; border-bottom: 1px solid #eee; }
+.rt .r { text-align: right; }
+.rt .c { text-align: center; }
+.rt .b { font-weight: 700; }
+.bg-prda { background: #E8F8F0; }
+.bg-prdb { background: #E0F2F1; }
+.bg-prdc { background: #E3F2FD; }
+.bg-nterm { background: #FFF8E1; }
+.bg-denovo { background: #FFF3E0; }
+.bg-ll37 { background: #F3E5F5; }
+.bg-hdr { background: #1B4F72; color: #fff; font-weight: 600; }
+.domain-legend span {
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    font-size: 12px;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+/* Blockquotes */
+blockquote {
+    border-left: 4px solid #1B4F72;
+    background: #f8f9fb;
+    padding: 10px 18px;
+    margin: 12px 0;
+    font-size: 13px;
+    border-radius: 0 6px 6px 0;
+}
+blockquote p { margin: 4px 0; }
+
+/* Code blocks */
+code {
+    background: #f0f2f5;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'SF Mono', Consolas, monospace;
+}
+pre {
+    background: #f0f2f5;
+    padding: 14px 18px;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 10px 0;
+}
+pre code { background: none; padding: 0; }
+
+/* Header bar */
+.header-bar {
+    background: linear-gradient(135deg, #1B4F72 0%, #2980B9 100%);
+    color: #fff;
+    padding: 24px 40px;
+    margin: -30px -40px 30px;
+    border-radius: 0;
+}
+.header-bar h1 {
+    color: #fff;
+    border: none;
+    margin: 0;
+    font-size: 22px;
+    padding: 0;
+}
+.header-bar .subtitle {
+    font-size: 14px;
+    opacity: 0.85;
+    margin-top: 4px;
+    font-weight: 300;
+}
+.header-bar .meta {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 8px;
+}
+
+/* Footer */
+.footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+    font-size: 11px;
+    color: #999;
+    text-align: center;
+}
+
+/* Nav bar */
+.nav {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+    margin: 0 -40px;
+    padding-left: 40px;
+    z-index: 100;
+    font-size: 13px;
+}
+.nav a {
+    color: #1B4F72;
+    text-decoration: none;
+    margin-right: 20px;
+    font-weight: 500;
+}
+.nav a:hover { text-decoration: underline; }
+.nav .active { border-bottom: 2px solid #1B4F72; padding-bottom: 4px; }
+
+/* Figures */
+.figure {
+    margin: 16px 0;
+    text-align: center;
+}
+.figure img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.figure-caption {
+    font-size: 12px;
+    color: #555;
+    margin-top: 8px;
+    line-height: 1.5;
+    text-align: left;
+    padding: 0 20px;
+}
+
+/* Print */
+@media print {
+    body { background: #fff; }
+    .container { box-shadow: none; padding: 10px; }
+    .header-bar { margin: 0; border-radius: 0; }
+    .nav { display: none; }
+    table { page-break-inside: avoid; }
+    h2, h3 { page-break-after: avoid; }
+    .figure { page-break-inside: avoid; }
+}
+
+@media (max-width: 768px) {
+    .container { padding: 15px 20px; }
+    .header-bar { padding: 16px 20px; margin: -15px -20px 20px; }
+    .nav { margin: 0 -20px; padding-left: 20px; }
+    table { font-size: 11px; }
+    .rt td, .rt th { padding: 3px 5px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header-bar">
+<h1>v9 CSV 데이터 가이드</h1>
+<div class="subtitle">37 columns 상세 설명 + 4 CSV variant 다운로드</div>
+<div class="meta">작성일: 2026-04-07 | 연구 단계: v9 Phase 0 | AI-ZPT</div>
+</div>
+<nav class="nav">
+<a href="report_v9.html" >연구 보고서 v9</a>
+<a href="feedback_v9.html" >피드백 요청서 v9</a>
+<a href="fto_v9.html" >FTO 분석 보고서</a>
+<a href="data_guide_v9.html" class="active">CSV 데이터 가이드</a>
+</nav>
+<p><strong>파일</strong>: 4 종 v9 Top 100 CSV variant<br><strong>컬럼 수</strong>: <strong>37</strong> (v8 base 32 + v9 신규 5)<br><strong>작성일</strong>: 2026-04-07</p>
+<hr>
+<h2>Score Disclaimer</h2>
+<blockquote>본 데이터의 모든 score 는 <strong>in silico 예측 결과</strong> 이며, 실험 검증 (in vitro/in vivo) 전까지 참고용입니다. 본 가이드는 column 의 의미만 설명하며, 데이터 해석은 동봉된 <a href="report_v9.html">v9 연구 보고서</a> 와 <a href="fto_v9.html">FTO 분석</a> 을 함께 참조하십시오.</blockquote>
+<hr>
+<h2>1. CSV 4 종 파일 설명</h2>
+<table>
+<tr>
+<th>파일명</th>
+<th>용도</th>
+<th>Cysteine</th>
+<th>FTO 필터</th>
+</tr>
+<tr>
+<td>📥 <a href="data/v9_top100_with_fto_status_with_cys.csv">v9_top100_with_fto_status_with_cys.csv</a></td>
+<td>전체 Top 100 + FTO column 표시</td>
+<td>포함</td>
+<td>none</td>
+</tr>
+<tr>
+<td>📥 <a href="data/v9_top100_with_fto_status_no_cys.csv">v9_top100_with_fto_status_no_cys.csv</a></td>
+<td>Cys 제외 + FTO column 표시</td>
+<td>제외</td>
+<td>none</td>
+</tr>
+<tr>
+<td>📥 <a href="data/v9_top100_fto_cleared_with_cys.csv">v9_top100_fto_cleared_with_cys.csv</a></td>
+<td>FTO safe (BLOCKED + GHK + RGD 제거)</td>
+<td>포함</td>
+<td>applied</td>
+</tr>
+<tr>
+<td>📥 <a href="data/v9_top100_fto_cleared_no_cys.csv">v9_top100_fto_cleared_no_cys.csv</a></td>
+<td><strong>wet-lab-ready</strong> (FTO safe + Cys 제외)</td>
+<td>제외</td>
+<td>applied</td>
+</tr>
+</table>
+<blockquote><strong>v9 참고</strong>: Top 100 (DEJ-ER 순) 에는 cysteine 함유 펩타이드가 0 개입니다. 따라서 v9 의 경우 <code>with_cys</code> 와 <code>no_cys</code> 파일은 동일 내용입니다 (schema compatibility 차원의 redundancy). Cysteine 은 disulfide bond 형성으로 합성 / 안정성 이슈가 있어 화장품 활성 펩타이드 개발에서 일반적으로 제외하는 경우가 있습니다.</blockquote>
+<hr>
+<h2>2. 컬럼 그룹 개요</h2>
+<table>
+<tr>
+<th>그룹</th>
+<th>컬럼</th>
+<th>컬럼 #</th>
+</tr>
+<tr>
+<td>기본 정보</td>
+<td>Rank, Sequence, Length, Source_Protein, Scoring_Scheme, Score, DEJ_ER_Score</td>
+<td>1-7</td>
+</tr>
+<tr>
+<td>Grade 2-step system</td>
+<td>Raw_Grade, Final_Grade, Viability</td>
+<td>8-10</td>
+</tr>
+<tr>
+<td>FTO 분석</td>
+<td>FTO_Status, FTO_Reason, PCPC_Status, PCPC_Detail, BLAST_Status, Internal_DB_Hits</td>
+<td>11-16</td>
+</tr>
+<tr>
+<td>Provenance (위치 → 도메인)</td>
+<td>Origin_Position, Origin_Domain, Origin_Subdomain, Domain_Risk</td>
+<td>17-20</td>
+</tr>
+<tr>
+<td>Match metadata</td>
+<td>Match_Length, Match_Type, Generation_Phase, Generation_Method, Is_Natural, Cross_Species</td>
+<td>21-26</td>
+</tr>
+<tr>
+<td>Conservation</td>
+<td>Avg_Conservation, Min_Conservation</td>
+<td>27-28</td>
+</tr>
+<tr>
+<td>Component scores</td>
+<td>Collagen, DSP, MMP, AI, WH, AOX, CPP, Stab, Skin</td>
+<td>29-37</td>
+</tr>
+</table>
+<hr>
+<h2>3. 기본 정보 (컬럼 1-7)</h2>
+<table>
+<tr>
+<th>#</th>
+<th>컬럼명</th>
+<th>타입</th>
+<th>설명</th>
+<th>가능한 값 / 예시</th>
+</tr>
+<tr>
+<td>1</td>
+<td><code>Rank</code></td>
+<td>int</td>
+<td>DEJ-ER score 기준 순위 (각 CSV 내에서 1부터 100까지 순차)</td>
+<td>1, 2, 3, ..., 100</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>Sequence</code></td>
+<td>str</td>
+<td>아미노산 서열 (single-letter code, 대문자)</td>
+<td><code>GSR</code>, <code>LRKRRVVIVD</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>Length</code></td>
+<td>int</td>
+<td>아미노산 서열 길이</td>
+<td>3-10 (v9 자연 추출 범위)</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>Source_Protein</code></td>
+<td>str</td>
+<td>추출 source 단백질 UniProt ID <strong>(v9 신규)</strong></td>
+<td><code>P15924</code> (Human DSP, v9 는 단일 source)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>Scoring_Scheme</code></td>
+<td>str</td>
+<td>사용된 scoring 체계</td>
+<td><code>DEJ_V8</code> (v9 는 v8 의 9-component scheme 계승)</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>Score</code></td>
+<td>float</td>
+<td>DEJ_V8 종합 score (9 component 가중합, 0-1 범위)</td>
+<td>0.5234, 0.4646</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>DEJ_ER_Score</code></td>
+<td>float</td>
+<td><strong>DEJ-ER triad meta score (v9 신규, primary ranking 지표)</strong> — <code>(0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52</code></td>
+<td>0.4487, 0.4457</td>
+</tr>
+</table>
+<blockquote><strong>DEJ-ER 도입 이유</strong>: DEJ_V8 종합 score 는 RK-rich 서열에 과도하게 반응하는 bias 가 있습니다 (Pearson r = 0.866). DEJ-ER triad 는 회복과 직접 연관된 collagen + dsp + mmp 3 차원만으로 wet-lab 우선순위를 재계산하여 RK bias 를 절반 (r = 0.598) 까지 완화합니다.</blockquote>
+<hr>
+<h2>4. Grade 2-Step System (컬럼 8-10)</h2>
+<table>
+<tr>
+<th>#</th>
+<th>컬럼명</th>
+<th>타입</th>
+<th>설명</th>
+<th>가능한 값</th>
+</tr>
+<tr>
+<td>8</td>
+<td><code>Raw_Grade</code></td>
+<td>str</td>
+<td>1단계 — DEJ_V8 score 기반 raw grade 분류</td>
+<td>A (≥0.85), B (≥0.65), C (≥0.55), F (<0.55). v9 는 NULL (final 만 저장)</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>Final_Grade</code></td>
+<td>str</td>
+<td>2단계 — protease viability gate 적용 후 최종 grade</td>
+<td>A, B, C, F</td>
+</tr>
+<tr>
+<td>10</td>
+<td><code>Viability</code></td>
+<td>str</td>
+<td>Protease viability 판정 결과</td>
+<td><code>PASS</code> (Raw=Final), <code>DEMOTED</code> (Raw≠Final, 1 rank 강등)</td>
+</tr>
+</table>
+<blockquote><strong>Grade 2 단계 체계</strong>:<br>
+<br>
+1. <strong>1단계 (raw)</strong>: <code>classify_dej_v8_grade(score)</code> — score threshold 만 사용 → A/B/C/F<br>
+2. <strong>2단계 (final)</strong>: protease viability gate 평가 — internal trypsin/chymotrypsin cleavage site 가 있으면 1 rank 강등 (A→B, B→C, C→F). WARN 은 강등 없음 (경고만).<br>
+<br>
+v9 pool 의 protease gate FAIL 999개 중 590개가 raw≠final 실질 demote (B→C 82개, C→F 508개).</blockquote>
+<hr>
+<h2>5. FTO (Freedom to Operate) 분석 (컬럼 11-16)</h2>
+<table>
+<tr>
+<th>#</th>
+<th>컬럼명</th>
+<th>타입</th>
+<th>설명</th>
+<th>가능한 값</th>
+</tr>
+<tr>
+<td>11</td>
+<td><code>FTO_Status</code></td>
+<td>str</td>
+<td>외부 + 내부 DB 종합 FTO 상태</td>
+<td><code>BLOCKED</code> (사용 권장 안 함), <code>CAUTION</code> (manual review), <code>CLEAR</code> (사용 가능)</td>
+</tr>
+<tr>
+<td>12</td>
+<td><code>FTO_Reason</code></td>
+<td>str</td>
+<td>FTO 판정 사유 (사람이 읽을 수 있는 설명)</td>
+<td>"BLASTp pataa full-length 100% identity match (patent)", "Match in bioactive peptide DB (non-cosmetic)" 등</td>
+</tr>
+<tr>
+<td>13</td>
+<td><code>PCPC_Status</code></td>
+<td>str</td>
+<td>내부 cosmetic / bioactive DB 등록 상태</td>
+<td><code>KNOWN_BIOACTIVE</code>, <code>PATENT_FULL_HIT</code>, <code>REGISTERED</code>, <code>NOVEL_WITH_KNOWN_MOTIF</code>, <code>PURE_NOVEL</code></td>
+</tr>
+<tr>
+<td>14</td>
+<td><code>PCPC_Detail</code></td>
+<td>str</td>
+<td>PCPC 분류 상세 설명</td>
+<td>"Found in bioactive peptide database (biopep/satpdb/dbaasp/apd3). Not cosmetic-registered, but known biological activity — review."</td>
+</tr>
+<tr>
+<td>15</td>
+<td><code>BLAST_Status</code></td>
+<td>str</td>
+<td>NCBI BLASTp <code>pataa</code> 결과 sub-classification</td>
+<td><code>patent_full_hit</code>, <code>patent_partial_only</code>, <code>not_applicable_short_peptide</code> (length < 6)</td>
+</tr>
+<tr>
+<td>16</td>
+<td><code>Internal_DB_Hits</code></td>
+<td>str</td>
+<td>내부 DB hit 출처 (50,588 reference peptides)</td>
+<td>"agingbase", "topicalpdb", "biopep_uwm", "satpdb", "dbaasp", "apd3", "none"</td>
+</tr>
+</table>
+<blockquote><strong>Type I FTO Blind Spot</strong>: NCBI BLASTp <code>pataa</code> 는 length ≥ 6 query 만 의미 있는 결과를 반환합니다. v9 pool 의 46% (2,929/6,366) 와 Top 100 의 24% (24/100) 가 length 3-5 이므로 외부 특허 검사가 적용되지 않습니다. 짧은 peptide 의 CLEAR 분류는 "내부 DB 에 없음" 만 보장하며, 외부 특허 등록 여부는 별도 patent search 가 필요합니다. 자세한 내용은 <a href="fto_v9.html">FTO 분석 §5</a> 참조.</blockquote>
+<hr>
+<h2>6. Provenance — 위치 → 도메인 (컬럼 17-20)</h2>
+<blockquote><strong>컬럼 순서 주의</strong>: v9 부터 <code>Origin_Position</code> 이 <code>Origin_Domain</code> 보다 앞에 위치합니다. 독자가 "어디에 있는지 (position)" 를 먼저 보고 "어느 도메인인지 (domain)" 를 확인하는 자연스러운 흐름을 위함입니다 (사용자 피드백 2026-04-07 반영).</blockquote>
+<table>
+<tr>
+<th>#</th>
+<th>컬럼명</th>
+<th>타입</th>
+<th>설명</th>
+<th>가능한 값</th>
+</tr>
+<tr>
+<td>17</td>
+<td><code>Origin_Position</code></td>
+<td>str</td>
+<td>Human DSP P15924 내 1-based position range</td>
+<td>"2828-2830" (3-mer GSR @ C-terminal PRD GSR tail), "1182-1189" (8-mer GTRKREYE @ Central rod)</td>
+</tr>
+<tr>
+<td>18</td>
+<td><code>Origin_Domain</code></td>
+<td>str</td>
+<td>DSP 의 3 개 주요 도메인</td>
+<td><code>N-terminal plakin</code>, <code>Central rod</code>, <code>C-terminal PRD</code></td>
+</tr>
+<tr>
+<td>19</td>
+<td><code>Origin_Subdomain</code></td>
+<td>str</td>
+<td>DSP 의 12 개 sub-domain (도메인 내 세부 구역)</td>
+<td>아래 표 참조</td>
+</tr>
+<tr>
+<td>20</td>
+<td><code>Domain_Risk</code></td>
+<td>str</td>
+<td><strong>(v9 신규)</strong> 도메인 기반 wet-lab risk flag</td>
+<td><code>coiled_coil_fragment</code> (Central rod 유래로 dimeric coiled-coil 의 일부 단편 — folding 어려울 수 있음), 빈 문자열 (risk 없음)</td>
+</tr>
+</table>
+<h3>6.1 Origin_Domain 의 3 가지 값과 v9 pool 분포</h3>
+<table>
+<tr>
+<th>값</th>
+<th>aa range</th>
+<th>구조</th>
+<th>기능</th>
+<th>v9 pool count</th>
+</tr>
+<tr>
+<td><code>N-terminal plakin</code></td>
+<td>1-1056</td>
+<td>Spectrin repeats + SH3</td>
+<td>Plakoglobin / Plakophilin 결합</td>
+<td>2,637 (41.4%)</td>
+</tr>
+<tr>
+<td><code>Central rod</code></td>
+<td>1057-1756</td>
+<td>Parallel dimeric coiled-coil</td>
+<td>DSP homodimer 형성</td>
+<td>991 (15.6%)</td>
+</tr>
+<tr>
+<td><code>C-terminal PRD</code></td>
+<td>1757-2871</td>
+<td>Plakin Repeat Domain A/B/C</td>
+<td>Keratin IF 결합 site</td>
+<td>2,738 (43.0%)</td>
+</tr>
+</table>
+<h3>6.2 Origin_Subdomain 의 12 가지 값과 v9 pool 분포</h3>
+<table>
+<tr>
+<th>Subdomain</th>
+<th>Parent Domain</th>
+<th>aa range</th>
+<th>v9 pool count</th>
+</tr>
+<tr>
+<td><code>Spectrin repeat 1</code></td>
+<td>N-terminal plakin</td>
+<td>180-280</td>
+<td>161</td>
+</tr>
+<tr>
+<td><code>SH3 domain</code></td>
+<td>N-terminal plakin</td>
+<td>595-653</td>
+<td>117</td>
+</tr>
+<tr>
+<td><code>Spectrin repeat 2-4</code></td>
+<td>N-terminal plakin</td>
+<td>654-1056</td>
+<td>451</td>
+</tr>
+<tr>
+<td><code>Coiled-coil segment 1</code></td>
+<td>Central rod</td>
+<td>1057-1350</td>
+<td>484</td>
+</tr>
+<tr>
+<td><code>Coiled-coil segment 2</code></td>
+<td>Central rod</td>
+<td>1351-1756</td>
+<td>507</td>
+</tr>
+<tr>
+<td><code>PRD-A</code></td>
+<td>C-terminal PRD</td>
+<td>1960-2196</td>
+<td>299</td>
+</tr>
+<tr>
+<td><code>Linker A-B</code></td>
+<td>C-terminal PRD</td>
+<td>2197-2207</td>
+<td>40</td>
+</tr>
+<tr>
+<td><code>PRD-B</code></td>
+<td>C-terminal PRD</td>
+<td>2208-2454</td>
+<td>999</td>
+</tr>
+<tr>
+<td><code>Linker B-C</code></td>
+<td>C-terminal PRD</td>
+<td>2455-2470</td>
+<td>87</td>
+</tr>
+<tr>
+<td><code>PRD-C</code></td>
+<td>C-terminal PRD</td>
+<td>2471-2822</td>
+<td>966</td>
+</tr>
+<tr>
+<td><code>GSR tail</code></td>
+<td>C-terminal PRD</td>
+<td>2823-2871</td>
+<td>86</td>
+</tr>
+<tr>
+<td><code>inter-domain</code></td>
+<td>(named subdomain 사이의 영역)</td>
+<td>다양</td>
+<td>2,169</td>
+</tr>
+</table>
+<blockquote><strong>inter-domain 설명</strong>: DSP 의 도메인 구조에서 명명된 subdomain 사이의 영역 (예: SH3 domain 과 Spectrin repeat 2-4 사이의 spacer 등) 에서 추출된 펩타이드입니다. 도메인 자체의 fold 와는 구별되지만 sequence-level conservation 은 평가됩니다.</blockquote>
+<h3>6.3 Domain_Risk 값 (v9 신규)</h3>
+<table>
+<tr>
+<th>값</th>
+<th>의미</th>
+<th>v9 pool count</th>
+<th>권고</th>
+</tr>
+<tr>
+<td>(빈 문자열)</td>
+<td>risk flag 없음</td>
+<td>5,374 (84.4%)</td>
+<td>일반 후보</td>
+</tr>
+<tr>
+<td><code>coiled_coil_fragment</code></td>
+<td>Central rod 의 dimeric coiled-coil 단편</td>
+<td>992 (15.6%)</td>
+<td>wet-lab 합성 시 단편이 fold 를 형성하지 못할 가능성. Top 100 의 일부 후보가 이 risk flag 를 가지며, score ranking 만으로 선정하지 말고 caveat 검토 권장</td>
+</tr>
+</table>
+<hr>
+<h2>7. Match Metadata (컬럼 21-26)</h2>
+<table>
+<tr>
+<th>#</th>
+<th>컬럼명</th>
+<th>타입</th>
+<th>설명</th>
+<th>가능한 값</th>
+</tr>
+<tr>
+<td>21</td>
+<td><code>Match_Length</code></td>
+<td>int</td>
+<td>DSP 원본 서열과의 매칭 길이 (= Length 와 동일, v9 는 모두 exact match)</td>
+<td>3-10</td>
+</tr>
+<tr>
+<td>22</td>
+<td><code>Match_Type</code></td>
+<td>str</td>
+<td>DSP 매칭 유형</td>
+<td><code>exact</code> (v9 는 자연 sliding window 만 사용하므로 모두 exact)</td>
+</tr>
+<tr>
+<td>23</td>
+<td><code>Generation_Phase</code></td>
+<td>str</td>
+<td>이 서열이 생성된 연구 Phase</td>
+<td><code>v9-phase0</code></td>
+</tr>
+<tr>
+<td>24</td>
+<td><code>Generation_Method</code></td>
+<td>str</td>
+<td>서열 생성 방법</td>
+<td><code>natural_sliding_window</code> (v9 는 mutation / cross-breed 일체 없음)</td>
+</tr>
+<tr>
+<td>25</td>
+<td><code>Is_Natural</code></td>
+<td>bool</td>
+<td>DSP 단백질에 자연적으로 존재하는 서열인지 여부</td>
+<td><code>True</code> (v9 는 모두 True)</td>
+</tr>
+<tr>
+<td>26</td>
+<td><code>Cross_Species</code></td>
+<td>str/int</td>
+<td>교차 종 수 (서열 추출에 관여한 종의 수)</td>
+<td>빈 문자열 또는 정수. v9 는 Human DSP 단일 source 이므로 일반적으로 빈 값</td>
+</tr>
+</table>
+<blockquote><strong>v9 의 hard rule</strong>: <code>Source_Protein = P15924</code> AND <code>Length ∈ [3, 10]</code> AND <code>Generation_Method = natural_sliding_window</code> AND <code>Is_Natural = True</code> AND <code>Match_Type = exact</code>. 이 5 개 조건이 모든 v9 row 에 대해 강제됩니다 (v8 cross-breed 후보의 모호함을 원천 차단).</blockquote>
+<hr>
+<h2>8. Conservation (컬럼 27-28)</h2>
+<table>
+<tr>
+<th>#</th>
+<th>컬럼명</th>
+<th>타입</th>
+<th>설명</th>
+<th>가능한 값</th>
+</tr>
+<tr>
+<td>27</td>
+<td><code>Avg_Conservation</code></td>
+<td>float</td>
+<td>window 내 평균 per-residue conservation (Human DSP 와 2 lizard query 의 alignment-based score)</td>
+<td>0.0-1.0. v9 dual threshold filter (avg ≥ 0.9) 통과</td>
+</tr>
+<tr>
+<td>28</td>
+<td><code>Min_Conservation</code></td>
+<td>float</td>
+<td><strong>(v9 신규)</strong> window 내 최소 per-residue conservation (가장 보존도가 낮은 한 residue)</td>
+<td>0.0-1.0. v9 dual threshold filter (min ≥ 0.5) 통과</td>
+</tr>
+</table>
+<blockquote><strong>Dual conservation threshold (avg ≥ 0.9 AND min ≥ 0.5)</strong>: single threshold (avg only) 로는 "평균은 높지만 특정 position 이 완전 unconserved" 인 peptide 가 통과하는 false-positive 문제가 발생합니다. v9 는 두 조건을 동시에 요구하여 entire window 의 conservation quality 를 보장합니다.<br>
+<br>
+Conservation map 자체는 BioPython <code>PairwiseAligner</code> (global mode, BLOSUM62, open_gap=−10, extend_gap=−0.5) 로 재구축되었습니다. 이전 시리즈의 naive position-wise <code>zip()</code> 방식 (frame shift artifact 발생) 을 폐기한 결과입니다.</blockquote>
+<hr>
+<h2>9. Component Scores (컬럼 29-37)</h2>
+<p>DEJ_V8 9-component scoring 의 각 차원별 raw score 입니다. 모두 0.0-1.0 범위이며, <code>Score</code> 컬럼은 이들의 가중합입니다.</p>
+<table>
+<tr>
+<th>#</th>
+<th>컬럼명</th>
+<th>가중치</th>
+<th>의미</th>
+<th>모델 / 계산 방식</th>
+</tr>
+<tr>
+<td>29</td>
+<td><code>Collagen</code></td>
+<td>0.22</td>
+<td>Type I collagen 합성 촉진 활성</td>
+<td>FusPBESM2 (AUC 0.976, GHK sanity 0.946)</td>
+</tr>
+<tr>
+<td>30</td>
+<td><code>DSP</code></td>
+<td>0.18</td>
+<td>DSP / desmosome interaction 활성</td>
+<td>FusPBESM2 4-head (DSP-specific)</td>
+</tr>
+<tr>
+<td>31</td>
+<td><code>MMP</code></td>
+<td>0.12</td>
+<td>MMP-1/3/9 inhibition 활성</td>
+<td>FusPBESM2 4-head (MMP-specific)</td>
+</tr>
+<tr>
+<td>32</td>
+<td><code>AI</code></td>
+<td>0.12</td>
+<td>Anti-inflammatory (NF-κB 축 차단)</td>
+<td>FusPBESM2 4-head (AI-specific)</td>
+</tr>
+<tr>
+<td>33</td>
+<td><code>WH</code></td>
+<td>0.10</td>
+<td>Wound healing similarity</td>
+<td>FusPBESM2 4-head (WH-specific)</td>
+</tr>
+<tr>
+<td>34</td>
+<td><code>AOX</code></td>
+<td>0.08</td>
+<td>Antioxidant (ROS scavenging)</td>
+<td>FusPBESM2 4-head (AOX-specific)</td>
+</tr>
+<tr>
+<td>35</td>
+<td><code>CPP</code></td>
+<td>0.08</td>
+<td>Cell-penetrating capability</td>
+<td>Rule-based (R, K 양전하 비율)</td>
+</tr>
+<tr>
+<td>36</td>
+<td><code>Stab</code></td>
+<td>0.06</td>
+<td>Stability (Instability Index < 40)</td>
+<td>DIWV scale rule-based</td>
+</tr>
+<tr>
+<td>37</td>
+<td><code>Skin</code></td>
+<td>0.04</td>
+<td>Skin penetration capability</td>
+<td>Rule-based (MW, GRAVY, charge, length)</td>
+</tr>
+</table>
+<blockquote><strong>가중치 합 = 1.00</strong>: Activity Triad (Collagen + DSP + MMP) = 0.52 (52%) — DEJ 회복과 직접 연관된 핵심 차원. Anti-aging cascade (AI + WH + AOX) = 0.30 (30%). Delivery (CPP + Stab + Skin) = 0.18 (18%).<br>
+<br>
+<strong>DEJ-ER triad meta score</strong> (<code>DEJ_ER_Score</code> 컬럼) 는 Activity Triad 3 차원만의 가중평균으로, RK-bias 를 완화한 wet-lab ranking 지표입니다.</blockquote>
+<hr>
+<h2>10. v9 vs v8 schema 차이 요약</h2>
+<table>
+<tr>
+<th>항목</th>
+<th>v8 (32 cols)</th>
+<th>v9 (37 cols)</th>
+</tr>
+<tr>
+<td>Source_Protein</td>
+<td>(없음)</td>
+<td>✓ (P15924 명시)</td>
+</tr>
+<tr>
+<td>DEJ_ER_Score</td>
+<td>(없음)</td>
+<td>✓ (primary ranking)</td>
+</tr>
+<tr>
+<td>Domain_Risk</td>
+<td>(없음)</td>
+<td>✓ (coiled_coil_fragment flag)</td>
+</tr>
+<tr>
+<td>Avg_Conservation</td>
+<td>(없음)</td>
+<td>✓ (dual threshold)</td>
+</tr>
+<tr>
+<td>Min_Conservation</td>
+<td>(없음)</td>
+<td>✓ (dual threshold)</td>
+</tr>
+<tr>
+<td>Origin_Position 위치</td>
+<td>Origin_Domain 다음</td>
+<td><strong>Origin_Domain 앞</strong> (사용자 피드백 반영)</td>
+</tr>
+<tr>
+<td>Generation_Method</td>
+<td>다양 (mutation, cross-breed 등)</td>
+<td><code>natural_sliding_window</code> 단일</td>
+</tr>
+</table>
+<hr>
+<h2>11. Top 20 sample (v9 fto_cleared_no_cys.csv 기준)</h2>
+<p>상위 20 위 후보의 핵심 컬럼만 발췌. 전체 데이터는 동봉된 CSV 파일을 다운로드하여 확인하십시오.</p>
+<table>
+<tr>
+<th>Rank</th>
+<th>Sequence</th>
+<th>Length</th>
+<th>DEJ_ER</th>
+<th>Origin_Position</th>
+<th>Origin_Domain</th>
+<th>Origin_Subdomain</th>
+<th>Domain_Risk</th>
+<th>FTO_Status</th>
+</tr>
+<tr>
+<td>1</td>
+<td>GSR</td>
+<td>3</td>
+<td>0.4487</td>
+<td>2828-2830</td>
+<td>C-terminal PRD</td>
+<td>GSR tail</td>
+<td>(none)</td>
+<td>CAUTION</td>
+</tr>
+<tr>
+<td>2</td>
+<td>GTRKREYE</td>
+<td>8</td>
+<td>0.4457</td>
+<td>1182-1189</td>
+<td>Central rod</td>
+<td>Coiled-coil segment 1</td>
+<td>coiled_coil_fragment</td>
+<td>BLOCKED</td>
+</tr>
+<tr>
+<td>3</td>
+<td>LRKRRVVIVD</td>
+<td>10</td>
+<td>0.4428</td>
+<td>2461-2470</td>
+<td>C-terminal PRD</td>
+<td>Linker B-C</td>
+<td>(none)</td>
+<td>BLOCKED</td>
+</tr>
+</table>
+<hr>
+<p>본 데이터 가이드는 동봉된 <a href="report_v9.html">v9 연구 보고서</a>, <a href="feedback_v9.html">피드백 요청서</a>, <a href="fto_v9.html">FTO 분석</a> 과 함께 검토하시면 전체 맥락을 이해하실 수 있습니다.</p>
+<div class="footer">
+AI-ZPT Peptide Research | Confidential — 본 문서는 외부 공유용 연구 보고서입니다.
+</div>
+</div>
+</body>
+</html>

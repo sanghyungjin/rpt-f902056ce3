@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>FTO 분석 — v9 Natural Extraction</title>
+<title>FTO 분석 보고서 — v9 Natural Extraction</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 
@@ -257,22 +257,23 @@ pre code { background: none; padding: 0; }
 <body>
 <div class="container">
 <div class="header-bar">
-<h1>FTO 분석 — v9 Natural Extraction</h1>
+<h1>FTO 분석 보고서 — v9 Natural Extraction</h1>
 <div class="subtitle">6,366 자연 펩타이드 pool 전체 FTO 스크리닝 (27% BLOCKED)</div>
 <div class="meta">작성일: 2026-04-07 | 연구 단계: v9 Phase 0 | AI-ZPT</div>
 </div>
 <nav class="nav">
-<a href="report_v9.html" >연구 보고서</a>
-<a href="feedback_v9.html" >피드백 요청서</a>
-<a href="fto_v9.html" class="active">FTO 분석</a>
+<a href="report_v9.html" >연구 보고서 v9</a>
+<a href="feedback_v9.html" >피드백 요청서 v9</a>
+<a href="fto_v9.html" class="active">FTO 분석 보고서</a>
+<a href="data_guide_v9.html" >CSV 데이터 가이드</a>
 </nav>
-<p>**프로젝트**: AI-ZPT **분석 대상**: Human Desmoplakin v9 자연 3-10mer pool 전체 (6,366 peptides) **작성일**: 2026-04-07 **핵심 finding**: 자연 추출 pool 의 **27.0% 가 BLOCKED** — "natural ≠ novelty-safe"</p>
+<p><strong>프로젝트</strong>: AI-ZPT<br><strong>분석 대상</strong>: Human Desmoplakin v9 자연 3-10mer pool 전체 (6,366 peptides)<br><strong>작성일</strong>: 2026-04-07<br><strong>핵심 finding</strong>: 자연 추출 pool 의 <strong>27.0% 가 BLOCKED</strong> — "natural ≠ novelty-safe"</p>
 <hr>
 <h2>Score Disclaimer</h2>
-<blockquote>본 문서의 모든 분류는 **공개 문헌 + pataa BLAST + 알려진 cosmetic/bioactive 펩타이드 DB 기반의 in silico 예비 스크리닝** 입니다. 정식 patent search (USPTO, EPO, KIPRIS) 및 변호사 자문을 대체하지 않습니다. 제품화 결정 전 변리사 검토가 필요합니다.</blockquote>
+<blockquote>본 문서의 모든 분류는 <strong>공개 문헌 + pataa BLAST + 알려진 cosmetic/bioactive 펩타이드 DB 기반의 in silico 예비 스크리닝</strong> 입니다. 정식 patent search (USPTO, EPO, KIPRIS) 및 변호사 자문을 대체하지 않습니다. 제품화 결정 전 변리사 검토가 필요합니다.</blockquote>
 <hr>
 <h2>1. 분석 개요</h2>
-<p>v9 Phase 0 의 자연 추출 pool **6,366 개 펩타이드 (3-10mer, Human DSP P15924 only)** 를 다음 두 축에서 스크리닝했습니다:</p>
+<p>v9 Phase 0 의 자연 추출 pool <strong>6,366 개 펩타이드 (3-10mer, Human DSP P15924 only)</strong> 를 다음 두 축에서 스크리닝했습니다:</p>
 <table>
 <tr>
 <th>축</th>
@@ -280,12 +281,12 @@ pre code { background: none; padding: 0; }
 <th>데이터베이스</th>
 </tr>
 <tr>
-<td>**외부 특허 / 학술**</td>
-<td>NCBI BLASTp against `pataa` (PAM30, word_size=2)</td>
+<td><strong>외부 특허 / 학술</strong></td>
+<td>NCBI BLASTp against <code>pataa</code> (PAM30, word_size=2)</td>
 <td>1,140 만개 patent + literature protein 서열</td>
 </tr>
 <tr>
-<td>**내부 cosmetic / bioactive DB**</td>
+<td><strong>내부 cosmetic / bioactive DB</strong></td>
 <td>Bidirectional substring matching</td>
 <td>agingbase (267) + topicalpdb (54) + biopep_uwm (5,578) + satpdb (17,355) + dbaasp (24,028) + apd3 (3,306) — 총 50,588 reference peptides</td>
 </tr>
@@ -298,18 +299,18 @@ pre code { background: none; padding: 0; }
 <th>권고</th>
 </tr>
 <tr>
-<td>**CLEAR**</td>
+<td><strong>CLEAR</strong></td>
 <td>어떤 DB 에도 hit 없음</td>
 <td>wet-lab handoff 가능</td>
 </tr>
 <tr>
-<td>**CAUTION**</td>
+<td><strong>CAUTION</strong></td>
 <td>Bioactive DB 에는 등록되어 있으나 cosmetic 등록은 없음 (review 필요)</td>
 <td>manual review</td>
 </tr>
 <tr>
-<td>**BLOCKED**</td>
-<td>(a) pataa BLAST 100% identity full match (특허 risk) **또는** (b) cosmetic DB 등록 (registered)</td>
+<td><strong>BLOCKED</strong></td>
+<td>(a) pataa BLAST 100% identity full match (특허 risk) <strong>또는</strong> (b) cosmetic DB 등록 (registered)</td>
 <td>wet-lab 제외 권고</td>
 </tr>
 </table>
@@ -369,25 +370,25 @@ pre code { background: none; padding: 0; }
 <th>권고</th>
 </tr>
 <tr>
-<td>**CLEAR**</td>
+<td><strong>CLEAR</strong></td>
 <td>3,282</td>
-<td>**51.6%**</td>
+<td><strong>51.6%</strong></td>
 <td>wet-lab 후보 가능</td>
 </tr>
 <tr>
-<td>**CAUTION**</td>
+<td><strong>CAUTION</strong></td>
 <td>1,363</td>
-<td>**21.4%**</td>
+<td><strong>21.4%</strong></td>
 <td>manual review (bioactive 등록, cosmetic 미등록)</td>
 </tr>
 <tr>
-<td>**BLOCKED**</td>
+<td><strong>BLOCKED</strong></td>
 <td>1,721</td>
-<td>**27.0%**</td>
+<td><strong>27.0%</strong></td>
 <td>wet-lab 제외 권고</td>
 </tr>
 <tr>
-<td>**합계**</td>
+<td><strong>합계</strong></td>
 <td>6,366</td>
 <td>100.0%</td>
 <td>—</td>
@@ -411,22 +412,22 @@ pre code { background: none; padding: 0; }
 <td>agingbase 또는 topicalpdb 에 정식 등록</td>
 </tr>
 <tr>
-<td>**합계**</td>
-<td>**1,721 (27.0%)**</td>
+<td><strong>합계</strong></td>
+<td><strong>1,721 (27.0%)</strong></td>
 <td>—</td>
 </tr>
 </table>
 <h3>2.3 핵심 발견 — "자연 추출 = novelty-safe" 가정 반박</h3>
-<blockquote>v9 pool 의 **27% (1,721/6,366)** 가 BLOCKED. 즉 DSP 같은 잘 연구된 단백질에서 추출한 자연 short peptide 의 1/4 이상은 이미 타 기업·연구소가 광범위 특허화했습니다. **"자연 서열은 자동으로 IP-clean" 이라는 직관적 가정은 틀렸습니다.**</blockquote>
+<blockquote>v9 pool 의 <strong>27% (1,721/6,366)</strong> 가 BLOCKED. 즉 DSP 같은 잘 연구된 단백질에서 추출한 자연 short peptide 의 1/4 이상은 이미 타 기업·연구소가 광범위 특허화했습니다. <strong>"자연 서열은 자동으로 IP-clean" 이라는 직관적 가정은 틀렸습니다.</strong></blockquote>
 <p>이 finding 의 함의:</p>
 <ol>
-<li>**Natural ≠ novel** — 잘 연구된 단백질은 short subsequence 도 patent landscape 가 dense. 4-6mer 짧은 motif 는 진화적 보존 영역이 화장품/cosmeceutical 특허의 표적이 되어 있을 가능성이 높습니다.</li>
-<li>**Cross-version 비교** — v8 의 14-mer synthetic mutation pool 은 novel mutation 으로 patent hit 이 적은 반면, **natural short peptide pool 은 prior art density 가 높습니다**. 즉 합성 cross-breed 가 IP risk 측면에서 일부 우위를 갖습니다.</li>
-<li>**Workflow 함의** — 자연 추출 연구는 FTO 분석을 **extraction 과 병렬 실행** 해야 합니다. 사후에 FTO 를 맞추려 하면 top candidates 의 1/4 이 떨어져 나갑니다.</li>
+<li><strong>Natural ≠ novel</strong> — 잘 연구된 단백질은 short subsequence 도 patent landscape 가 dense. 4-6mer 짧은 motif 는 진화적 보존 영역이 화장품/cosmeceutical 특허의 표적이 되어 있을 가능성이 높습니다.</li>
+<li><strong>Cross-version 비교</strong> — v8 의 14-mer synthetic mutation pool 은 novel mutation 으로 patent hit 이 적은 반면, <strong>natural short peptide pool 은 prior art density 가 높습니다</strong>. 즉 합성 cross-breed 가 IP risk 측면에서 일부 우위를 갖습니다.</li>
+<li><strong>Workflow 함의</strong> — 자연 추출 연구는 FTO 분석을 <strong>extraction 과 병렬 실행</strong> 해야 합니다. 사후에 FTO 를 맞추려 하면 top candidates 의 1/4 이 떨어져 나갑니다.</li>
 </ol>
 <hr>
 <h2>3. Top 100 (DEJ-ER 순) FTO 분포</h2>
-<p>DEJ-ER triad meta score `(0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52` 로 ranking 한 Top 100 후보의 FTO 분포:</p>
+<p>DEJ-ER triad meta score <code>(0.22·collagen + 0.18·dsp + 0.12·mmp) / 0.52</code> 로 ranking 한 Top 100 후보의 FTO 분포:</p>
 <table>
 <tr>
 <th>Status</th>
@@ -449,9 +450,9 @@ pre code { background: none; padding: 0; }
 <td>26.0%</td>
 </tr>
 </table>
-<blockquote>Top 100 의 BLOCKED 비율 (26%) 은 pool 전체 (27%) 와 거의 같습니다. **Score 가 높다고 IP risk 가 낮은 것이 아닙니다** — 보존도가 높은 영역일수록 patent 가 dense한 경향이 일관되게 관찰됩니다.</blockquote>
+<blockquote>Top 100 의 BLOCKED 비율 (26%) 은 pool 전체 (27%) 와 거의 같습니다. <strong>Score 가 높다고 IP risk 가 낮은 것이 아닙니다</strong> — 보존도가 높은 영역일수록 patent 가 dense한 경향이 일관되게 관찰됩니다.</blockquote>
 <h3>3.1 Top 100 Cysteine 분포 (참고)</h3>
-<p>v9 Top 100 (DEJ-ER 순) 에는 **cysteine 함유 펩타이드가 0 개** 입니다. 따라서 본 보고서의 `with_cys` / `no_cys` CSV variant 는 v9 의 경우 동일 내용이며, 향후 다른 단백질 / 다른 ranking 에서 cysteine 처리가 필요할 때를 위한 schema 호환성 차원입니다. (Cysteine 은 disulfide bond 형성으로 합성/안정성 이슈가 있어 화장품 활성 펩타이드 개발에서는 일반적으로 제외하는 경우가 있습니다.)</p>
+<p>v9 Top 100 (DEJ-ER 순) 에는 <strong>cysteine 함유 펩타이드가 0 개</strong> 입니다. 따라서 본 보고서의 <code>with_cys</code> / <code>no_cys</code> CSV variant 는 v9 의 경우 동일 내용이며, 향후 다른 단백질 / 다른 ranking 에서 cysteine 처리가 필요할 때를 위한 schema 호환성 차원입니다. (Cysteine 은 disulfide bond 형성으로 합성/안정성 이슈가 있어 화장품 활성 펩타이드 개발에서는 일반적으로 제외하는 경우가 있습니다.)</p>
 <hr>
 <h2>4. 권고 — v9 후 official FTO workflow</h2>
 <p>향후 모든 자연 추출 연구는 다음 순서로 진행할 것을 권장합니다:</p>
@@ -468,13 +469,13 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td>2</td>
-<td>**FTO 분석 즉시 병렬 실행**</td>
+<td><strong>FTO 분석 즉시 병렬 실행</strong></td>
 <td>extraction 과 동시</td>
 </tr>
 <tr>
 <td>3</td>
 <td>Pool 의 BLOCKED 비율 검토</td>
-<td>**25%+ 면 mining strategy 재검토**</td>
+<td><strong>25%+ 면 mining strategy 재검토</strong></td>
 </tr>
 <tr>
 <td>4</td>
@@ -489,11 +490,8 @@ pre code { background: none; padding: 0; }
 </table>
 <hr>
 <h2>5. Type I FTO Blind Spot — pataa BLAST 단축 펩타이드 한계</h2>
-<div class="figure">
-<img src="data/fig5_fto_blind_spot.png" alt="fig5_fto_blind_spot.png" loading="lazy">
-<div class="figure-caption">**Figure 5** — FTO Type I Blind Spot: pataa BLAST short-peptide skip zone. Pool 의 46% (2,929/6,366) 와 Top 100 의 24% (24/100) 가 length 3-5 이므로 BLAST 가 적용되지 않습니다.</div>
-</div>
-<p>NCBI BLASTp 의 `pataa` 데이터베이스는 **length ≥ 6** 의 query 만 의미 있는 결과를 반환합니다 (PAM30 + word_size=2 setting 에서 length 5 미만은 background noise). 따라서 v9 pool 의 length 3-5 peptides 는 다음 처리가 적용됩니다:</p>
+<blockquote><strong>Figure 5</strong> — FTO Type I Blind Spot: pataa BLAST short-peptide skip zone. Pool 의 46% (2,929/6,366) 와 Top 100 의 24% (24/100) 가 length 3-5 이므로 BLAST 가 적용되지 않습니다. 첨부 파일 <code>fig5_fto_blind_spot.png</code> 참조.</blockquote>
+<p>NCBI BLASTp 의 <code>pataa</code> 데이터베이스는 <strong>length ≥ 6</strong> 의 query 만 의미 있는 결과를 반환합니다 (PAM30 + word_size=2 setting 에서 length 5 미만은 background noise). 따라서 v9 pool 의 length 3-5 peptides 는 다음 처리가 적용됩니다:</p>
 <table>
 <tr>
 <th>Length</th>
@@ -502,7 +500,7 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td>3-5</td>
-<td>`not_applicable_short_peptide` (pataa BLAST skip)</td>
+<td><code>not_applicable_short_peptide</code> (pataa BLAST skip)</td>
 <td>외부 특허 검사 불가 — 내부 DB 검사로만 분류</td>
 </tr>
 <tr>
@@ -511,7 +509,7 @@ pre code { background: none; padding: 0; }
 <td>특허 100% match → BLOCKED, partial → CLEAR</td>
 </tr>
 </table>
-<p>**함의**: Length 3-5 peptide 의 CLEAR 분류는 "내부 cosmetic / bioactive DB 에 없음" 만 보장하며, "외부 특허 등록 없음" 은 보장하지 않습니다. 짧은 peptide 의 wet-lab 합성 전에는 별도 patent search (USPTO, EPO, KIPRIS) 가 필수입니다.</p>
+<p><strong>함의</strong>: Length 3-5 peptide 의 CLEAR 분류는 "내부 cosmetic / bioactive DB 에 없음" 만 보장하며, "외부 특허 등록 없음" 은 보장하지 않습니다. 짧은 peptide 의 wet-lab 합성 전에는 별도 patent search (USPTO, EPO, KIPRIS) 가 필수입니다.</p>
 <hr>
 <h2>6. 첨부 데이터</h2>
 <p>v9 Phase 0 의 Top 100 펩타이드는 4 개 CSV variant 로 제공됩니다 (모두 동일한 37 column schema):</p>
@@ -523,31 +521,31 @@ pre code { background: none; padding: 0; }
 <th>FTO 필터</th>
 </tr>
 <tr>
-<td>`v9_top100_with_fto_status_with_cys.csv`</td>
+<td><code>v9_top100_with_fto_status_with_cys.csv</code></td>
 <td>전체 + FTO column 표시</td>
 <td>✓</td>
 <td>none</td>
 </tr>
 <tr>
-<td>`v9_top100_with_fto_status_no_cys.csv`</td>
+<td><code>v9_top100_with_fto_status_no_cys.csv</code></td>
 <td>Cys 제외 + FTO column 표시</td>
 <td>✗</td>
 <td>none</td>
 </tr>
 <tr>
-<td>`v9_top100_fto_cleared_with_cys.csv`</td>
+<td><code>v9_top100_fto_cleared_with_cys.csv</code></td>
 <td>FTO safe (BLOCKED + GHK + RGD 제외)</td>
 <td>✓</td>
 <td>applied</td>
 </tr>
 <tr>
-<td>**`v9_top100_fto_cleared_no_cys.csv`**</td>
-<td>**wet-lab-ready (FTO safe + Cys 제외)**</td>
+<td><strong><code>v9_top100_fto_cleared_no_cys.csv</code></strong></td>
+<td><strong>wet-lab-ready (FTO safe + Cys 제외)</strong></td>
 <td>✗</td>
-<td>**applied**</td>
+<td><strong>applied</strong></td>
 </tr>
 </table>
-<p>**컬럼 순서 (사용자 피드백 반영, 2026-04-07)**:</p>
+<p><strong>컬럼 순서 (사용자 피드백 반영, 2026-04-07)</strong>:</p>
 <pre><code>Rank, Sequence, Length, Source_Protein, Scoring_Scheme, Score, DEJ_ER_Score,
 Raw_Grade, Final_Grade, Viability,
 FTO_Status, FTO_Reason, PCPC_Status, PCPC_Detail, BLAST_Status, Internal_DB_Hits,
@@ -555,7 +553,7 @@ Origin_Position, Origin_Domain, Origin_Subdomain, Domain_Risk,
 Match_Length, Match_Type, Generation_Phase, Generation_Method,
 Is_Natural, Cross_Species, Avg_Conservation, Min_Conservation,
 Collagen, DSP, MMP, AI, WH, AOX, CPP, Stab, Skin</code></pre>
-<blockquote>`Origin_Position` 이 `Origin_Domain` 보다 앞에 위치합니다 — 독자가 "어디에 있는지 (position)" 를 먼저 보고 "어느 도메인인지 (domain)" 를 확인하는 자연스러운 흐름을 위함입니다.</blockquote>
+<blockquote><code>Origin_Position</code> 이 <code>Origin_Domain</code> 보다 앞에 위치합니다 — 독자가 "어디에 있는지 (position)" 를 먼저 보고 "어느 도메인인지 (domain)" 를 확인하는 자연스러운 흐름을 위함입니다.</blockquote>
 <hr>
 <h2>7. 한계 및 disclaimer</h2>
 <table>
@@ -564,28 +562,28 @@ Collagen, DSP, MMP, AI, WH, AOX, CPP, Stab, Skin</code></pre>
 <th>상세</th>
 </tr>
 <tr>
-<td>**pataa BLAST 단축 한계**</td>
+<td><strong>pataa BLAST 단축 한계</strong></td>
 <td>Length 3-5 peptide 는 BLAST 적용 불가 (§5 참조)</td>
 </tr>
 <tr>
-<td>**공개 DB 만 사용**</td>
+<td><strong>공개 DB 만 사용</strong></td>
 <td>미공개 in-progress patent (publication 전) 는 catch 불가</td>
 </tr>
 <tr>
-<td>**Bidirectional substring**</td>
+<td><strong>Bidirectional substring</strong></td>
 <td>정확한 lexical match 만 검사 — sequence variant / motif family 는 별도 검토 필요</td>
 </tr>
 <tr>
-<td>**변리사 자문 필요**</td>
+<td><strong>변리사 자문 필요</strong></td>
 <td>본 분석은 in silico 예비 screening 으로, 정식 patent search 와 변호사 검토를 대체하지 않습니다</td>
 </tr>
 <tr>
-<td>**국가별 patent landscape**</td>
+<td><strong>국가별 patent landscape</strong></td>
 <td>pataa 는 US-centric — 한국 / 유럽 / 일본 patent landscape 는 별도 검사 필요</td>
 </tr>
 </table>
 <hr>
-<p>본 FTO 분석 결과는 동봉된 [v9 연구 보고서](report_v9.html) 의 §3.4 (FTO 분포) 및 §3.5 (자연 추출이 자동으로 IP-clean 하지 않음) 와 함께 검토하시면 전체 맥락을 이해하실 수 있습니다.</p>
+<p>본 FTO 분석 결과는 동봉된 <a href="report_v9.html">v9 연구 보고서</a> 의 §3.4 (FTO 분포) 및 §3.5 (자연 추출이 자동으로 IP-clean 하지 않음) 와 함께 검토하시면 전체 맥락을 이해하실 수 있습니다.</p>
 <div class="footer">
 AI-ZPT Peptide Research | Confidential — 본 문서는 외부 공유용 연구 보고서입니다.
 </div>
