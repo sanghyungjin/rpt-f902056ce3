@@ -267,7 +267,7 @@ pre code { background: none; padding: 0; }
 <a href="fto_v9.html" class="active">FTO 분석 보고서</a>
 <a href="data_guide_v9.html" >CSV 데이터 가이드</a>
 </nav>
-<p><strong>프로젝트</strong>: AI-ZPT<br><strong>분석 대상</strong>: Human Desmoplakin v9 자연 3-10mer pool 전체 (6,366 peptides)<br><strong>작성일</strong>: 2026-04-07<br><strong>핵심 finding</strong>: 자연 추출 pool 의 <strong>27.0% 가 BLOCKED</strong> — "natural ≠ novelty-safe"</p>
+<p><strong>프로젝트</strong>: AI-ZPT<br><strong>분석 대상</strong>: Human Desmoplakin v9 자연 3-10mer pool 전체 (6,366 peptides)<br><strong>작성일</strong>: 2026-04-07 (2026-04-10 Tier A/B 업데이트)<br><strong>핵심 finding</strong>: 자연 추출 pool 의 <strong>21.4% 가 BLOCKED</strong> (Tier A claim entity) — "natural ≠ novelty-safe"</p>
 <hr>
 <h2>Score Disclaimer</h2>
 <blockquote>본 문서의 모든 분류는 <strong>공개 문헌 + pataa BLAST + 알려진 cosmetic/bioactive 펩타이드 DB 기반의 in silico 예비 스크리닝</strong> 입니다. 정식 patent search (USPTO, EPO, KIPRIS) 및 변호사 자문을 대체하지 않습니다. 제품화 결정 전 변리사 검토가 필요합니다.</blockquote>
@@ -282,8 +282,8 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td><strong>외부 특허 / 학술</strong></td>
-<td>NCBI BLASTp against <code>pataa</code> (PAM30, word_size=2)</td>
-<td>1,140 만개 patent + literature protein 서열</td>
+<td>Aho-Corasick exact substring containment (deterministic, zero false-negative) + entry-length Tier A/B split</td>
+<td>pataa: 3.88M sequences, 769M residues (특허 + literature protein)</td>
 </tr>
 <tr>
 <td><strong>내부 cosmetic / bioactive DB</strong></td>
@@ -310,8 +310,13 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td><strong>BLOCKED</strong></td>
-<td>(a) pataa BLAST 100% identity full match (특허 risk) <strong>또는</strong> (b) cosmetic DB 등록 (registered)</td>
+<td>(a) <strong>Tier A</strong> — 짧은 특허 entry (≤30 aa) 에 query 가 exact substring (peptide claim entity) <strong>또는</strong> (b) cosmetic DB 등록 (registered)</td>
 <td>wet-lab 제외 권고</td>
+</tr>
+<tr>
+<td><strong>CAUTION</strong></td>
+<td>(a) <strong>Tier B</strong> — bulk protein 내부 substring (construct claim, not specific peptide) <strong>또는</strong> (b) bioactive DB 등록</td>
+<td>manual review</td>
 </tr>
 </table>
 <h3>1.2 알려진 상용 cosmetic 펩타이드 (참조 reference)</h3>
@@ -371,27 +376,27 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td><strong>CLEAR</strong></td>
-<td>3,282</td>
-<td><strong>51.6%</strong></td>
+<td>1,786</td>
+<td><strong>28.1%</strong></td>
 <td>wet-lab 후보 가능</td>
 </tr>
 <tr>
 <td><strong>CAUTION</strong></td>
-<td>1,363</td>
-<td><strong>21.4%</strong></td>
-<td>manual review (bioactive 등록, cosmetic 미등록)</td>
+<td>3,571</td>
+<td><strong>56.1%</strong></td>
+<td>manual review (Tier B patent substring + bioactive DB)</td>
 </tr>
 <tr>
 <td><strong>BLOCKED</strong></td>
-<td>1,721</td>
-<td><strong>27.0%</strong></td>
+<td>1,364</td>
+<td><strong>21.4%</strong></td>
 <td>wet-lab 제외 권고</td>
 </tr>
 <tr>
 <td><strong>합계</strong></td>
-<td>6,366</td>
-<td>100.0%</td>
+<td>6,721</td>
 <td>—</td>
+<td>v9 + 기존 DEJ_V8 row 포함</td>
 </tr>
 </table>
 <h3>2.2 BLOCKED 세부 내역</h3>
@@ -402,23 +407,56 @@ pre code { background: none; padding: 0; }
 <th>비고</th>
 </tr>
 <tr>
-<td>pataa BLAST 100% full hit (patent)</td>
-<td>1,719</td>
-<td>NCBI BLASTp 결과 patent 등록 단백질에 100% identity 매치</td>
+<td><strong>Tier A: PATENT_CLAIM_ENTITY</strong></td>
+<td>1,328</td>
+<td>짧은 pataa entry (≤30 aa) 에 query 가 exact substring — entry 자체가 peptide claim 후보</td>
 </tr>
 <tr>
-<td>Cosmetic DB 등록 (registered)</td>
-<td>2</td>
-<td>agingbase 또는 topicalpdb 에 정식 등록</td>
+<td>Cosmetic DB 등록 (REGISTERED)</td>
+<td>4</td>
+<td>agingbase / topicalpdb 정식 등록</td>
+</tr>
+<tr>
+<td>기타 BLOCKED</td>
+<td>32</td>
+<td>이전 버전 row 잔존</td>
 </tr>
 <tr>
 <td><strong>합계</strong></td>
-<td><strong>1,721 (27.0%)</strong></td>
+<td><strong>1,364 (21.4%)</strong></td>
 <td>—</td>
 </tr>
 </table>
-<h3>2.3 핵심 발견 — "자연 추출 = novelty-safe" 가정 반박</h3>
-<blockquote>v9 pool 의 <strong>27% (1,721/6,366)</strong> 가 BLOCKED. 즉 DSP 같은 잘 연구된 단백질에서 추출한 자연 short peptide 의 1/4 이상은 이미 타 기업·연구소가 광범위 특허화했습니다. <strong>"자연 서열은 자동으로 IP-clean" 이라는 직관적 가정은 틀렸습니다.</strong></blockquote>
+<h3>2.3 CAUTION 세부 내역 — Tier B (Phase 2 Review 대상)</h3>
+<table>
+<tr>
+<th>Sub-category</th>
+<th>Count</th>
+<th>비고</th>
+</tr>
+<tr>
+<td><strong>Tier B: PATENT_COMMON_SUBSTRING</strong></td>
+<td>2,109</td>
+<td>bulk protein (>30 aa) 내부 substring — 해당 특허는 큰 construct 를 claim 하지 이 short peptide 자체를 claim 하지 않을 가능성 높음</td>
+</tr>
+<tr>
+<td>KNOWN_BIOACTIVE</td>
+<td>1,159</td>
+<td>bioactive DB 등록 (biopep/satpdb/dbaasp/apd3)</td>
+</tr>
+<tr>
+<td>NOVEL_WITH_KNOWN_MOTIF</td>
+<td>163</td>
+<td>알려진 cosmetic motif (GHK, RGD 등) 포함</td>
+</tr>
+<tr>
+<td>SUBSTRING_OF_REGISTERED</td>
+<td>144</td>
+<td>등록 cosmetic peptide 의 substring</td>
+</tr>
+</table>
+<h3>2.4 핵심 발견 — "자연 추출 = novelty-safe" 가정 반박</h3>
+<blockquote>v9 pool 의 <strong>21% (1,364/6,366)</strong> 가 BLOCKED (Tier A claim entity). 추가로 <strong>33% (2,109/6,366)</strong> 가 Tier B CAUTION — bulk patent protein 내부 substring 으로 존재하여 Phase 2 manual review 가 필요합니다. DSP 같은 잘 연구된 단백질에서 추출한 자연 short peptide 의 <strong>과반이 어떤 형태로든 patent landscape 와 중첩</strong>됩니다. <strong>"자연 서열은 자동으로 IP-clean" 이라는 직관적 가정은 틀렸습니다.</strong></blockquote>
 <p>이 finding 의 함의:</p>
 <ol>
 <li><strong>Natural ≠ novel</strong> — 잘 연구된 단백질은 short subsequence 도 patent landscape 가 dense. 4-6mer 짧은 motif 는 진화적 보존 영역이 화장품/cosmeceutical 특허의 표적이 되어 있을 가능성이 높습니다.</li>
@@ -436,21 +474,21 @@ pre code { background: none; padding: 0; }
 </tr>
 <tr>
 <td>CLEAR</td>
-<td>38</td>
-<td>38.0%</td>
+<td>5</td>
+<td>5.0%</td>
 </tr>
 <tr>
 <td>CAUTION</td>
-<td>36</td>
-<td>36.0%</td>
+<td>79</td>
+<td>79.0%</td>
 </tr>
 <tr>
 <td>BLOCKED</td>
-<td>26</td>
-<td>26.0%</td>
+<td>16</td>
+<td>16.0%</td>
 </tr>
 </table>
-<blockquote>Top 100 의 BLOCKED 비율 (26%) 은 pool 전체 (27%) 와 거의 같습니다. <strong>Score 가 높다고 IP risk 가 낮은 것이 아닙니다</strong> — 보존도가 높은 영역일수록 patent 가 dense한 경향이 일관되게 관찰됩니다.</blockquote>
+<blockquote>Top 100 의 BLOCKED 비율 (16%) 은 pool 전체 (21%) 보다 낮지만, <strong>CAUTION 79%</strong> 는 Phase 2 review 를 거쳐야 합니다. Tier B (bulk protein substring) 가 대부분이므로, 해당 특허가 실제로 이 peptide 를 claim 하는지 여부를 Phase 2 review 에서 확인해야 합니다.</blockquote>
 <h3>3.1 Top 100 Cysteine 분포 (참고)</h3>
 <p>v9 Top 100 (DEJ-ER 순) 에는 <strong>cysteine 함유 펩타이드가 0 개</strong> 입니다. 따라서 본 보고서의 <code>with_cys</code> / <code>no_cys</code> CSV variant 는 v9 의 경우 동일 내용이며, 향후 다른 단백질 / 다른 ranking 에서 cysteine 처리가 필요할 때를 위한 schema 호환성 차원입니다. (Cysteine 은 disulfide bond 형성으로 합성/안정성 이슈가 있어 화장품 활성 펩타이드 개발에서는 일반적으로 제외하는 경우가 있습니다.)</p>
 <hr>
@@ -489,29 +527,50 @@ pre code { background: none; padding: 0; }
 </tr>
 </table>
 <hr>
-<h2>5. Type I FTO Blind Spot — pataa BLAST 단축 펩타이드 한계</h2>
-<div class="figure">
-<img src="data/fig5_fto_blind_spot.png" alt="fig5_fto_blind_spot.png" loading="lazy">
-<div class="figure-caption"><strong>Figure 5</strong> — FTO Type I Blind Spot: pataa BLAST short-peptide skip zone. Pool 의 46% (2,929/6,366) 와 Top 100 의 24% (24/100) 가 length 3-5 이므로 BLAST 가 적용되지 않습니다.</div>
-</div>
-<p>NCBI BLASTp 의 <code>pataa</code> 데이터베이스는 <strong>length ≥ 6</strong> 의 query 만 의미 있는 결과를 반환합니다 (PAM30 + word_size=2 setting 에서 length 5 미만은 background noise). 따라서 v9 pool 의 length 3-5 peptides 는 다음 처리가 적용됩니다:</p>
+<h2>5. Domain Partition — 길이별 분석 방법론</h2>
+<p>v9 FTO 는 query 길이에 따라 <strong>다른 통계적 regime</strong> 을 적용합니다 (이전 BLASTp 에서 Aho-Corasick deterministic containment 으로 전환, 2026-04-10):</p>
 <table>
 <tr>
 <th>Length</th>
-<th>처리</th>
-<th>한계</th>
+<th>특허 분석 방법</th>
+<th>내부 DB 분석</th>
+<th>배경 설명</th>
 </tr>
 <tr>
-<td>3-5</td>
-<td><code>not_applicable_short_peptide</code> (pataa BLAST skip)</td>
-<td>외부 특허 검사 불가 — 내부 DB 검사로만 분류</td>
+<td><strong>3-5</strong></td>
+<td><code>not_applicable_short_peptide</code> — pataa 체크 건너뜀</td>
+<td>bidirectional substring matching</td>
+<td>random 5-mer 의 기대 hit 수 ~240/769M residues → noise floor. GHK/KTTKS 등 알려진 cosmetic peptide 는 내부 DB (agingbase/topicalpdb) 에서 catch</td>
 </tr>
 <tr>
-<td>6-10</td>
-<td>정상 BLAST 적용</td>
-<td>특허 100% match → BLOCKED, partial → CLEAR</td>
+<td><strong>6-10</strong></td>
+<td><strong>Aho-Corasick exact substring + Tier A/B</strong></td>
+<td>bidirectional substring matching</td>
+<td>Tier A selectivity: 6mer 52%, 10mer 29% → 의미 있는 신호</td>
 </tr>
 </table>
+<h3>5.1 Tier A/B 분류 (6+ aa)</h3>
+<table>
+<tr>
+<th>Tier</th>
+<th>판정</th>
+<th>기준</th>
+<th>의미</th>
+</tr>
+<tr>
+<td><strong>A</strong> (BLOCKED)</td>
+<td><code>PATENT_CLAIM_ENTITY</code></td>
+<td><code>entry_length ≤ max(30, 3 × query_length)</code></td>
+<td>짧은 pataa entry — entry 자체가 peptide claim 후보</td>
+</tr>
+<tr>
+<td><strong>B</strong> (CAUTION)</td>
+<td><code>PATENT_COMMON_SUBSTRING</code></td>
+<td>나머지 exact hit</td>
+<td>bulk protein 내부 substring — 해당 특허는 큰 construct 를 claim, Phase 2 review 필요</td>
+</tr>
+</table>
+<blockquote><strong>이전 BLAST 대비 개선</strong>: BLASTp heuristic 은 short charged-cluster peptide (8-12 aa) 에서 exact match 를 놓치는 silent false-negative 가 있었습니다 (EGTRKREYE → CAP07503.1 사례). Aho-Corasick 은 수학적으로 complete 하여 이 문제를 해결합니다.</blockquote>
 <p><strong>함의</strong>: Length 3-5 peptide 의 CLEAR 분류는 "내부 cosmetic / bioactive DB 에 없음" 만 보장하며, "외부 특허 등록 없음" 은 보장하지 않습니다. 짧은 peptide 의 wet-lab 합성 전에는 별도 patent search (USPTO, EPO, KIPRIS) 가 필수입니다.</p>
 <hr>
 <h2>6. 첨부 데이터</h2>
@@ -565,8 +624,8 @@ Collagen, DSP, MMP, AI, WH, AOX, CPP, Stab, Skin</code></pre>
 <th>상세</th>
 </tr>
 <tr>
-<td><strong>pataa BLAST 단축 한계</strong></td>
-<td>Length 3-5 peptide 는 BLAST 적용 불가 (§5 참조)</td>
+<td><strong>Domain partition (3-5mer skip)</strong></td>
+<td>Length 3-5 peptide 는 pataa noise floor 로 외부 특허 검사 미적용 (§5 참조)</td>
 </tr>
 <tr>
 <td><strong>공개 DB 만 사용</strong></td>
